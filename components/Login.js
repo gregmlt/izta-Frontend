@@ -106,8 +106,8 @@ export default function Login() {
               </div>
             </form>
             <div className="flex items-center mt-7 justify-center">
-                <GoogleOAuthButton />
-              </div>
+              <GoogleOAuthButton />
+            </div>
             <p className="mt-10 text-center text-sm text-gray-500">
               Vous n’avez pas de compte ?{" "}
               <Link
