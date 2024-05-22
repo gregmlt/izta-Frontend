@@ -14,7 +14,7 @@ export default function HomeContainer() {
       <>
       <div> 
 
-        <div className="px-[120px] h-[860px] grid grid-cols-12 
+        <div className="px-[120px] h-[860px] grid grid-cols-12 w-[100%]
         grid-rows-[50px_80px_100px_100px_100px_100px_100px_100px]
         gap-x-4 bg-[#f7f5f1] bg-[url('/Logo/backgground.png')] bg-cover bg-center bg-no-repeat">
           <div className="col-start-1 col-end-13 mt-6">

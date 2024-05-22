@@ -4,14 +4,14 @@ import React from "react";
 import PrimaryButton from "./PrimaryButton";
 import SearchBar from "./SearchBar";
 
-export default function Navbar() {
+export default function Navbar({background}) {
   const router = useRouter();
   const handlePushTologin = () => {
     router.push("/login");
   };
 
   return (
-      <div className="h-[80px] w-[85%] grid grid-cols-12 gap-4 py-4 px-6 items-center border rounded border-gray-400 fixed backdrop-blur-md z-10">
+      <div className={`h-[80px] w-[85%] grid grid-cols-12 gap-4 py-4 px-6 items-center border rounded border-gray-400 fixed backdrop-blur-md z-10 ${background}`}>
         <div className="w-[100px] h-[50px] col-start-1 col-end-2">
           <img src="/Logo/Logomark.svg" className="w-[100%] h-[100%]" />
         </div>
