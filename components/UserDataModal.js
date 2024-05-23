@@ -32,6 +32,7 @@ export default function UserDataModal({}) {
     ecoute: false,
     recherche: false,
   });
+  const [linkedin, setLinkedin] = useState("");
 
   const token = useSelector((state) => state.users.value.token);
 
@@ -48,8 +49,13 @@ export default function UserDataModal({}) {
         setCity(data.data.city);
         setBirthdate(data.data.birthdate);
         setZipcode(data.data.postalCode);
-        setFilters(data.data.diplome);
-        setCheckboxes(data.data.situation);
+        if (data.data.diplome) {
+          setFilters(data.data.diplome);
+        }
+        if (data.data.situation) {
+          setCheckboxes(data.data.situation);
+        }
+        setLinkedin(data.data.linkedin);
       });
   }, [token]);
 
@@ -68,6 +74,7 @@ export default function UserDataModal({}) {
       postalCode: zipcode,
       diplome: filters,
       situation: checkboxes,
+      linkedin: linkedin,
     };
 
     fetch(`http://localhost:3000/users/infos/${token}`, {

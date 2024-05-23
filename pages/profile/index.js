@@ -1,12 +1,12 @@
-import CompaniesLikedContainer from '@/components/CompaniesLikedContainer';
-import Navbar from '@/components/Navbar'
-import NotificationsContainer from '@/components/NotificationsContainer';
-import PersonalAreaNavigation from '@/components/PersonalAreaNavigation'
-import UserDataModal from '@/components/UserDataModal.js'
-import CompagnyProfileModal from '@/components/CompanyProfileModal';
-import StatisticsModal from '@/components/StatisticsModal';
-import KudosListModal from '@/components/KudosListModal';
-import React, {useState} from 'react'
+import CompaniesLikedContainer from "@/components/CompaniesLikedContainer";
+import Navbar from "@/components/Navbar";
+import NotificationsContainer from "@/components/NotificationsContainer";
+import PersonalAreaNavigation from "@/components/PersonalAreaNavigation";
+import UserDataModal from "@/components/UserDataModal.js";
+import CompagnyProfileModal from "@/components/CompanyProfileModal";
+import StatisticsModal from "@/components/StatisticsModal";
+import KudosListModal from "@/components/KudosListModal";
+import React, { useState } from "react";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState(null);

@@ -9,8 +9,8 @@ export default function PersonalAreaNavigation({ setActiveTab }) {
 
 
   return (
-    <div className="w-[32%] h-min bg-white rounded-lg flex flex-col py-7 px-8">
-      <div className="flex flex-col w-[100%] h-auto text-sm">
+    <div className="w-[32%] h-[100%] bg-white rounded-lg flex flex-col py-7 px-8">
+      <div className="flex flex-col w-[100%]">
         <button
          onClick={() => setActiveTab("entreprises")}
           type="button"
@@ -114,7 +114,7 @@ export default function PersonalAreaNavigation({ setActiveTab }) {
 
 {/* Modal se connecter à l'entreprise  */}
 
-    <div className="flex flex-col items-center min-h-screen mt-5">
+    <div className="flex flex-col mt-5">
     <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
         <p className="mb-5">Vous avez été désigner comme administrateur de votre entreprise </p>
         <PrimaryButton text="Connecter mon entreprise" bgColor="bg-[#003761]" hoverColor="hover:bg-[#3371a1]"/>
