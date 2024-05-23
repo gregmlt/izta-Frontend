@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import CheckedIcon from "./CheckedIcon";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
+import { useDispatch } from "react-redux";
+import { addTokenToStore } from "@/reducers/users";
 
 export default function Login() {
   const [prenom, setPrenom] = useState("");
@@ -17,6 +19,8 @@ export default function Login() {
   const [numeroSiret, setNumeroSiret] = useState("");
   const [step, setStep] = useState(1); // état pour gérer les étapes du formulaire
   const [loading, setLoading] = useState(false); // état pour gérer le loader
+  const [autorized, setAutorized] = useState(true);
+  const dispatch = useDispatch();
 
   // ******* tableau fictif ***********
 
@@ -39,15 +43,36 @@ export default function Login() {
   ];
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     console.log(prenom, nom, email, password);
+    e.preventDefault();
     if (!isCompany) {
-      setLoading(true);
-      setTimeout(() => {
-        // Passer à l'étape suivante après 2 secondes
-        setLoading(false);
-        setStep(5);
-      }, 2000); // étape 5 création de compte avec succès
+      const data = {
+        firstname: prenom,
+        lastname: nom,
+        email: email,
+        password: password,
+      };
+      fetch("http://localhost:3000/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            setAutorized(true);
+            setLoading(true);
+            dispatch(addTokenToStore(data));
+            setTimeout(() => {
+              // Passer à l'étape suivante après 2 secondes
+              setLoading(false);
+              setStep(5);
+            }, 2000); // étape 5 création de compte avec succès
+          } else {
+            setAutorized(false);
+            console.log(autorized);
+          }
+        });
     } else if (isCompany && step === 1) {
       // Passer à l'étape suivante si c'est une entreprise avec un chargement
       setLoading(true);
@@ -144,7 +169,7 @@ export default function Login() {
               </div>
             ) : (
               step === 1 && (
-                <form className="space-y-6 w-[100%]" onSubmit={handleSubmit}>
+                <form className="space-y-6 w-[100%]">
                   <div className="flex mt-8 w-[100%]">
                     <div className="mr-12">
                       <label
@@ -206,6 +231,11 @@ export default function Login() {
                         className="block w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:color-[#5488b0] sm:text-sm sm:leading-6"
                       />
                     </div>
+                    {!autorized && (
+                      <p className="block font-medium text-xs text-red-500 pt-[5px]">
+                        * Un compte existe déjà avec cet email
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -263,6 +293,7 @@ export default function Login() {
                     <button
                       type="submit"
                       className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      onClick={handleSubmit}
                     >
                       {isCompany ? "Suivant" : "S'inscrire"}
                     </button>
