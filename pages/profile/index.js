@@ -4,7 +4,7 @@ import NotificationsContainer from '@/components/NotificationsContainer';
 import PersonalAreaNavigation from '@/components/PersonalAreaNavigation'
 import UserDataModal from '@/components/UserDataModal.js'
 import CompagnyProfileModal from '@/components/CompanyProfileModal';
-import StatisticsModal from '@/components/statisticsModal';
+import StatisticsModal from '@/components/StatisticsModal';
 import React, {useState} from 'react'
 
 export default function Profile() {

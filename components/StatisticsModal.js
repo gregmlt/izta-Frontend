@@ -13,7 +13,7 @@ function StatisticsModal() {
       </p>
       <div className="flex">
         <div className="w-[30%] mr-10 shadow-lg rounded-md flex flex-col items-center justify-between p-3">
-          <div className="bg-[#003761]">
+          <div className="text-[#003761]">
             <ClapSVGIcons />
           </div>
           <h3 className="py-2 font-semibold text-[20px]">Mes Kudos reçus</h3>
