@@ -30,10 +30,6 @@ export default function Login() {
           setAutorized(false);
         }
       });
-
-    // envoie de l'email et du mot de passe au back end via un fetch
-    // attendre la reponse du back et checker le status code : OK 200 => rediredction vers la page home qui est égal à /,
-    // si pas de réponse erreur 400 ou 404 mettre un message d'erreur
   };
 
   return (
