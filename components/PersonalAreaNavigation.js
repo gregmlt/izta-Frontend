@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import PrimaryButton from "./PrimaryButton";
+import ClapSVGIcons from "./iconsSVG/ClapSVGIcons";
 
 
-export default function PersonalAreaNavigation() {
+export default function PersonalAreaNavigation({ setActiveTab }) {
+  
+
+
+
   return (
     <div className="w-[32%] h-min bg-white rounded-lg flex flex-col py-7 px-8">
       <div className="flex flex-col w-[100%] h-auto text-sm">
         <button
-          type="submit"
+         onClick={() => setActiveTab("entreprises")}
+          type="button"
           className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
         >
           <svg
@@ -28,7 +34,8 @@ export default function PersonalAreaNavigation() {
         </button>
 
         <button
-          type="submit"
+          onClick={() => setActiveTab("recherches")}
+          type="button"
           className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms  focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
         >
           <svg
@@ -48,7 +55,8 @@ export default function PersonalAreaNavigation() {
           Mes recherches précédentes
         </button>
         <button
-          type="submit"
+          onClick={() => setActiveTab("infos-perso")}
+          type="button"
           className="flex items-center py-4 px-3 text-md mt-2 font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms  focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
         >
           <svg
@@ -71,7 +79,8 @@ export default function PersonalAreaNavigation() {
 {/* notifications button  */}
 
         <button
-          type="submit"
+          onClick={() => setActiveTab("statistiques")}
+          type="button"
           className="flex items-center py-4 px-3 text-md mt-2 font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
         >
           <svg
@@ -88,7 +97,18 @@ export default function PersonalAreaNavigation() {
               d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
             />
           </svg>
-          Mes notifications
+          Mes statistiques
+        </button>
+
+
+        {/* mes kudos */}
+        <button
+          onClick={() => setActiveTab("kudos-liste")}
+          type="button"
+          className="flex items-center py-4 px-3 text-md mt-2 font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
+        >
+         <div className="mr-3 ml-[-8px]"><ClapSVGIcons color="black"/></div>
+          Mes Kudos reçues
         </button>
       </div>
 
@@ -101,7 +121,7 @@ export default function PersonalAreaNavigation() {
     </div>
 
       <button
-        type="submit"
+        type="button"
         className="flex items-center py-4 px-3 text-md mt-2 bg-[F7F5F1] rounded hover:text-[#ce7e60] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <svg

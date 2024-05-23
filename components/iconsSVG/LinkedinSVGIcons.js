@@ -1,6 +1,6 @@
 import React from "react";
 
-function LinkedinSVGIcons({ color}) {
+function LinkedinSVGIcons({color= "white"}) {
   return (
     <div>
       <svg
