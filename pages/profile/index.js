@@ -21,14 +21,14 @@ export default function Profile() {
           <div className="flex justify-between">
         <PersonalAreaNavigation />
         <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
-          <UserDataModal />
+          {/* <UserDataModal /> */}
+          <CompaniesLikedContainer />
           </div>
           </div>
         </div>
 
 
-          <NotificationsContainer />
-          <CompaniesLikedContainer />
+          {/* <NotificationsContainer /> */}
       
     </>
   )
