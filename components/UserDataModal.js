@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import EditingIcon from "./EditingIcon";
 import DropDownDiploma from "./DropDownDiploma";
 import CheckboxWithLabel from "./CheckBoxWithLabel";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
+import { useSelector } from "react-redux";
 
 export default function UserDataModal({}) {
   const [isEditing, setIsEditing] = useState(false);
@@ -13,28 +14,97 @@ export default function UserDataModal({}) {
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [district, setDistrict] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [filters, setFilters] = useState({
+    DNB: false,
+    CAP: false,
+    BEP: false,
+    Baccalauréat: false,
+    "BAC +2": false,
+    "BAC +3": false,
+    "BAC +5": false,
+    "BAC +8": false,
+  });
+
+  const [checkboxes, setCheckboxes] = useState({
+    renseigne: false,
+    ecoute: false,
+    recherche: false,
+  });
+
+  const token = useSelector((state) => state.users.value.token);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/users/infos/${token}`, {
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPrenom(data.data.firstname);
+        setNom(data.data.lastname);
+        setEmail(data.data.email);
+        setAddress(data.data.adress);
+        setCity(data.data.city);
+        setBirthdate(data.data.birthdate);
+        setZipcode(data.data.postalCode);
+        setFilters(data.data.diplome);
+        setCheckboxes(data.data.situation);
+      });
+  }, [token]);
 
   const handleEditClick = (e) => {
     if (e !== "password") setIsEditing(true);
   };
 
   const handleSaveClick = () => {
-    // Logic to save the formData, e.g., API call
+    const data = {
+      firstname: prenom,
+      lastname: nom,
+      email: email,
+      birthDate: birthdate,
+      adress: address,
+      city: city,
+      postalCode: zipcode,
+      diplome: filters,
+      situation: checkboxes,
+    };
+
+    fetch(`http://localhost:3000/users/infos/${token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then((data) => {
+      if (data.status === 200) {
+        alert("Modifications enregistrées");
+      } else {
+        alert("Une erreur est survenue");
+      }
+    });
     setIsEditing(false);
-    console.log("Saved data:", formData);
+    console.log("Saved data:", data);
   };
 
   const handleCancelClick = () => {
-    // Logic to handle cancel action
-    setIsEditing(false); // Suppose this is how you handle cancel
+    setIsEditing(false);
   };
 
-  
+  const handleFilterChange = (e) => {
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.checked,
+    });
+  };
+
+  const handleCheckboxChange = (e) => {
+    setCheckboxes({
+      ...checkboxes,
+      [e.target.name]: e.target.checked,
+    });
+  };
 
   return (
-    <div className="bg-pink-500">
+    <div>
       <div className="flex flex-col w-[100%] h-[auto] ">
         <div className="self-end">
           <EditingIcon func={handleEditClick} />
@@ -72,7 +142,7 @@ export default function UserDataModal({}) {
               type="text"
               id="name"
               value={nom}
-              onChange={(e) => setNom({ nom: e.target.value })}
+              onChange={(e) => setNom(e.target.value)}
               disabled={!isEditing}
             />
           </div>
@@ -152,20 +222,6 @@ export default function UserDataModal({}) {
           />
         </div>
 
-        {/* Input district */}
-
-        <div className="flex flex-col w-[32%]">
-          <label htmlFor="district">Région</label>
-          <input
-            className="rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 "
-            type="text"
-            id="district"
-            value={district}
-            onChange={(e) => setDistrict(e.target.value)}
-            disabled={!isEditing}
-          />
-        </div>
-
         {/* Input Zipcode */}
 
         <div className="flex flex-col w-[32%]">
@@ -190,14 +246,44 @@ export default function UserDataModal({}) {
 
       <div>
         <p className="mb-3 font-medium">Diplôme</p>
-        <DropDownDiploma />
+        <DropDownDiploma
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
       </div>
 
       <div className="mb-10">
         <p className="mb-3 mt-10 font-medium">Votre situation</p>
-        <CheckboxWithLabel text="Je me renseigne" />
-        <CheckboxWithLabel text="Je suis à l’écoute" />
-        <CheckboxWithLabel text="Je suis en recherche active" />
+        <CheckboxWithLabel
+          text="Je me renseigne"
+          checked={checkboxes.renseigne}
+          onCheckboxChange={(e) =>
+            handleCheckboxChange({
+              ...e,
+              target: { ...e.target, name: "renseigne" },
+            })
+          }
+        />
+        <CheckboxWithLabel
+          text="Je suis à l’écoute"
+          checked={checkboxes.ecoute}
+          onCheckboxChange={(e) =>
+            handleCheckboxChange({
+              ...e,
+              target: { ...e.target, name: "ecoute" },
+            })
+          }
+        />
+        <CheckboxWithLabel
+          text="Je suis en recherche active"
+          checked={checkboxes.recherche}
+          onCheckboxChange={(e) =>
+            handleCheckboxChange({
+              ...e,
+              target: { ...e.target, name: "recherche" },
+            })
+          }
+        />
       </div>
       <div className="flex justify-end">
         <SecondaryButton
@@ -210,7 +296,7 @@ export default function UserDataModal({}) {
           text="Enregistrer les modifications"
           bgColor="bg-[#003761]"
           hoverColor="hover:bg-[#3371a1]"
-          onClick={handleSaveClick}
+          clickFunc={handleSaveClick}
         />
       </div>
     </div>
