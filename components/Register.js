@@ -11,6 +11,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isCompany, setIsCompany] = useState(false);
+  const [nomEntreprise, setNomEntreprise] = useState("");
   const [entrepriseTrouvee, setEntrepriseTrouvee] = useState(null); // état pour stocker les détails de l'entreprise trouvée
   const [numeroSiret, setNumeroSiret] = useState("");
   const [step, setStep] = useState(1); // état pour gérer les étapes du formulaire
@@ -79,14 +80,18 @@ export default function Login() {
 
   const handleSelectEntreprise = () => {
     setNomEntreprise(entrepriseTrouvee.nom);
-    setStep(3); // Passer à l'étape finale après la sélection de l'entreprise
+    setStep(4); // Passer à l'étape finale après la sélection de l'entreprise
   };
 
   const handleSearchCancel = () => {
     console.log("Retour à l'étape 2");
-    setNumeroSiret("")
+    setNumeroSiret("");
     setStep(2); // Suppose this is how you handle cancel
   };
+
+  useEffect(() => {
+    console.log("Étape actuelle:", step);
+  }, [step]);
 
   return (
     <>
@@ -322,6 +327,44 @@ export default function Login() {
                     hoverColor="hover:bg-[#3371a1]"
                     clickFunc={handleSelectEntreprise}
                   />
+                </div>
+              </div>
+            )}
+
+            {step === 4 && (
+              <div className="py-16">
+                <h2 className="text-2xl font-medium">Vérification en cours</h2>
+                <p>
+                  {" "}
+                  Merci de vous être inscrit chez Izta ! Nous sommes en train de
+                  vérifier les informations soumises pour votre entreprise. Ce
+                  processus est essentiel pour garantir la sécurité et la
+                  fiabilité de notre plateforme pour tous les utilisateurs.
+                </p>
+                <div className="w-[100%] bg-white h-[auto] flex flex-col px-5 py-5 border rounded-lg mb-10">
+                  <p className="text-lg font-semibold pb-3 text-[#003761]">Que se passe-t-il ensuite ?</p>
+                  <p>
+                  <span className="font-semibold">Vous recevrez un email de confirmation</span> dès que la
+                    vérification de votre entreprise sera validée. Cette étape
+                    peut prendre quelques minutes. 
+                    Nous vous remercions pour votre
+                    patience et votre compréhension.
+                  </p>
+                </div>
+                <p>En attendant, vous avez un accès complet à votre profil utilisateur où vous pouvez commencer à explorer nos services et préparer votre entreprise pour son lancement sur Izta.</p>
+                <div className="flex mt-10">
+                  <SecondaryButton
+                    text="Accéder à mon profil utilisateur"
+                    hoverColor="hover:bg-[#B0C8DA]"
+                    margin="mr-4"
+                    clickFunc={handleSearchCancel}
+                  />
+                                 <PrimaryButton
+                  bgColor="bg-[#003761]"
+                  text="Accueil"
+                  hoverColor="hover:bg-[#3371a1]"
+                  clickFunc={handleSelectEntreprise}
+                />
                 </div>
               </div>
             )}

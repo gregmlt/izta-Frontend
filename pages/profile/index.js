@@ -7,9 +7,6 @@ import React, {useState} from 'react'
 
 export default function Profile() {
 
-
-
-
   return (
     <>
         <div className="w-[100%] flex flex-col h-[auto] pb-[20%] px-[120px] pt-[30px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.8),rgba(16,34,93,0.8))]">
