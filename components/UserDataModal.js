@@ -72,7 +72,7 @@ export default function UserDataModal({}) {
               type="text"
               id="name"
               value={nom}
-              onChange={(e) => setNom({ nom: e.target.value })}
+              onChange={(e) => setNom(e.target.value )}
               disabled={!isEditing}
             />
           </div>

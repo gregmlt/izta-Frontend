@@ -3,7 +3,6 @@ import Navbar from '@/components/Navbar'
 import NotificationsContainer from '@/components/NotificationsContainer';
 import PersonalAreaNavigation from '@/components/PersonalAreaNavigation'
 import UserDataModal from '@/components/UserDataModal.js'
-import React, {useState} from 'react'
 
 export default function Profile() {
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GoogleOAuthButton from "./GoogleButton";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import CheckedIcon from "./CheckedIcon";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
@@ -40,7 +41,14 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(prenom, nom, email, password);
-    if (isCompany && step === 1) {
+    if (!isCompany) {
+      setLoading(true);
+      setTimeout(() => {
+        // Passer à l'étape suivante après 2 secondes
+        setLoading(false);
+        setStep(5);
+      }, 2000); // étape 5 création de compte avec succès
+    } else if (isCompany && step === 1) {
       // Passer à l'étape suivante si c'est une entreprise avec un chargement
       setLoading(true);
       setTimeout(() => {
@@ -89,6 +97,17 @@ export default function Login() {
     setStep(2); // Suppose this is how you handle cancel
   };
 
+  // ************ Liens vers les pages Profile & Homepage ************
+
+  const router = useRouter();
+  const handleOpenMyProfile = () => {
+    router.push("/profile");
+  };
+
+  const handleOpenHomePage = () => {
+    router.push("./");
+  };
+
   useEffect(() => {
     console.log("Étape actuelle:", step);
   }, [step]);
@@ -115,7 +134,7 @@ export default function Login() {
 
           <div className="w-[55%]">
             {loading ? (
-              <div className="flex justify-center items-center h-[100%]">
+              <div className="flex justify-center items-center h-[100%] mt-5 mb-[50%]">
                 <div>
                   <img
                     src="Logo/loading-icon.png"
@@ -212,7 +231,7 @@ export default function Login() {
                     </div>
                   </div>
 
-                  {/* checkbox entrprise true or false  */}
+                  {/* checkbox entreprise true or false  */}
 
                   <div>
                     <p className="mb-2">
@@ -250,6 +269,50 @@ export default function Login() {
                   </div>
                 </form>
               )
+            )}
+
+            {/* ********************* STEP 5 SI PAS D'ENTREPRISE ******************** */}
+
+            {step === 5 && !isCompany && (
+              <div className="mt-10">
+                <div className="flex">
+                  <p className="text-2xl mb-3 font-semibold">
+                    Votre compte a été créé avec succès !
+                  </p>
+                  <CheckedIcon />
+                </div>
+                <p>
+                  Vous êtes maintenant prêt à tirer le meilleur parti de nos
+                  services.
+                  <p className="font-semibold text-lg text-[#003761] mt-4">
+                    Que souhaitez-vous faire ensuite ?
+                  </p>
+                  <ul className="mt-3 list-disc">
+                    <li>
+                      Visiter votre profil pour personnaliser vos préférences et
+                      compléter votre profil.
+                    </li>
+                    <li>
+                      Explorer la page d'accueil pour découvrir ce que nous
+                      offrons.
+                    </li>
+                  </ul>
+                </p>
+                <div className="flex mt-10">
+                  <PrimaryButton
+                    bgColor="bg-[#003761]"
+                    text="Accéder à mon profil"
+                    hoverColor="hover:bg-[#3371a1]"
+                    clickFunc={handleOpenMyProfile}
+                  />
+                  <SecondaryButton
+                    text="Aller à la page d'accueil"
+                    hoverColor="hover:bg-[#B0C8DA]"
+                    margin="ml-4"
+                    clickFunc={handleOpenHomePage}
+                  />
+                </div>
+              </div>
             )}
 
             {/* ********************* STEP 2 SI ENTREPRISE (NUMÉRO DE SIRET) ******************** */}
@@ -292,6 +355,7 @@ export default function Login() {
                     className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     {numeroSiret ? "Rechercher" : "Suivant"}
+                    if
                   </button>
                 </div>
               </form>
@@ -342,29 +406,36 @@ export default function Login() {
                   fiabilité de notre plateforme pour tous les utilisateurs.
                 </p>
                 <div className="w-[100%] bg-white h-[auto] flex flex-col px-5 py-5 border rounded-lg mb-10">
-                  <p className="text-lg font-semibold pb-3 text-[#003761]">Que se passe-t-il ensuite ?</p>
+                  <p className="text-lg font-semibold pb-3 text-[#003761]">
+                    Que se passe-t-il ensuite ?
+                  </p>
                   <p>
-                  <span className="font-semibold">Vous recevrez un email de confirmation</span> dès que la
-                    vérification de votre entreprise sera validée. Cette étape
-                    peut prendre quelques minutes. 
-                    Nous vous remercions pour votre
-                    patience et votre compréhension.
+                    <span className="font-semibold">
+                      Vous recevrez un email de confirmation
+                    </span>{" "}
+                    dès que la vérification de votre entreprise sera validée.
+                    Cette étape peut prendre quelques minutes. Nous vous
+                    remercions pour votre patience et votre compréhension.
                   </p>
                 </div>
-                <p>En attendant, vous avez un accès complet à votre profil utilisateur où vous pouvez commencer à explorer nos services et préparer votre entreprise pour son lancement sur Izta.</p>
+                <p>
+                  En attendant, vous avez un accès complet à votre profil
+                  utilisateur où vous pouvez commencer à explorer nos services
+                  et préparer votre entreprise pour son lancement sur Izta.
+                </p>
                 <div className="flex mt-10">
+                  <PrimaryButton
+                    bgColor="bg-[#003761]"
+                    text="Accéder à mon profil"
+                    hoverColor="hover:bg-[#3371a1]"
+                    clickFunc={handleOpenMyProfile}
+                  />
                   <SecondaryButton
-                    text="Accéder à mon profil utilisateur"
+                    text="Aller à la page d'accueil"
                     hoverColor="hover:bg-[#B0C8DA]"
-                    margin="mr-4"
+                    margin="ml-4"
                     clickFunc={handleSearchCancel}
                   />
-                                 <PrimaryButton
-                  bgColor="bg-[#003761]"
-                  text="Accueil"
-                  hoverColor="hover:bg-[#3371a1]"
-                  clickFunc={handleSelectEntreprise}
-                />
                 </div>
               </div>
             )}
