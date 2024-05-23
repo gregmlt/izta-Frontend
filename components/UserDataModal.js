@@ -34,8 +34,8 @@ export default function UserDataModal({}) {
   
 
   return (
-    <>
-      <div className="flex flex-col w-[100%] h-[auto] bg-white ">
+    <div className="bg-pink-500">
+      <div className="flex flex-col w-[100%] h-[auto] ">
         <div className="self-end">
           <EditingIcon func={handleEditClick} />
         </div>
@@ -213,7 +213,7 @@ export default function UserDataModal({}) {
           onClick={handleSaveClick}
         />
       </div>
-    </>
+    </div>
   );
 }
 

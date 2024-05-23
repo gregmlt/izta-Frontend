@@ -4,8 +4,8 @@ import PrimaryButton from "./PrimaryButton";
 
 export default function PersonalAreaNavigation() {
   return (
-    <div className="w-[30%] h-[100%] bg-white rounded-lg flex flex-col py-7 px-8 ">
-      <div className="flex flex-col w-[100%] h-[300px]">
+    <div className="w-[32%] h-min bg-white rounded-lg flex flex-col py-7 px-8">
+      <div className="flex flex-col w-[100%] h-auto text-sm">
         <button
           type="submit"
           className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
@@ -94,6 +94,7 @@ export default function PersonalAreaNavigation() {
 
 {/* Modal se connecter à l'entreprise  */}
 
+    <div className="flex flex-col items-center min-h-screen mt-5">
     <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
         <p className="mb-5">Vous avez été désigner comme administrateur de votre entreprise </p>
         <PrimaryButton text="Connecter mon entreprise" bgColor="bg-[#003761]" hoverColor="hover:bg-[#3371a1]"/>
@@ -119,6 +120,9 @@ export default function PersonalAreaNavigation() {
         </svg>
         Se déconnecter
       </button>
+
+    </div>
+
     </div>
   );
 }
