@@ -1,21 +1,11 @@
 import React from 'react'
-import Navbar from '@/components/Navbar'
+import PrimaryButton from './PrimaryButton'
 
-function index() {
+function CompagnyProfileModal() {
   return (
-    <>
-      <Navbar />
-       <div className='pt-[200px] px-10 bg-gradient-to-r from-[#ECB19B] via-[#E8A187] to-[#003761]'>
-        <h1 className='text-[40px] font-extrabold'>Bienvenue Solaris</h1>
-        <p className='text-balance w-[50%] py-10'>Bienvenue dans votre espace personnel. Ici, vous pouvez gérer l'ensemble de vos paramètres, personnaliser vos préférences, suivre vos activités et accéder à vos informations personnelles. Utilisez les différentes sections pour ajuster vos réglages de compte, consulter vos notifications, et optimiser votre expérience sur notre plateforme."</p>
-        <div className='w-full flex'>
-          <div className='w-[30%] h-auto bg-blue-500'>hello</div>
-          <div className='w-[65%] h-auto ml-7'>
+    <div className="flex flex-col min-h-screen bg-white p-4 rounded-md">
 
-          {/* a exporter */}
-          <div className="flex flex-col min-h-screen bg-white p-4 rounded-md">
-
-          {/* nom et description entreprise */}
+          {/* champs nom et description entreprise */}
       <div className="bg-white p-6 rounded w-[80%]">
         <h3 className="text-xl font-bold mb-4 ">Titre de l'Entreprise</h3>
         <p className="mb-4">
@@ -46,7 +36,7 @@ y compris sa mission et ses valeurs.'
         </div>
       </div>
 
-      {/* liens externes */}
+      {/* champs liens externes */}
       <div className='my-5 w-[40%] p-6'>
       <h3 className="text-xl font-bold mb-4 ">Liens externes</h3>
         <div className='mb-3 flex flex-col'>
@@ -68,7 +58,7 @@ y compris sa mission et ses valeurs.'
       </div>
       <div className='divide-x-[80%]'/>
 
-      {/* formulaire informations administratives */}
+      {/* champs informations administratives */}
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="p-6 rounded w-full max-w-2xl">
         <h3 className="text-xl font-bold mb-6">Informations administratives</h3>
@@ -188,7 +178,7 @@ y compris sa mission et ses valeurs.'
     </div>
 
 
-      {/* formulaire informations complémentaires */}
+      {/* champs informations complémentaires */}
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="bg-white p-6 w-full max-w-2xl">
         <h3 className="text-xl font-bold mb-6">Informations complémentaires</h3>
@@ -297,15 +287,21 @@ y compris sa mission et ses valeurs.'
       </div>
     </div>
 
-    </div>
-
-
-          </div>
+        <div className='flex justify-end'>
+            <div className='mr-3'>
+            <PrimaryButton text="Annuler" bgColor="bg-gray-400" hoverColor="hover:bg-[#3371a1]"/>
+            </div>
+            <div>
+            <PrimaryButton
+                  bgColor="bg-[#003761]"
+                  text="Enregistrer les modifications"
+                  hoverColor="hover:bg-[#3371a1]"
+                  
+                />
+            </div>
         </div>
     </div>
-    </>
-   
   )
 }
 
-export default index
+export default CompagnyProfileModal
