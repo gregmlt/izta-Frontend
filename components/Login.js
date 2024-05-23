@@ -1,16 +1,35 @@
 import React, { useState } from "react";
 import GoogleOAuthButton from "./GoogleButton";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addTokenToStore } from "@/reducers/users";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [autorized, setAutorized] = useState(true);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // envoie de l'email et du mot de passe au back end via un fetch
-    // attendre la reponse du back et checker le status code : OK 200 => rediredction vers la page home qui est égal à /,
-    // si pas de réponse erreur 400 ou 404 mettre un message d'erreur
+
+    fetch("http://localhost:3000/users/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.token) {
+          dispatch(addTokenToStore(data));
+          router.push("/profile");
+          setAutorized(true);
+        } else {
+          setAutorized(false);
+        }
+      });
   };
 
   return (
@@ -55,6 +74,11 @@ export default function Login() {
                     className="block w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:color-[#5488b0] sm:text-sm sm:leading-6"
                   />
                 </div>
+                {!autorized && (
+                  <p className="block font-medium text-xs text-red-500 pt-[5px]">
+                    * Votre email ou mot de passe sont incorrects
+                  </p>
+                )}
               </div>
 
               <div>
@@ -86,12 +110,18 @@ export default function Login() {
                     className="block w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+                {!autorized && (
+                  <p className="block font-medium text-xs text-red-500 pt-[5px]">
+                    * Votre email ou mot de passe sont incorrects
+                  </p>
+                )}
               </div>
 
               <div>
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold text-white leading-6 shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={handleSubmit}
                 >
                   Se connecter
                 </button>
