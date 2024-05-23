@@ -4,6 +4,7 @@ import NotificationsContainer from "@/components/NotificationsContainer";
 import PersonalAreaNavigation from "@/components/PersonalAreaNavigation";
 import UserDataModal from "@/components/UserDataModal.js";
 import CompagnyProfileModal from "@/components/CompanyProfileModal";
+import StatisticsModal from "@/components/StatisticsModal";
 import React, { useState } from "react";
 
 export default function Profile() {
@@ -28,8 +29,8 @@ export default function Profile() {
         <div className="flex justify-between">
           <PersonalAreaNavigation />
           <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
-            <UserDataModal />
-            {/* <CompagnyProfileModal /> */}
+            {/* <UserDataModal /> */}
+            <CompagnyProfileModal />
           </div>
         </div>
       </div>
