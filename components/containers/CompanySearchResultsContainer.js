@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import ContactContainer from "../ContactContainer";
+import ContactContainer from "./ContactContainer";
 import CompanySearchResultsModal from "../CompanySearchResultsModal";
 import PaginatedBlocks from "../PaginatedBlocks";
+import FiltersBlock from "../FiltersBlock";
+import Navbar from "../Navbar";
+
 
 const blocks = [
   <CompanySearchResultsModal />,
@@ -25,6 +28,10 @@ const blocks = [
 function CompanySearchResultsContainer() {
   return (
     <div>
+    <Navbar />
+    <div className="w-full h-[400px] bg-gradient-to-r from-[#ECB19B] via-[#E8A187] to-[#003761]/60 flex justify-center items-center">
+      <FiltersBlock />
+    </div>
       <div className="px-[130px]">
         <div className="flex justify-between items-center my-10">
           <div className="flex w-[6%] justify-between">
@@ -34,7 +41,7 @@ function CompanySearchResultsContainer() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6"
+              className="w-6 h-6 cursor-pointer"
             >
               <path
                 strokeLinecap="round"
@@ -48,7 +55,7 @@ function CompanySearchResultsContainer() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6"
+              className="w-6 h-6 cursor-pointer"
             >
               <path
                 strokeLinecap="round"

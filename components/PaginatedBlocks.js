@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTransition, animated } from '@react-spring/web';
+import ChevronRightSVGIcons from './iconsSVG/ChevronRightSVGIcons';
+import ChevronLeftSVGIcons from './iconsSVG/ChevronLeftSVGIcons';
 
 const PaginatedBlocks = ({ items }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -12,6 +14,7 @@ const PaginatedBlocks = ({ items }) => {
   
     // Calculer le nombre de pages
     const totalPages = Math.ceil(items.length / itemsPerPage);
+    const paginatedItemsRef = useRef(null);
   
     const handleNextPage = () => {
       if (currentPage < totalPages) {
@@ -33,12 +36,17 @@ const PaginatedBlocks = ({ items }) => {
       from: { opacity: 0, transform: 'translateX(100%)' },
       enter: { opacity: 1, transform: 'translateX(0%)' },
       leave: { opacity: 0, transform: 'translateX(-100%)' },
-      config: { duration: 300 }
+      config: { duration: 0 }
     });
+
+    const scrollToTop = () => {
+      paginatedItemsRef.current.scrollIntoView({ behavior: 'smooth' });
+    };
+  
   
     return (
       <div className="p-4 h-[1400px] flex flex-col">
-      <div className="relative h-full overflow-hidden flex-grow">
+      <div ref={paginatedItemsRef}  className="relative h-full overflow-hidden flex-grow">
         {transitions((style, item) => (
           <animated.div
             key={item}
@@ -58,34 +66,42 @@ const PaginatedBlocks = ({ items }) => {
           </animated.div>
         ))}
       </div>
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex justify-center items-center mt-4">
+      <div onClick={() => {handlePreviousPage(); scrollToTop();}}
+          disabled={currentPage === 1} className='flex items-center'>
+        <ChevronLeftSVGIcons />
         <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          
+          className="w-[70px] ml-3 text-black font-bold  rounded focus:outline-none focus:shadow-outline"
         >
+        
           Previous
         </button>
+      </div>
         <div className="flex space-x-2">
           {Array.from({ length: totalPages }, (_, i) => (
             <button
               key={i + 1}
-              onClick={() => handlePageClick(i + 1)}
+              onClick={() => {handlePageClick(i + 1); scrollToTop();}}
               className={`py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                currentPage === i + 1 ? 'bg-blue-700 text-white' : 'bg-[#E28A69] hover:bg-blue-700 text-white'
+                currentPage === i + 1 ? 'bg-[#E28A69] text-black' : 'text-black'
               }`}
             >
               {i + 1}
             </button>
           ))}
         </div>
+        <div onClick={() => {handleNextPage(); scrollToTop();}}
+          disabled={currentPage === 1} className='flex items-end'>
         <button
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          
+          className="w-[70px] text-black font-bold  rounded focus:outline-none focus:shadow-outline"
         >
+        
           Next
         </button>
+        <ChevronRightSVGIcons />
+      </div>
       </div>
     </div>
     );

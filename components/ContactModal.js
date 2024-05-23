@@ -12,10 +12,10 @@ function ContactModal() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="w-full md:max-w-md mx-auto p-4 md:p-6 bg-white shadow-md rounded-md">
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nom</label>
         <input
           type="text"
           id="name"
@@ -42,13 +42,12 @@ function ContactModal() {
           rows="4"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-
-    ></textarea>
-  </div>
-  <div className='text-center'>
-   <PrimaryButton text="Envoyer" bgColor="bg-[#003761]" hoverColor="hover:bg-[#5488b0]" typeBtn="submit"/>
-  </div>
-</form>
+        ></textarea>
+      </div>
+      <div className="text-center">
+        <PrimaryButton text="Envoyer" bgColor="bg-[#003761]" hoverColor="hover:bg-[#5488b0]" typeBtn="submit" />
+      </div>
+    </form>
   </div>
   )
 }

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import StarsSVGIcons from './iconsSVG/StarsSVGIcons'
 import HeartSVGIcons from './iconsSVG/HeartSVGIcons'
-import H2Button from './ButtonWithUnderline'
+import ButtonWithUnderline from './ButtonWithUnderline'
+import ArrowRightSVGIcons from './iconsSVG/ArrowRightSVGIcons'
 
 function CompanySearchResultsModal() {
   return (
-    <div className='bg-white rounded-md shadow-lg w-[75%] min-h-[200px] mx-auto flex my-5'>
+    <div className='rounded-md shadow-lg w-[75%] min-h-[200px] mx-auto flex my-5'>
         <div className='w-[23%] p-4'>
             <svg className='absolute top-[28px]' width="25" height="25" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_150_1894)">
@@ -19,7 +20,7 @@ function CompanySearchResultsModal() {
 </svg>
             
             <img alt="photo" src="https://images.unsplash.com/photo-1512403754473-27835f7b9984?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            className='rounded-sm h-[100%] object-cover'
+            className='hidden rounded-sm md:h-[100%] md:block object-cover'
             />
         </div>
         <div className='p-3 flex flex-col w-[100%]'>
@@ -39,14 +40,9 @@ function CompanySearchResultsModal() {
             </div>
             <div className='h-[50%] flex justify-between items-end'>
                 <p className='text-xs w-[75%]'>Deuxième entreprise mondiale des métiers des concessions et de la construction, employant 275 000 salariés à travers le monde.Vinci, anciennement Société générale d'entreprises (SGE), est la deuxième entreprise mondiale des métiers des concessions et de la construction, employant 275 000 salariés à travers le monde.</p>
-                <div className='mb-[-22px] text-[#003761] flex justify-center items-center'>
-                <H2Button text="En savoir plus" underlineColor="bg-[#003761]" type="button"/>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" 
-    
-  />
-</svg>
-
+                <div className='mb-[-22px] text-[#003761] text-xs flex justify-center items-center'>
+                <ButtonWithUnderline text="En savoir plus" underlineColor="bg-[#003761]" type="button"/>
+                <ArrowRightSVGIcons />
                 </div>
             </div>
         </div>
