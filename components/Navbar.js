@@ -4,7 +4,7 @@ import React from "react";
 import PrimaryButton from "./PrimaryButton";
 import SearchBar from "./SearchBar";
 
-export default function Navbar() {
+export default function Navbar({background}) {
   const router = useRouter();
   const handlePushTologin = () => {
     router.push("/login");

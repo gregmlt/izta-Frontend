@@ -15,7 +15,7 @@ function ContactModal() {
     <div className="w-full md:max-w-md mx-auto p-4 md:p-6 bg-white shadow-md rounded-md">
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nom</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Votre nom</label>
         <input
           type="text"
           id="name"
@@ -25,7 +25,7 @@ function ContactModal() {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Votre email</label>
         <input
           type="email"
           id="email"
@@ -35,7 +35,7 @@ function ContactModal() {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700">Votre message</label>
         <textarea
           id="message"
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

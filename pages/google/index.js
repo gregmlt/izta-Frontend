@@ -27,24 +27,21 @@ export default function index() {
 
   return (
     <>
-    <div className="flex flex-col justify-center items-center w-[500px]  bg-[#f7f5f1] bg-[url('/Logo/backgground.png')] bg-cover bg-no-repeat">
+      <div className="flex flex-col justify-center items-center w-[500px]  bg-[#f7f5f1] bg-[url('/Logo/backgground.png')] bg-cover bg-no-repeat">
         <img src="Logo/loading-icon.png" className="w-[100px] animate-spin" />
+        <p>Votre compte est en cours de création</p>
         <p>
-          Votre compte est en cours de création 
-          </p>
-          <p>
-          Nous y sommes presque ! 🚀 Nous
-          sommes en train de finaliser la création de votre compte. Cela ne
-          prendra que quelques instants. En attendant, voici ce que vous pouvez
-          attendre : Confirmation par email : Vous recevrez un email de
-          confirmation sous peu. Accès à votre compte : Une fois la création
-          terminée, vous pourrez vous connecter et explorer toutes nos
-          fonctionnalités. Merci de votre patience et bienvenue dans notre
-          communauté ! Si vous avez des questions, n'hésitez pas à nous
-          contacter à support@example.com.
-      </p>
-      {code}
-    </div>    
+          Nous y sommes presque ! 🚀 Nous sommes en train de finaliser la
+          création de votre compte. Cela ne prendra que quelques instants. En
+          attendant, voici ce que vous pouvez attendre : Confirmation par email
+          : Vous recevrez un email de confirmation sous peu. Accès à votre
+          compte : Une fois la création terminée, vous pourrez vous connecter et
+          explorer toutes nos fonctionnalités. Merci de votre patience et
+          bienvenue dans notre communauté ! Si vous avez des questions,
+          n'hésitez pas à nous contacter à support@example.com.
+        </p>
+        {code}
+      </div>
     </>
   );
 }
