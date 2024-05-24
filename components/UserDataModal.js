@@ -109,7 +109,6 @@ export default function UserDataModal({}) {
     });
   };
 
-
   // const handleCheckboxChange = (e) => {
   //   setCheckboxes({
   //     ...checkboxes,

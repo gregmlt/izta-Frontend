@@ -38,7 +38,7 @@ export default function Profile() {
           {activeTab === "infos-perso" && <UserDataModal />}
           {activeTab === "kudos-liste" && <KudosListModal />}
           
-          {/* <CompagnyProfileModal /> */}
+          <CompagnyProfileModal />
           </div>
         </div>
       </div>
