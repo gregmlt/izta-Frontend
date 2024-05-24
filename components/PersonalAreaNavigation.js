@@ -5,21 +5,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCompanyFromUser, putCompanyToUser } from "@/reducers/companies";
 
 export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.users.value.token);
-  const hasACompany = useSelector((state) => state.company.hasACompany);
+  const hasACompany = useSelector((state) => state.companies.value.hasACompany);
 
   useEffect(() => {
     fetch(`http://localhost:3000/users/infos/${token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          if (data.data.company.length != 0) {
+          console.log(data.data.company.length);
+          if (data.data.company.length > 0) {
             dispatch(putCompanyToUser());
           }
         }
       });
   }, [hasACompany]);
+
+  console.log(hasACompany);
 
   return (
     <div className="w-[32%] h-[100%] bg-white rounded-lg flex flex-col py-7 px-8">
