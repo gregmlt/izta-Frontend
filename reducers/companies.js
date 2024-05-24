@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: { id: null, siret: null },
+  value: { hasACompany: false },
 };
 
 export const companiesSlice = createSlice({
@@ -9,21 +9,19 @@ export const companiesSlice = createSlice({
 
   initialState,
   reducers: {
-    addCompanyToStore: (state, action) => {
+    putCompanyToUser: (state, action) => {
       state.value = {
-        id: action.payload.id,
-        siret: action.payload.siret,
+        hasACompany: true,
       };
     },
-    deleteCompanyFromStore: (state) => {
+    deleteCompanyFromUser: (state) => {
       state.value = {
-        id: null,
-        siret: null,
+        hasACompany: false,
       };
     },
   },
 });
 
-export const { addCompanyToStore, deleteCompanyFromStore } =
+export const { putCompanyToUser, deleteCompanyFromUser } =
   companiesSlice.actions;
 export default companiesSlice.reducer;

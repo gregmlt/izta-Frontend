@@ -3,7 +3,8 @@ import CheckedIcon from "./CheckedIcon";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import { addTokenToStore } from "@/reducers/users";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { putCompanyToUser } from "@/reducers/companies";
 
 export default function FindACompany() {
   const [entrepriseTrouvee, setEntrepriseTrouvee] = useState(true);
@@ -14,6 +15,7 @@ export default function FindACompany() {
   const [loading, setLoading] = useState(false); // état pour gérer le loader
 
   const token = useSelector((state) => state.users.value.token);
+  const dispatch = useDispatch();
 
   const rechercherEntreprise = (siret) => {
     fetch(`http://localhost:3000/companies/get/${siret}`)
@@ -46,6 +48,7 @@ export default function FindACompany() {
       .then((data) => {
         if (data.result) {
           setStep(3); // Passer à l'étape finale après la sélection de l'entreprise
+          dispatch(putCompanyToUser());
         } else if (data.message === "User already owns this company") {
           alert("Vous êtes déjà propriétaire de cette entreprise");
         } else if (data.message === "User doesn't exist") {

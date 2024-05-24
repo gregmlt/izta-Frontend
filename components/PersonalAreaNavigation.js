@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PrimaryButton from "./PrimaryButton";
 import ClapSVGIcons from "./iconsSVG/ClapSVGIcons";
-
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCompanyFromUser, putCompanyToUser } from "@/reducers/companies";
 
 export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
-  
+  const dispatch = useDispatch;
+  const token = useSelector((state) => state.users.value.token);
+  const hasACompany = useSelector((state) => state.company.hasACompany);
 
-
+  useEffect(() => {
+    fetch(`http://localhost:3000/users/infos/${token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          if (data.data.company.length != 0) {
+            dispatch(putCompanyToUser());
+          }
+        }
+      });
+  }, [hasACompany]);
 
   return (
     <div className="w-[32%] h-[100%] bg-white rounded-lg flex flex-col py-7 px-8">
       <div className="flex flex-col w-[100%]">
         <button
-         onClick={() => setActiveTab("entreprises")}
+          onClick={() => setActiveTab("entreprises")}
           type="button"
           className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
         >
@@ -76,7 +89,7 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
           Mes informations personnelles
         </button>
 
-{/* notifications button  */}
+        {/* notifications button  */}
 
         <button
           onClick={() => setActiveTab("statistiques")}
@@ -100,50 +113,57 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
           Mes statistiques
         </button>
 
-
         {/* mes kudos */}
         <button
           onClick={() => setActiveTab("kudos-liste")}
           type="button"
           className="flex items-center py-4 px-3 text-md mt-2 font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
         >
-         <div className="mr-3 ml-[-8px]"><ClapSVGIcons color="black"/></div>
+          <div className="mr-3 ml-[-8px]">
+            <ClapSVGIcons color="black" />
+          </div>
           Mes Kudos reçues
         </button>
       </div>
 
-{/* Modal se connecter à l'entreprise  */}
+      {/* Modal se connecter à l'entreprise  */}
 
-    <div className="flex flex-col mt-5">
-    <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
-        <p className="mb-5">Vous avez été désigner comme administrateur de votre entreprise </p>
-        <PrimaryButton text="Connecter mon entreprise" bgColor="bg-[#003761]" hoverColor="hover:bg-[#3371a1]"/>
-    </div>
+      <div className="flex flex-col mt-5">
+        {!hasACompany && (
+          <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
+            <p className="mb-5">
+              Vous avez été désigner comme administrateur de votre entreprise{" "}
+            </p>
+            <PrimaryButton
+              text="Connecter mon entreprise"
+              bgColor="bg-[#003761]"
+              hoverColor="hover:bg-[#3371a1]"
+            />
+          </div>
+        )}
 
-      <button
-        onClick={onLogout}
-        type="button"
-        className="flex items-center py-4 px-3 text-md mt-2 bg-[F7F5F1] rounded hover:text-[#ce7e60] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6 mr-3"
+        <button
+          onClick={onLogout}
+          type="button"
+          className="flex items-center py-4 px-3 text-md mt-2 bg-[F7F5F1] rounded hover:text-[#ce7e60] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
-          />
-        </svg>
-        Se déconnecter
-      </button>
-
-    </div>
-
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 mr-3"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
+            />
+          </svg>
+          Se déconnecter
+        </button>
+      </div>
     </div>
   );
 }
