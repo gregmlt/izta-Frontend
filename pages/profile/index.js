@@ -9,6 +9,9 @@ import KudosListModal from "@/components/KudosListModal";
 import React, { useState } from "react";
 
 export default function Profile() {
+  const [activeTab, setActiveTab] = useState(null);
+
+
   return (
     <>
       <div className="w-[100%] flex flex-col h-[auto] pb-[20%] px-[120px] pt-[30px] bg-[linear-gradient(to_right_bottom,rgba(206,100,38,0.5),rgba(16,34,93,0.9))]">
@@ -28,17 +31,17 @@ export default function Profile() {
         {/* Modal personal navigation & display  */}
 
           <div className="flex justify-between">
-        <PersonalAreaNavigation />
+        <PersonalAreaNavigation setActiveTab={setActiveTab}/>
         <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
-          <UserDataModal />
+          {activeTab === "entreprises" && <CompaniesLikedContainer />}
+          {activeTab === "statistiques" && <StatisticsModal />}
+          {activeTab === "infos-perso" && <UserDataModal />}
+          {activeTab === "kudos-liste" && <KudosListModal />}
+          
           {/* <CompagnyProfileModal /> */}
-          {/* <StatisticsModal /> */}
-          {/* <KudosListModal /> */}
           </div>
         </div>
       </div>
-
-      {/* <NotificationsContainer /> */}
     </>
   );
 }
