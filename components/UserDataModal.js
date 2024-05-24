@@ -5,6 +5,7 @@ import CheckboxWithLabel from "./CheckBoxWithLabel";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import { useSelector } from "react-redux";
+import DateBirthPicker from "./DateBirthPicker";
 
 export default function UserDataModal({}) {
   const [isEditing, setIsEditing] = useState(false);
@@ -33,6 +34,11 @@ export default function UserDataModal({}) {
     recherche: false,
   });
   const [linkedin, setLinkedin] = useState("");
+
+  const handleValueChange = (newValue) => {
+    console.log("newValue:", newValue);
+    setValue(newValue);
+  };
 
   const token = useSelector((state) => state.users.value.token);
 
@@ -103,9 +109,18 @@ export default function UserDataModal({}) {
     });
   };
 
+
+  // const handleCheckboxChange = (e) => {
+  //   setCheckboxes({
+  //     ...checkboxes,
+  //     [e.target.name]: e.target.checked,
+  //   });
+
   const handleCheckboxChange = (e) => {
     setCheckboxes({
-      ...checkboxes,
+      renseigne: false,
+      ecoute: false,
+      recherche: false,
       [e.target.name]: e.target.checked,
     });
   };
@@ -184,12 +199,12 @@ export default function UserDataModal({}) {
               onChange={(e) => setPassword(e.target.value)}
               disabled
             />
-            <div className="text-sm self-end mt-3">
+            <div className="text-[13px] self-end mt-3">
               <a
                 href="#"
-                className="font-semibold text-[#003761] hover:text-[#ce7e60]"
+                className="font-medium text-[#003761] hover:text-[#ce7e60] underline underline-offset-2"
               >
-                Mot de passe oublié?
+                Modifier mon mot de passe
               </a>
             </div>
           </div>
@@ -229,6 +244,12 @@ export default function UserDataModal({}) {
           />
         </div>
 
+        {/* DATE PICKER */}
+
+        <div className="flex flex-col w-[32%]">
+          <DateBirthPicker editing={!isEditing} />
+        </div>
+
         {/* Input Zipcode */}
 
         <div className="flex flex-col w-[32%]">
@@ -243,6 +264,7 @@ export default function UserDataModal({}) {
           />
         </div>
       </div>
+
       <div className="w-[100%] h-[1px] bg-gray-300 mt-14"></div>
 
       <div>
@@ -308,7 +330,4 @@ export default function UserDataModal({}) {
       </div>
     </div>
   );
-}
-
-{
 }

@@ -11,17 +11,20 @@ export default function Navbar({background}) {
   };
 
   return (
-      <div className="h-[80px] w-full  grid grid-cols-12 gap-4 py-4 px-6 items-center border rounded border-gray-400 fixed backdrop-blur-md z-10">
-        <div className="w-[100px] h-[50px] col-start-1 col-end-2">
+      <div className="h-[80px] w-[85%] fixed flex justify-between py-4 px-6 items-center border rounded border-gray-400 backdrop-blur-md z-10">
+        <div className="flex items-center">
+      <div className="w-[100px] h-[50px]">
           <img src="/Logo/Logomark.svg" className="w-[100%] h-[100%]" />
         </div>
-        <div className="col-start-2 col-end-6 pl-10">
+        <div className="flex ml-20">
           <Link href="#">Qui sommes-nous ?</Link>
           <Link className="pl-10" href="#">Contact</Link>
         </div>
 
-        <div className="flex items-center col-start-8 col-end-7">
-            <SearchBar width="w-[310px]" />
+        </div>
+
+        <div className="flex items-center">
+            <SearchBar width="w-[300px]" />
             <div className="ml-3">
               <PrimaryButton bgColor="bg-[#003761]" text="Connexion" hoverColor="hover:bg-[#3371a1]" clickFunc={handlePushTologin}/>
             </div>
