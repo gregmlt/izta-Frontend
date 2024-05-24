@@ -3,7 +3,7 @@ import PrimaryButton from "./PrimaryButton";
 import ClapSVGIcons from "./iconsSVG/ClapSVGIcons";
 
 
-export default function PersonalAreaNavigation({ setActiveTab }) {
+export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
   
 
 
@@ -121,6 +121,7 @@ export default function PersonalAreaNavigation({ setActiveTab }) {
     </div>
 
       <button
+        onClick={onLogout}
         type="button"
         className="flex items-center py-4 px-3 text-md mt-2 bg-[F7F5F1] rounded hover:text-[#ce7e60] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
