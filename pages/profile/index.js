@@ -23,7 +23,7 @@ export default function Profile() {
     // Effacer le token dans le store Redux
     dispatch(logout());
     // Rediriger vers la page d'accueil
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -44,15 +44,18 @@ export default function Profile() {
 
         {/* Modal personal navigation & display  */}
 
-          <div className="flex justify-between">
-        <PersonalAreaNavigation setActiveTab={setActiveTab} onLogout={handleLogout}/>
-        <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
-          {activeTab === "entreprises" && <CompaniesLikedContainer />}
-          {activeTab === "statistiques" && <StatisticsModal />}
-          {activeTab === "infos-perso" && <UserDataModal />}
-          {activeTab === "kudos-liste" && <KudosListModal />}
-          
-          {/* <CompagnyProfileModal /> */}
+        <div className="flex justify-between">
+          <PersonalAreaNavigation
+            setActiveTab={setActiveTab}
+            onLogout={handleLogout}
+          />
+          <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
+            {activeTab === "entreprises" && <CompaniesLikedContainer />}
+            {activeTab === "statistiques" && <StatisticsModal />}
+            {activeTab === "infos-perso" && <UserDataModal />}
+            {activeTab === "kudos-liste" && <KudosListModal />}
+
+            {/* <CompagnyProfileModal /> */}
           </div>
         </div>
       </div>
