@@ -6,6 +6,7 @@ import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import { useSelector } from "react-redux";
 import DateBirthPicker from "./DateBirthPicker";
+import FindACompany from "./FindACompany";
 
 export default function UserDataModal({}) {
   const [isEditing, setIsEditing] = useState(false);
@@ -108,7 +109,6 @@ export default function UserDataModal({}) {
       [e.target.name]: e.target.checked,
     });
   };
-
 
   // const handleCheckboxChange = (e) => {
   //   setCheckboxes({
@@ -328,6 +328,7 @@ export default function UserDataModal({}) {
           clickFunc={handleSaveClick}
         />
       </div>
+      <FindACompany />
     </div>
   );
 }
