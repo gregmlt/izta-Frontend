@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import StarsSVGIcons from './iconsSVG/StarsSVGIcons'
 import HeartSVGIcons from './iconsSVG/HeartSVGIcons'
 import MedalSVGIcons from './iconsSVG/MedalSVGIcons'
 import KudosButton from './KudosButton'
 
+
+
 function CompanyInfoModal() {
+
+
   return (
     <div className='h-[500px] w-[800px] mx-auto my-[70px] flex flex-col'>
       <div className='bg-white rounded-md shadow-lg w-[100%] min-h-[200px] flex my-5'>

@@ -6,15 +6,18 @@ import CompagnyProfileModal from "@/components/CompanyProfileModal";
 import StatisticsModal from "@/components/StatisticsModal";
 import KudosListModal from "@/components/KudosListModal";
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
 import { logout } from "@/reducers/users";
+import { useDispatch } from "react-redux";
 
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState(null);
   const dispatch = useDispatch();
-  const router = useRouter();
+  
+ 
+  
+
+ 
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
