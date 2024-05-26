@@ -41,7 +41,7 @@ export default function CompaniesLikedContainer() {
         </p>
         {companiesLikedList.length > 0 ? (
         companiesLikedList.map((company, index) => (
-          <CompagniesMiniCard key={index} companyName={company.companyName} />
+          <CompagniesMiniCard key={index} companyName={company.companyName}  />
         ))
       ) : (
         <p>Vous n'avez pas d'entreprises likées</p>

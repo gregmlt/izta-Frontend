@@ -11,6 +11,7 @@ export default function CompagniesMiniCard({companyName
 
 }) {
   
+ 
 
   return (
     <div className="h-[auto] flex items-center justify-between py-4 px-3 border rounded-lg mb-5 g-white">
