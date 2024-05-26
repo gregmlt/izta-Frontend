@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 
 
 export default function Profile() {
-  const [activeTab, setActiveTab] = useState(null);
+  const [activeTab, setActiveTab] = useState("entreprises");
   const dispatch = useDispatch();
   
  

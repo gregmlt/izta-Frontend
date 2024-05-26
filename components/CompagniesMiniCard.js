@@ -1,16 +1,20 @@
 import React from "react";
 import ArrowRightSVGIcons from "./iconsSVG/ArrowRightSVGIcons";
-
+import { useRouter } from "next/router";
 
 
 const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export default function CompagniesMiniCard({companyName
+export default function CompagniesMiniCard({companyId,companyName
 
 }) {
-  
+  const router = useRouter();
+  const handleRedirect = () => {
+    router.push(`/company/${companyId}`);
+  };
+
 
   return (
     <div className="h-[auto] flex items-center justify-between py-4 px-3 border rounded-lg mb-5 g-white">
@@ -23,7 +27,7 @@ export default function CompagniesMiniCard({companyName
       </div>
       </div>
       <div className="text-blue-500">
-      <div>
+      <div onClick={handleRedirect}>
       <ArrowRightSVGIcons />
       </div>
       </div>

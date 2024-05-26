@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ArrowLeftSVGIcons from '../iconsSVG/ArrowLeftSVGIcons'
 import CompanyInfoModal from '../CompanyInfoModal'
 import Navbar from '../Navbar'
 import FiltersBlock from "../FiltersBlock";
+import { useRouter } from 'next/router';
 
 
-function CompanyPageContainer() {
+function CompanyPageContainer({ companyId }) {
+  const [companyInfo, setCompanyInfo] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchCompanyInfo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/companies/${companyId}`);
+        const data = await response.json();
+        console.log(data)
+        setCompanyInfo(data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des informations de l'entreprise:", error);
+      }
+    };
+
+    if (companyId) {
+      fetchCompanyInfo();
+    }
+  }, [companyId]);
   return (
     <div>
        <Navbar />
