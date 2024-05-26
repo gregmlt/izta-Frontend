@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import CheckedIcon from "./CheckedIcon";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTokenToStore } from "@/reducers/users";
 
 export default function Login() {
@@ -15,32 +15,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [isCompany, setIsCompany] = useState(false);
   const [nomEntreprise, setNomEntreprise] = useState("");
-  const [entrepriseTrouvee, setEntrepriseTrouvee] = useState(null); // état pour stocker les détails de l'entreprise trouvée
+  const [entrepriseTrouvee, setEntrepriseTrouvee] = useState(true);
+  const [entrepriseName, setEntrepriseName] = useState("");
+  const [entrepriseAddresse, setEntrepriseAddresse] = useState("");
   const [numeroSiret, setNumeroSiret] = useState("");
   const [step, setStep] = useState(1); // état pour gérer les étapes du formulaire
   const [loading, setLoading] = useState(false); // état pour gérer le loader
   const [autorized, setAutorized] = useState(true);
   const dispatch = useDispatch();
-
-  // ******* tableau fictif ***********
-
-  const entreprises = [
-    {
-      siret: "12345678901234",
-      nom: "Entreprise A",
-      adresse: "1 Rue de Paris, 75001 Paris",
-    },
-    {
-      siret: "23456789012345",
-      nom: "Entreprise B",
-      adresse: "2 Rue de Lyon, 69000 Lyon",
-    },
-    {
-      siret: "34567890123456",
-      nom: "Entreprise C",
-      adresse: "3 Rue de Marseille, 13000 Marseille",
-    },
-  ];
+  const token = useSelector((state) => state.users.value.token);
 
   const handleSubmit = (e) => {
     console.log(prenom, nom, email, password);
@@ -70,50 +53,104 @@ export default function Login() {
             }, 2000); // étape 5 création de compte avec succès
           } else {
             setAutorized(false);
-            console.log(autorized);
           }
         });
     } else if (isCompany && step === 1) {
+      const data = {
+        firstname: prenom,
+        lastname: nom,
+        email: email,
+        password: password,
+      };
       // Passer à l'étape suivante si c'est une entreprise avec un chargement
-      setLoading(true);
-      setTimeout(() => {
-        // Passer à l'étape suivante après 2 secondes
-        setLoading(false);
-        setStep(2);
-      }, 2000);
-    } else if (step === 2) {
-      // Logic pour envoyer les données du formulaire
-      // envoie de l'email et du mot de passe au back end via un fetch
-      // attendre la reponse du back et checker le status code : OK 200 => rediredction vers la page home,
-      // si pas de réponse erreur 400 ou 404 mettre un message d'erreur
-      console.log("Envoyer les données du formulaire");
-      const found = entreprises.find((ent) => ent.siret === numeroSiret);
-      if (found) {
-        setEntrepriseTrouvee(found);
-        setStep(3);
-      } else {
-        alert("Aucune entreprise trouvée avec ce numéro de SIRET.");
-      }
+      fetch("http://localhost:3000/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            setAutorized(true);
+            setLoading(true);
+            dispatch(addTokenToStore(data));
+            setTimeout(() => {
+              // Passer à l'étape suivante après 2 secondes
+              setLoading(false);
+              setStep(2);
+            }, 2000);
+          } else {
+            setAutorized(false);
+          }
+        });
     }
+    // else if (step === 2) {
+    //   // Logic pour envoyer les données du formulaire
+    //   // envoie de l'email et du mot de passe au back end via un fetch
+    //   // attendre la reponse du back et checker le status code : OK 200 => rediredction vers la page home,
+    //   // si pas de réponse erreur 400 ou 404 mettre un message d'erreur
+    //   // console.log("Envoyer les données du formulaire");
+    //   // const found = entreprises.find((ent) => ent.siret === numeroSiret);
+    //   if (found) {
+    //     setEntrepriseTrouvee(found);
+    //     setStep(3);
+    //   } else {
+    //     alert("Aucune entreprise trouvée avec ce numéro de SIRET.");
+    //   }
+    // }
   };
 
-  // Fonction fictive pour rechercher une entreprise par SIRET
-  const rechercherEntreprise = async (siret) => {
+  // Fonction pour rechercher une entreprise par SIRET
+  const rechercherEntreprise = (siret) => {
+    fetch(`http://localhost:3000/companies/get/${siret}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log(data);
+          setStep(3);
+          setEntrepriseTrouvee(true);
+          setEntrepriseName(data.company.companyName);
+          setEntrepriseAddresse(
+            `${data.company.adress} ${data.company.postalCode} ${data.company.city}`
+          );
+        } else if (data.company === "company doesn't exist") {
+          setEntrepriseTrouvee(false);
+          alert("Aucune entreprise trouvée avec ce numéro de SIRET.");
+        } else {
+          setEntrepriseTrouvee(false);
+          alert("Une erreur est survenue");
+        }
+      });
+
     // Remplacez ceci par une requête à votre backend pour rechercher l'entreprise par SIRET
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          siret: "12345678901234",
-          nom: "Exemple d'entreprise",
-          adresse: "123 Rue Exemple, 75000 Paris",
-        });
-      }, 1000);
-    });
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve({
+    //       siret: "12345678901234",
+    //       nom: "Exemple d'entreprise",
+    //       adresse: "123 Rue Exemple, 75000 Paris",
+    //     });
+    //   }, 1000);
+    // });
   };
 
   const handleSelectEntreprise = () => {
-    setNomEntreprise(entrepriseTrouvee.nom);
-    setStep(4); // Passer à l'étape finale après la sélection de l'entreprise
+    fetch(`http://localhost:3000/users/post/${numeroSiret}/${token}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setStep(4); // Passer à l'étape finale après la sélection de l'entreprise
+        } else if (data.message === "User already owns this company") {
+          alert("Vous êtes déjà propriétaire de cette entreprise");
+        } else if (data.message === "User doesn't exist") {
+          alert("Il y a eu un problème lors de la création de votre compte");
+        } else {
+          alert("Un problème est survenu");
+        }
+      });
   };
 
   const handleSearchCancel = () => {
@@ -349,7 +386,13 @@ export default function Login() {
             {/* ********************* STEP 2 SI ENTREPRISE (NUMÉRO DE SIRET) ******************** */}
 
             {step === 2 && (
-              <form className="space-y-6 w-[100%]" onSubmit={handleSubmit}>
+              <form
+                className="space-y-6 w-[100%]"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  rechercherEntreprise(numeroSiret);
+                }}
+              >
                 <div className="mt-10">
                   <div className="flex">
                     <p className="text-xl mb-3">Compte créé avec succès !</p>
@@ -386,13 +429,12 @@ export default function Login() {
                     className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     {numeroSiret ? "Rechercher" : "Suivant"}
-                    if
                   </button>
                 </div>
               </form>
             )}
 
-            {/* ********************* STEP 2 Entreprise found ******************** */}
+            {/* ********************* STEP 3 Entreprise found ******************** */}
 
             {step === 3 && entrepriseTrouvee && (
               <div className="py-40">
@@ -402,16 +444,16 @@ export default function Login() {
                 <div className="w-[100%] bg-white h-[auto] flex flex-col px-5 py-5 border rounded-lg mb-10">
                   <p>
                     <span className="font-medium text-lg">Nom</span>:{" "}
-                    {entrepriseTrouvee.nom}
+                    {entrepriseName}
                   </p>
                   <p>
                     <span className="font-medium text-lg">Adresse</span>:{" "}
-                    {entrepriseTrouvee.adresse}
+                    {entrepriseAddresse}
                   </p>
                 </div>
                 <div className="flex mt-10">
                   <SecondaryButton
-                    text="Annuler"
+                    text="Retour"
                     hoverColor="hover:bg-[#B0C8DA]"
                     margin="mr-4"
                     clickFunc={handleSearchCancel}
@@ -465,7 +507,7 @@ export default function Login() {
                     text="Aller à la page d'accueil"
                     hoverColor="hover:bg-[#B0C8DA]"
                     margin="ml-4"
-                    clickFunc={handleSearchCancel}
+                    clickFunc={handleOpenHomePage}
                   />
                 </div>
               </div>
