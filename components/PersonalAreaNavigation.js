@@ -5,9 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { putCompanyToUser } from "@/reducers/companies";
 
 export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
+  const [entrepriseOptionIsOpen, setEntrepriseOptionIsOpen] = useState(false)
   const dispatch = useDispatch();
   const token = useSelector((state) => state.users.value.token);
   const hasACompany = useSelector((state) => state.companies.value.hasACompany);
+
+  const toggleDropdown = () => {
+    setEntrepriseOptionIsOpen(!entrepriseOptionIsOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    console.log(`Option ${option} clicked`);
+    setEntrepriseOptionIsOpen(false); // Ferme le menu après avoir cliqué sur une option
+  };
+ 
 
   useEffect(() => {
     fetch(`http://localhost:3000/users/infos/${token}`)
@@ -24,7 +35,10 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
   return (
     <div className="w-[32%] h-[100%] bg-white rounded-lg flex flex-col py-7 px-8">
       <div className="flex flex-col w-[100%]">
-        <button
+
+      {hasACompany && 
+      <>
+         <button
           onClick={() => setActiveTab("entreprises")}
           type="button"
           className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
@@ -88,9 +102,23 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
           </svg>
           Mes informations personnelles
         </button>
+        <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
+            <p className="mb-5">
+              Vous avez été désigné comme administrateur de votre entreprise{" "}
+            </p>
+            <PrimaryButton
+              text="Connecter mon entreprise"
+              bgColor="bg-[#003761]"
+              hoverColor="hover:bg-[#3371a1]"
+            />
+          </div>
+      </>
+      }
+       
 
         {/* notifications button  */}
-
+        {!hasACompany && 
+        <>
         <button
           onClick={() => setActiveTab("statistiques")}
           type="button"
@@ -112,8 +140,6 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
           </svg>
           Mes statistiques
         </button>
-
-        {/* mes kudos */}
         <button
           onClick={() => setActiveTab("kudos-liste")}
           type="button"
@@ -124,24 +150,70 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
           </div>
           Mes Kudos reçues
         </button>
+        <button
+          onClick={() => setActiveTab("mes-infos-entreprise")}
+          type="button"
+          className="flex items-center py-4 px-3 text-md mt-2 font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
+        >
+          <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 mr-3"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"
+            />
+          </svg>
+          </div>
+          Mes informations d'entreprise
+        </button>
+        
+       
+        </>
+        }
+
+        {/* mes kudos */}
       </div>
 
       {/* Modal se connecter à l'entreprise  */}
 
       <div className="flex flex-col mt-5">
-        {!hasACompany && (
-          <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
-            <p className="mb-5">
-              Vous avez été désigné comme administrateur de votre entreprise{" "}
-            </p>
-            <PrimaryButton
-              text="Connecter mon entreprise"
-              bgColor="bg-[#003761]"
-              hoverColor="hover:bg-[#3371a1]"
-            />
+      
+      <div className="relative inline-block text-left">
+      <button
+        type="button"
+        onClick={toggleDropdown}
+        className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        Options
+      </button>
+      {entrepriseOptionIsOpen && (
+        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <button
+              onClick={() => handleOptionClick('Option 1')}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+              role="menuitem"
+            >
+              Option 1
+            </button>
+            <button
+              onClick={() => handleOptionClick('Option 2')}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+              role="menuitem"
+            >
+              Option 2
+            </button>
           </div>
-        )}
-
+        </div>
+      )}
+    </div>
         <button
           onClick={onLogout}
           type="button"
