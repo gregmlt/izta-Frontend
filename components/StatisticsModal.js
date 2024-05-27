@@ -50,9 +50,7 @@ function StatisticsModal() {
         <>
           <p className="text-3xl font-medium">Mes statistiques</p>
           <p className="mt-4 w-[85%] mb-5">
-            Les détails que vous fournissez sur cette page seront accessibles au
-            public. Assurez-vous de ne partager que les incformations que vous
-            êtes à l'aise de rendre publiques.
+            Mesurez l'attractivité et l'image qu'à votre entreprise auprès des candidats grâce au nombre de likes et kudos reçus. Découvrez qui salue l'engagement de votre entreprise en cliquant sur "Voir mes kudos". 
           </p>
           <div className="flex">
             <div className="w-[30%] mr-10 shadow-lg rounded-md flex flex-col items-center justify-between p-3">
