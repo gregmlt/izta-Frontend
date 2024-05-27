@@ -13,7 +13,7 @@ export const usersSlice = createSlice({
       state.value.token = action.payload.token;
     },
     logout: (state) => {
-      state.token = null;
+      state.value.token = null;
     },
   },
 });

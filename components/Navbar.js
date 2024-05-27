@@ -11,10 +11,9 @@ import ProfileIcon from "./iconsSVG/ProfileIcon";
 export default function Navbar({ background }) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [isConnected, setIsConnected] = useState(false)
   
   const token = useSelector((state) => state.users.value.token);
-  
-  
   console.log(token)
 
   const handlePushToLogin = () => {
@@ -22,24 +21,21 @@ export default function Navbar({ background }) {
   };
   // Debug: Log the token value
   useEffect(() => {
+    setIsConnected(true)
     console.log("Current token:", token);
   }, [token]);
 
-  useEffect(() => {
-    const localStorageToken = localStorage.getItem('token');
-    if (!localStorageToken) {
-      dispatch(logout());
-    }
-  }, [dispatch]);
 
   const handleLogout = () => {
+    // Effacer le token dans le store Redux
     console.log('Déconnexion en cours...');
-    localStorage.removeItem('token');
-    console.log('Token supprimé de localStorage');
     dispatch(logout());
-    console.log('Action de déconnexion dispatchée');
+    console.log('Token supprimé de du store');
+    // Rediriger vers la page d'accueil
     router.push("./");
   };
+
+
 
 
   return (
@@ -60,7 +56,7 @@ export default function Navbar({ background }) {
       <div className="flex items-center">
         <SearchBar width="w-[300px]" />
         <div className="ml-3 flex items-center">
-        {!token && (
+        {token && (
             <>
               <div className="flex items-center">
                 <ProfileIcon />
@@ -70,7 +66,7 @@ export default function Navbar({ background }) {
               </div>
             </>
           )}
-          {token && (
+          {!token && (
             <PrimaryButton bgColor="bg-[#003761]" text="Connexion" hoverColor="hover:bg-[#3371a1]" clickFunc={handlePushToLogin} />
           )}
         </div>
