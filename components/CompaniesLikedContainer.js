@@ -21,7 +21,7 @@ export default function CompaniesLikedContainer() {
       if (response.ok) {
         const userData = await response.json();
         setCompaniesLikedList(userData.data.likedCompanies)
-        console.log(companiesLikedList)
+       
       } else {
         console.error('Erreur des données utilisateur');
       }
@@ -41,7 +41,8 @@ export default function CompaniesLikedContainer() {
         </p>
         {companiesLikedList.length > 0 ? (
         companiesLikedList.map((company, index) => (
-          <CompagniesMiniCard key={index} companyName={company.companyName}  />
+          
+          <CompagniesMiniCard key={index} companyName={company.companyName} companyId={company._id}  />
         ))
       ) : (
         <p>Vous n'avez pas d'entreprises likées</p>

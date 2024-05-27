@@ -14,7 +14,6 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log(data.data.company.length);
           if (data.data.company.length > 0) {
             dispatch(putCompanyToUser());
           }

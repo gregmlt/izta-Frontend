@@ -22,7 +22,6 @@ export default function Profile() {
     fetch(`http://localhost:3000/users/infos/${token}`)
     .then(response => response.json())
     .then(data => {
-      console.log(data.data)
       if(data.result) {
         setUserFirstName(data.data.firstname)
       } else {

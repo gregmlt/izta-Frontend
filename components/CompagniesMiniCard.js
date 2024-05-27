@@ -12,6 +12,7 @@ export default function CompagniesMiniCard({companyId,companyName
 }) {
   const router = useRouter();
   const handleRedirect = () => {
+    
     router.push(`/company/${companyId}`);
   };
 

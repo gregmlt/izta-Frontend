@@ -6,7 +6,8 @@ import KudosButton from './KudosButton'
 
 
 
-function CompanyInfoModal() {
+function CompanyInfoModal({
+  companyName}) {
 
 
   return (
@@ -23,7 +24,8 @@ function CompanyInfoModal() {
         <div className='p-3 flex flex-col w-[100%]'>
             <div className=' h-[50%] flex justify-between items-center'>
                 <div>
-                <h1 className='text-4xl font-bold'>Vinci</h1>
+                <h1 className='text-4xl font-bold'>{
+companyName}</h1>
                 <StarsSVGIcons />
                 </div>
                     <div className='mt-[-60px]'>
