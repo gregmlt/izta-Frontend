@@ -1,6 +1,5 @@
-import Footer from "@/components/Footer";
-import "@/styles/globals.css";
 
+import "@/styles/globals.css";
 import { Provider } from "react-redux";
 import users from "@/reducers/users";
 import companies from "@/reducers/companies";
@@ -31,7 +30,6 @@ export default function App({ Component, pageProps }) {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Component {...pageProps} />
-        <Footer />
       </PersistGate>
     </Provider>
   );

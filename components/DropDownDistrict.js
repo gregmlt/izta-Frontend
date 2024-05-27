@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function DropDownDistrict() {
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState({
-    filter1: false,
-    filter2: false,
-    filter3: false,
+    AuvergneRhôneAlpes: false,
+    BourgogneFrancheComte: false,
+    Bretagne: false,
+    CentreValDeLoire: false,
+    Corse: false,
+    GrandEst: false,
+    HautsDeFrance: false,
+    IleDeFrance: false,
+    Normandie: false,
+    NouvelleAquitaine: false,
+    Occitanie: false,
+    PaysDeLaLoire: false,
+    ProvenceAlpesCoteDAzur: false,
   });
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -19,13 +30,30 @@ export default function DropDownDistrict() {
     });
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left z-10" ref={dropdownRef}>
       <div>
         <button
           type="button"
           onClick={toggleDropdown}
-          className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#615e59] rounded-md outline outline-1 hover:bg-[#e6e0d3]  "
+          className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#615e59] rounded-md outline outline-1 hover:bg-[#e6e0d3]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,49 +74,34 @@ export default function DropDownDistrict() {
       </div>
 
       {isOpen && (
-        <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute right-0 w-80 mt-2 py-3 px-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div
             className="py-1"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter1"
-                  checked={filters.filter1}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Auvergne</span>
-              </label>
-            </div>
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter2"
-                  checked={filters.filter2}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Filtre 2</span>
-              </label>
-            </div>
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter3"
-                  checked={filters.filter3}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Filtre 3</span>
-              </label>
-            </div>
+            <p className="py-1 px-4 font-semibold">Sélectionner vos régions</p>
+            <div className="w-[100%] h-[1px] bg-gray-300 mt-2 mb-3"></div>
+            {Object.keys(filters).map((region) => (
+              <div key={region} className="px-4 py-2">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    name={region}
+                    checked={filters[region]}
+                    onChange={handleCheckboxChange}
+                    className="form-checkbox h-4 w-4 accent-[#003761] border-gray-300 rounded ring-[#003761] hover:ring-2 hover:ring-offset-2 cursor-pointer transition ease-in-out 700ms"
+                  />
+                  <span className="ml-2">
+                    {region
+                      .replace(/([A-Z])/g, " $1")
+                      .trim()
+                      .replace(/ /g, "-")}
+                  </span>
+                </label>
+              </div>
+            ))}
           </div>
         </div>
       )}

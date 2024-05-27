@@ -68,7 +68,7 @@ function TopCompaniesContainer() {
   };
 
   return (
-    <div className="text-balance my-10 px-4">
+    <div className="text-balance py-[72px]  ">
     <h1 className="w-full flex justify-center text-2xl md:text-4xl leading-6 font-bold text-[#003761] py-6 md:py-10">
       Découvrez les meilleurs entreprises
     </h1>

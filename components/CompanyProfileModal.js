@@ -6,12 +6,32 @@ import { useSelector } from "react-redux";
 function CompagnyProfileModal() {
   const [isEditing, setIsEditing] = useState(false);
   const [companyName, setCompanyName] = useState("");
+  const [description, setDescription] = useState("");
+  const [website, setWebsite] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [glassdoor, setGlassdoor] = useState("");
+  const [welcometothejungle, setWelcometothejungle] = useState("");
+  const [siren, setSiren] = useState(0);
   const [siret, setSiret] = useState(0);
   const [creationDate, setCreationDate] = useState("");
   const [adress, setAdress] = useState("");
   const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [employeeNumber, setEmployeeNumber] = useState();
+  const [postalCode, setPostalCode] = useState(0);
+  const [employeeNumber, setEmployeeNumber] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [labels, setLabels] = useState("");
+  const [pariteEntreprise, setPariteEntreprise] = useState(0);
+  const [pariteDirection, setPariteDirection] = useState(0);
+  const [ageMoyen, setAgeMoyen] = useState(0);
+  const [ecartSalaire, setEcartSalaire] = useState(0);
+  const [turnover, setTurnover] = useState(0);
+  const [mecenat, setMecenat] = useState("");
+  const [territorialScore, setTerritorialScore] = useState("");
+  const [socialScore, setSocialScore] = useState("");
+  const [fiscalScore, setFiscalScore] = useState("");
+  const [companyLogo, setCompanyLogo] = useState("");
+  const [kudos, setKudos] = useState([]);
+  const [like, setLike] = useState([]);
   const [employeeOptions, setEmployeeOptions] = useState([]);
   const [selectedLabel, setSelectedLabel] = useState("");
   const labelOptions = ["RSE Engagé", "Ecovadis", "B-corp", "Positive-company"];
@@ -29,26 +49,38 @@ function CompagnyProfileModal() {
 
   const token = useSelector((state) => state.users.value.token);
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/companies/infos/${token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCompanyName(data.data.companyName);
-        setSiret(data.data.siret);
-        setCreationDate(data.data.creationDate);
-        setPostalCode(data.data.creationDate);
-        if (data.data.employeeNumber) {
-          setFilters(data.data.employeeNumber);
-        }
-        const options = [
-          "1 000 à 1 999 salariés",
-          "2 000 à 4 999 salariés",
-          "5 000 à 9 999 salariés",
-          "10 000 salariés ou plus",
-        ];
-        setEmployeeOptions(options);
-      });
-  }, [token]);
+
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:3000/companies/infos/${token}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setCompanyName(data.data.companyName);
+  //       setDescription(data.data.description);
+  //       setWebsite(data.data.website);
+  //       setLinkedin(data.data.linkedin);
+  //       setGlassdoor(data.data.glassdoor);
+  //       setWelcometothejungle(data.data.welcometothejungle);
+  //       setSiren(data.data.siren);
+  //       setSiret(data.data.siret);
+  //       setAdress(data.data.adress);
+  //       setCity(data.data.city);
+  //       setAdress(data.data.adress);
+  //       setCity(data.data.city);
+  //       setCreationDate(data.data.creationDate);
+  //       setPostalCode(data.data.creationDate);
+  //       if (data.data.employeeNumber) {
+  //         setFilters(data.data.employeeNumber);
+  //       }
+  //       const options = [
+  //         "1 000 à 1 999 salariés",
+  //         "2 000 à 4 999 salariés",
+  //         "5 000 à 9 999 salariés",
+  //         "10 000 salariés ou plus",
+  //       ];
+  //       setEmployeeOptions(options);
+  //     });
+  // }, [token]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white rounded-md">
@@ -492,3 +524,4 @@ y compris sa mission et ses valeurs."
   );
 }
 export default CompagnyProfileModal;
+

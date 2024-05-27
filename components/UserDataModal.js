@@ -7,6 +7,7 @@ import SecondaryButton from "./SecondaryButton";
 import { useSelector } from "react-redux";
 import DateBirthPicker from "./DateBirthPicker";
 import FindACompany from "./FindACompany";
+import CompanyProfileModal from "./CompanyProfileModal"
 
 export default function UserDataModal({}) {
   const [isEditing, setIsEditing] = useState(false);
@@ -329,6 +330,7 @@ export default function UserDataModal({}) {
         />
       </div>
       <FindACompany />
+      <CompanyProfileModal />
     </div>
   );
 }

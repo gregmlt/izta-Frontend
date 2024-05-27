@@ -2,25 +2,32 @@ import CompaniesLikedContainer from "@/components/CompaniesLikedContainer";
 import Navbar from "@/components/Navbar";
 import PersonalAreaNavigation from "@/components/PersonalAreaNavigation";
 import UserDataModal from "@/components/UserDataModal.js";
-import CompagnyProfileModal from "@/components/CompanyProfileModal";
 import StatisticsModal from "@/components/StatisticsModal";
 import KudosListModal from "@/components/KudosListModal";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
+import PrimaryButton from "@/components/PrimaryButton";
+
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter();
+  const token = useSelector((state) => state.users.value.token);
+
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
     dispatch(logout());
     // Rediriger vers la page d'accueil
     router.push("/");
+  };
+
+  const handlePushToLogin = () => {
+    router.push("/login");
   };
 
   return (
@@ -39,6 +46,7 @@ export default function Profile() {
           </p>
         </div>
 
+
         {/* Modal personal navigation & display  */}
 
         <div className="flex justify-between">
@@ -51,8 +59,7 @@ export default function Profile() {
             {activeTab === "statistiques" && <StatisticsModal />}
             {activeTab === "infos-perso" && <UserDataModal />}
             {activeTab === "kudos-liste" && <KudosListModal />}
-
-            {/* <CompagnyProfileModal /> */}
+          <FindACompany />
           </div>
         </div>
       </div>

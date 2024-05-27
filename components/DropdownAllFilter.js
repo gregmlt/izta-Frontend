@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import AllFilters from "./AllFilters"; // Importez le composant enfant
 
 export default function DropdownAllFilter() {
   const [isOpen, setIsOpen] = useState(false);
-  const [filters, setFilters] = useState({
-    filter1: false,
-    filter2: false,
-    filter3: false,
-  });
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleCheckboxChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.checked,
-    });
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left" ref={dropdownRef}>
       <div>
         <button
           type="button"
@@ -33,7 +40,7 @@ export default function DropdownAllFilter() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5 mr-2 "
+            className="w-5 h-5 mr-2"
           >
             <path
               strokeLinecap="round"
@@ -46,50 +53,8 @@ export default function DropdownAllFilter() {
       </div>
 
       {isOpen && (
-        <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div
-            className="py-1"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="options-menu"
-          >
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter1"
-                  checked={filters.filter1}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Auvergne</span>
-              </label>
-            </div>
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter2"
-                  checked={filters.filter2}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Filtre 2</span>
-              </label>
-            </div>
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter3"
-                  checked={filters.filter3}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Filtre 3</span>
-              </label>
-            </div>
-          </div>
+        <div className="absolute right-0 w-[600px] h-[auto] mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll max-h-96">
+          <AllFilters />
         </div>
       )}
     </div>

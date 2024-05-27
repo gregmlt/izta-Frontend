@@ -1,6 +1,6 @@
 import React from "react";
 
-function LinkedinSVGIcons({color= "white"}) {
+function LinkedinSVGIcons({color="#0A66C2", hover}) {
   return (
     <div>
       <svg
