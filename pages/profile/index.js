@@ -9,9 +9,6 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
-import { useDispatch, useSelector } from "react-redux";
-import FindACompany from "@/components/FindACompany";
-
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
@@ -19,21 +16,18 @@ export default function Profile() {
   const token = useSelector((state) => state.users.value.token);
   const dispatch = useDispatch();
   const router = useRouter();
-  
 
   useEffect(() => {
     fetch(`http://localhost:3000/users/infos/${token}`)
-    .then(response => response.json())
-    .then(data => {
-      if(data.result) {
-        setUserFirstName(data.data.firstname)
-      } else {
-        console.error('Utilisateur non connecté')
-      }
-    })
-    
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setUserFirstName(data.data.firstname);
+        } else {
+          console.error("Utilisateur non connecté");
+        }
+      });
   }, [token]);
- 
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
