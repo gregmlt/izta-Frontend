@@ -4,7 +4,7 @@ import ClapSVGIcons from "./iconsSVG/ClapSVGIcons";
 import LinkedinSVGIcons from "./iconsSVG/LinkedinSVGIcons";
 import { useSelector } from "react-redux";
 
-function KudosListModal() {
+function KudosListModal({ close }) {
   const token = useSelector((state) => state.users.value.token);
   const [jsx, setJsx] = useState(null);
 
@@ -43,9 +43,9 @@ function KudosListModal() {
 
   return (
     <div>
-      <p className="text-3xl font-medium mb-5">Mes statistiques</p>
+      <p className="text-3xl font-medium mb-5">Mes kudos reçus</p>
       <div className="shadow-lg">
-        <div className="flex justify-between items-center border-b-2 p-5 mb-[100px]">
+        <div onClick={close} className="flex justify-between items-center border-b-2 p-5 mb-[100px]">
           <ArrowLeftSVGIcons />
           <div className="flex justify-between">
             <ClapSVGIcons />
