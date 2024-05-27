@@ -9,8 +9,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
-import { useDispatch, useSelector } from "react-redux";
-import FindACompany from "@/components/FindACompany";
+
 
 
 export default function Profile() {

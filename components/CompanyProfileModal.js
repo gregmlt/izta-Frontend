@@ -16,6 +16,7 @@ function CompagnyProfileModal() {
   const [creationDate, setCreationDate] = useState("");
   const [adress, setAdress] = useState("");
   const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
   const [postalCode, setPostalCode] = useState(0);
   const [employeeNumber, setEmployeeNumber] = useState("");
   const [industry, setIndustry] = useState("");
@@ -43,44 +44,105 @@ function CompagnyProfileModal() {
   const handleLabelChange = (e) => {
     setSelectedLabel(e.target.value);
   };
+
   const handleEditClick = (e) => {
     if (e !== "password") setIsEditing(true);
   };
 
+ 
   const token = useSelector((state) => state.users.value.token);
 
 
+  ///////// recuperation des données de l'entreprise ////////
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:3000/companies/infos/${token}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setCompanyName(data.data.companyName);
-  //       setDescription(data.data.description);
-  //       setWebsite(data.data.website);
-  //       setLinkedin(data.data.linkedin);
-  //       setGlassdoor(data.data.glassdoor);
-  //       setWelcometothejungle(data.data.welcometothejungle);
-  //       setSiren(data.data.siren);
-  //       setSiret(data.data.siret);
-  //       setAdress(data.data.adress);
-  //       setCity(data.data.city);
-  //       setAdress(data.data.adress);
-  //       setCity(data.data.city);
-  //       setCreationDate(data.data.creationDate);
-  //       setPostalCode(data.data.creationDate);
-  //       if (data.data.employeeNumber) {
-  //         setFilters(data.data.employeeNumber);
-  //       }
-  //       const options = [
-  //         "1 000 à 1 999 salariés",
-  //         "2 000 à 4 999 salariés",
-  //         "5 000 à 9 999 salariés",
-  //         "10 000 salariés ou plus",
-  //       ];
-  //       setEmployeeOptions(options);
-  //     });
-  // }, [token]);
+  useEffect(() => {
+    fetch(`http://localhost:3000/companies/infos/${token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result && data.data.length > 0) {
+          const companyData = data.data[0];
+          setCompanyName(companyData.companyName);
+          setDescription(companyData.description);
+          setWebsite(companyData.website);
+          setLinkedin(companyData.linkedin);
+          setGlassdoor(companyData.glassdoor);
+          setWelcometothejungle(companyData.welcometothejungle);
+          setSiren(companyData.siren);
+          setSiret(companyData.siret);
+          setAdress(companyData.adress);
+          setCity(companyData.city);
+          setDistrict(companyData.region);
+          setCreationDate(companyData.creationDate);
+          setPostalCode(companyData.postalCode);
+          setEmployeeNumber(companyData.employeeNumber);
+          setTerritorialScore(companyData.territorialScore);
+          setSocialScore(companyData.socialScore);
+          setFiscalScore(companyData.fiscalScore);
+          setCompanyLogo(companyData.companyLogo);
+          setKudos(companyData.kudos);
+          setLike(companyData.like);
+
+          const options = [
+            "1 000 à 1 999 salariés",
+            "2 000 à 4 999 salariés",
+            "5 000 à 9 999 salariés",
+            "10 000 salariés ou plus",
+          ];
+          setEmployeeOptions(options);
+        }
+      })
+      .catch((error) => console.error("Error fetching company data:", error));
+  }, [token]);
+
+  ///////// fetch method PUT pour modifier les données de l'entreprise ////////
+
+  const handleSaveChanges = () => {
+    const updatedData = {
+      companyName,
+      description,
+      website,
+      linkedin,
+      glassdoor,
+      welcometothejungle,
+      siren,
+      siret,
+      creationDate,
+      adress,
+      city,
+      postalCode,
+      employeeNumber,
+      industry,
+      labels,
+      pariteEntreprise,
+      pariteDirection,
+      ageMoyen,
+      ecartSalaire,
+      turnover,
+      mecenat,
+      territorialScore,
+      socialScore,
+      fiscalScore,
+      companyLogo,
+      kudos,
+      like,
+    };
+
+    fetch(`http://localhost:3000/companies/infos/${company._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log("Company data updated successfully:", data);
+          setIsEditing(false);
+        } else {
+          console.error("Error updating company data:", data);
+        }
+      })
+      .catch((error) => console.error("Error updating company data:", error));
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-white rounded-md">
@@ -97,7 +159,6 @@ function CompagnyProfileModal() {
       </div>
 
       {/* champs nom et description entreprise */}
-
       <div className="mt-10 bg-white rounded w-[80%]">
         <div className="mb-4 w-full">
           <label className="block font-md">Nom de l'entreprise</label>
@@ -114,10 +175,13 @@ function CompagnyProfileModal() {
           <label className="block">Description</label>
           <textarea
             id="description"
+            value={description}
             className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             rows="4"
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Donnez une brève introduction de votre entreprise, 
 y compris sa mission et ses valeurs."
+            disabled={!isEditing}
           />
         </div>
       </div>
@@ -128,28 +192,40 @@ y compris sa mission et ses valeurs."
         <div className="mb-4 flex flex-col">
           <input
             type="text"
+            value={website}
             className="rounded-sm border border-slate-300 px-3 py-2"
+            onChange={(e) => setWebsite(e.target.value)}
+            disabled={!isEditing}
           />
           <label className="text-gray-600 text-sm mt-1">Site web</label>
         </div>
         <div className="mb-4 flex flex-col">
           <input
             type="text"
+            value={linkedin}
             className="rounded-sm border border-slate-300 px-3 py-2"
+            onChange={(e) => setLinkedin(e.target.value)}
+            disabled={!isEditing}
           />
           <label className="text-gray-600 text-sm mt-1">LinkedIn</label>
         </div>
         <div className="mb-4 flex flex-col">
           <input
             type="text"
+            value={glassdoor}
             className="rounded-sm border border-slate-300 px-3 py-2"
+            onChange={(e) => setGlassdoor(e.target.value)}
+            disabled={!isEditing}
           />
           <label className="text-gray-600 text-sm mt-1">Glassdoor</label>
         </div>
         <div className="mb-4 flex flex-col">
           <input
             type="text"
+            value={welcometothejungle}
             className="rounded-sm border border-slate-300 px-3 py-2"
+            onChange={(e) => setWelcometothejungle(e.target.value)}
+            disabled={!isEditing}
           />
           <label className="text-gray-600 text-sm mt-1">
             Welcome to the Jungle
@@ -160,7 +236,6 @@ y compris sa mission et ses valeurs."
       <div className="w-[100%] h-[1px] bg-gray-300 mt-14"></div>
 
       {/* champs informations administratives */}
-
       <div>
         <p className="text-2xl font-medium mt-7 mb-9">
           Informations administratives
@@ -176,7 +251,8 @@ y compris sa mission et ses valeurs."
               </label>
               <input
                 type="text"
-                id={siret}
+                id="siretNumber"
+                value={siret}
                 className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 onChange={(e) => setSiret(e.target.value)}
                 disabled={!isEditing}
@@ -240,6 +316,7 @@ y compris sa mission et ses valeurs."
               <select
                 id="region"
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                disabled={!isEditing}
               >
                 <option value="">Sélectionner</option>
                 {/* Ajouter d'autres options ici */}
@@ -295,7 +372,10 @@ y compris sa mission et ses valeurs."
               </label>
               <select
                 id="industry"
+                value={industry}
+                onChange={(e) => setIndustry(e.target.value)}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                disabled={!isEditing}
               >
                 <option value="">Sélectionner</option>
                 {/* Ajouter d'autres options ici */}
@@ -326,33 +406,30 @@ y compris sa mission et ses valeurs."
           </div>
         </div>
       </div>
-
+      <div className="w-[100%] h-[1px] bg-gray-300 mt-14"></div>
       <div>
         <p className="text-2xl font-medium mt-7 mb-9">
-          Informations administratives
+          Informations complémentaires
         </p>
       </div>
 
       {/* champs informations complémentaires */}
-      <div className="flex flex-col items-center justify-center min-h-screen p-4">
-        <div className="bg-white p-6 w-full max-w-2xl">
-          <h3 className="text-xl font-bold mb-6">
-            Informations complémentaires
-          </h3>
-
+      <div className="flex flex-col items-center justify-center">
+        <div className="bg-white w-full ">
           {/* Group 1: Parité entreprise */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Parité entreprise
             </label>
-            <div className="flex flex-wrap -mx-2 mb-2">
-              <div className="w-full md:w-1/2 px-2 flex items-center">
+            <div className="flex w-[60%]">
+              <div className="w-full px-2 flex items-center">
                 <svg
                   fill="none"
                   height="24"
                   viewBox="0 0 24 24"
                   width="24"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="mr-3"
                 >
                   <g
                     stroke="#292d32"
@@ -371,13 +448,14 @@ y compris sa mission et ses valeurs."
                   placeholder="Nombre d'hommes"
                 />
               </div>
-              <div className="w-full md:w-1/2 px-2 flex items-center">
+              <div className="w-full px-2 flex items-center">
                 <svg
                   fill="none"
                   height="24"
                   viewBox="0 0 24 24"
                   width="24"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="mr-3"
                 >
                   <g
                     stroke="#292d32"
@@ -404,14 +482,15 @@ y compris sa mission et ses valeurs."
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Parité au sein de la direction
             </label>
-            <div className="flex flex-wrap -mx-2 mb-2">
-              <div className="w-full md:w-1/2 px-2 flex items-center">
+            <div className="flex w-[60%]">
+              <div className="w-full px-2 flex items-center">
                 <svg
                   fill="none"
                   height="24"
                   viewBox="0 0 24 24"
                   width="24"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="mr-3"
                 >
                   <g
                     stroke="#292d32"
@@ -426,17 +505,18 @@ y compris sa mission et ses valeurs."
                 </svg>
                 <input
                   type="text"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Nombre d'hommes"
                 />
               </div>
-              <div className="w-full md:w-1/2 px-2 flex items-center">
+              <div className="w-full px-2 flex items-center">
                 <svg
                   fill="none"
                   height="24"
                   viewBox="0 0 24 24"
                   width="24"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="mr-3"
                 >
                   <g
                     stroke="#292d32"
@@ -459,52 +539,74 @@ y compris sa mission et ses valeurs."
           </div>
 
           {/* Group 3: Age moyen et Ecart de salaire maximum */}
-          <div className="flex flex-wrap -mx-2 mb-4">
-            <div className="w-full md:w-1/2 px-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Age moyen
-              </label>
-              <select className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                <option value="">Sélectionner</option>
-                {/* Ajouter d'autres options ici */}
-              </select>
+          <div className="flex flex-col w-full mt-10">
+            <div className="flex">
+              <div className="w-[35%] pr-3">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Age moyen
+                </label>
+                <select
+                  value={ageMoyen}
+                  onChange={(e) => setAgeMoyen(e.target.value)}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  disabled={!isEditing}
+                >
+                  <option value="">Sélectionner</option>
+                  {/* Ajouter d'autres options ici */}
+                </select>
+              </div>
+              <div className=" w-[35%]">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Ecart de salaire maximum
+                </label>
+                <select
+                  value={ecartSalaire}
+                  onChange={(e) => setEcartSalaire(e.target.value)}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  disabled={!isEditing}
+                >
+                  <option value="">Sélectionner</option>
+                  {/* Ajouter d'autres options ici */}
+                </select>
+              </div>
             </div>
-            <div className="w-full md:w-1/2 px-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Ecart de salaire maximum
-              </label>
-              <select className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                <option value="">Sélectionner</option>
-                {/* Ajouter d'autres options ici */}
-              </select>
-            </div>
-          </div>
 
-          {/* Group 4: Turnover et Mécénat */}
-          <div className="flex flex-wrap -mx-2 mb-4">
-            <div className="w-full md:w-1/2 px-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Turnover
-              </label>
-              <select className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                <option value="">Sélectionner</option>
-                {/* Ajouter d'autres options ici */}
-              </select>
-            </div>
-            <div className="w-full md:w-1/2 px-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Mécénat
-              </label>
-              <select className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                <option value="">Sélectionner</option>
-                {/* Ajouter d'autres options ici */}
-              </select>
+            {/* Group 4: Turnover et Mécénat */}
+            <div className="flex mt-4">
+              <div className="w-[35%] pr-3 ">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Turnover
+                </label>
+                <select
+                  value={turnover}
+                  onChange={(e) => setTurnover(e.target.value)}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  disabled={!isEditing}
+                >
+                  <option value="">Sélectionner</option>
+                  {/* Ajouter d'autres options ici */}
+                </select>
+              </div>
+              <div className="w-[35%]">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Mécénat
+                </label>
+                <select
+                  value={mecenat}
+                  onChange={(e) => setMecenat(e.target.value)}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  disabled={!isEditing}
+                >
+                  <option value="">Sélectionner</option>
+                  {/* Ajouter d'autres options ici */}
+                </select>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-16">
         <div className="mr-3">
           <PrimaryButton
             text="Annuler"
@@ -517,11 +619,12 @@ y compris sa mission et ses valeurs."
             bgColor="bg-[#003761]"
             text="Enregistrer les modifications"
             hoverColor="hover:bg-[#3371a1]"
+            clickFunc={handleSaveChanges}
           />
         </div>
       </div>
     </div>
   );
 }
-export default CompagnyProfileModal;
 
+export default CompagnyProfileModal;

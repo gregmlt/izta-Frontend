@@ -141,6 +141,7 @@ export default function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.result) {
           setStep(4); // Passer à l'étape finale après la sélection de l'entreprise
         } else if (data.message === "User already owns this company") {
@@ -179,7 +180,8 @@ export default function Login() {
       <div className="flex ">
         <div className=" flex justify-center items-center bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/images/Team-building.jpg')] w-[50%] h-[100vh] bg-right bg-cover ">
           <p className="w-[700px] text-5xl font-medium text-white ">
-          Engageons-nous aujourd'hui pour faire de chaque projet un moteur de changement positif.
+            Engageons-nous aujourd'hui pour faire de chaque projet un moteur de
+            changement positif.
           </p>
         </div>
         <div className="flex flex-col items-center justify-center w-[50%] h-[100vh]">

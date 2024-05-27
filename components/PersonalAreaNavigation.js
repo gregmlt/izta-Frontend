@@ -13,16 +13,13 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
     fetch(`http://localhost:3000/users/infos/${token}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data.result) {
-          console.log(data.data.company.length);
+        if (data.result && data.data.company) {
           if (data.data.company.length > 0) {
             dispatch(putCompanyToUser());
           }
         }
       });
   }, [hasACompany]);
-
-  console.log(hasACompany);
 
   return (
     <div className="w-[32%] h-[100%] bg-white rounded-lg flex flex-col py-7 px-8">
