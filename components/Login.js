@@ -23,6 +23,7 @@ export default function Login() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          console.log(data);
           dispatch(addTokenToStore(data));
           router.push("/profile");
           setAutorized(true);
