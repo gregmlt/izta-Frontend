@@ -69,21 +69,18 @@ export default function Profile() {
           />
           <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
 
-            {hasACompany ? 
-
-            <>
+           
+           
             {activeTab === "entreprises" && <CompaniesLikedContainer />}
             {activeTab === "statistiques" && <StatisticsModal />}
             {activeTab === "infos-perso" && <UserDataModal />}
             {activeTab === "kudos-liste" && <KudosListModal />}
-            <FindACompany />
-            </>
-             :
-            <CompagnyProfileModal />
-            }
-
+            {activeTab === "mes-infos-entreprise" && <CompagnyProfileModal />}
+            {activeTab === "trouver-entreprise" && <FindACompany />}
            
-          
+           
+           
+
           </div>
         </div>
       </div>
