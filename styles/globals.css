@@ -24,3 +24,21 @@ body {
   }
 }
 
+@layer utilities {
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(5px);
+    }
+  }
+
+  .hover-slide-right {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .hover-slide-right:hover {
+    transform: translateX(10px);
+  }
+}
