@@ -12,7 +12,6 @@ export default function FindACompany() {
   const [entrepriseAddresse, setEntrepriseAddresse] = useState("");
   const [numeroSiret, setNumeroSiret] = useState("");
   const [step, setStep] = useState(1); // état pour gérer les étapes du formulaire
-  const [loading, setLoading] = useState(false); // état pour gérer le loader
 
   const token = useSelector((state) => state.users.value.token);
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ export default function FindACompany() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log(data);
           setStep(2);
           setEntrepriseTrouvee(true);
           setEntrepriseName(data.company.companyName);
