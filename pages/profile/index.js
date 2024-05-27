@@ -4,13 +4,12 @@ import PersonalAreaNavigation from "@/components/PersonalAreaNavigation";
 import UserDataModal from "@/components/UserDataModal.js";
 import StatisticsModal from "@/components/StatisticsModal";
 import KudosListModal from "@/components/KudosListModal";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { logout } from "@/reducers/users";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import FindACompany from "@/components/FindACompany";
+
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
@@ -24,18 +23,15 @@ export default function Profile() {
     fetch(`http://localhost:3000/users/infos/${token}`)
     .then(response => response.json())
     .then(data => {
-      console.log(data.data)
       if(data.result) {
         setUserFirstName(data.data.firstname)
       } else {
-        console.error(error)
+        console.error('Utilisateur non connecté')
       }
     })
     
   }, [token]);
  
-
-  
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
