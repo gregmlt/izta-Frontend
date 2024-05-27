@@ -125,7 +125,7 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
           <div className="mr-3 ml-[-8px]">
             <ClapSVGIcons color="black" />
           </div>
-          Mes Kudos reçues
+          Mes Kudos reçus
         </button>
       </div>
 
