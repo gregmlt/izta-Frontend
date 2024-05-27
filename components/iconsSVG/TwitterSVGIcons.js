@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TwitterSVGIcons({color="white"}) {
+function TwitterSVGIcons({color="black"}) {
   return (
     <div>
         <svg className='fill-current' width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">

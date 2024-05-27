@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-export default function DropDownActivityArea() {
+export default function DropDownSectors() {
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState({
-    filter1: false,
-    filter2: false,
-    filter3: false,
+    AdministrationPublique: false,
+    AgricultureSylvicultureEtPêche: false,
+    ArtsSpectaclesEtActivitésRécréatives: false,
+    Commerce: false,
+    ConstructionEtImmobilier: false,
+    ÉducationEtFormation: false,
+    Énergie: false,
+    Industrie: false,
+    InformationEtCommunication: false,
+    RechercheEtDéveloppement: false,
+    SantéEtActionSociale: false,
+    ServicesFinanciers: false,
+    TransportsEtLogistique: false,
+    TourismeEtHôtellerie: false,
   });
+
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -19,13 +32,31 @@ export default function DropDownActivityArea() {
     });
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left z-10" ref={dropdownRef}>
       <div>
         <button
           type="button"
           onClick={toggleDropdown}
-          className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#615e59] rounded-md outline outline-1 hover:bg-[#e6e0d3]  "
+          className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#615e59] rounded-md outline outline-1 hover:bg-[#e6e0d3]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,57 +69,37 @@ export default function DropDownActivityArea() {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"
+              d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
             />
           </svg>
-          Secteur
+          Secteurs
         </button>
       </div>
 
       {isOpen && (
-        <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute right-0 w-[400px] mt-2 py-3 px-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div
             className="py-1"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter1"
-                  checked={filters.filter1}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Auvergne</span>
-              </label>
-            </div>
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter2"
-                  checked={filters.filter2}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Filtre 2</span>
-              </label>
-            </div>
-            <div className="px-4 py-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="filter3"
-                  checked={filters.filter3}
-                  onChange={handleCheckboxChange}
-                  className="form-checkbox"
-                />
-                <span className="ml-2">Filtre 3</span>
-              </label>
-            </div>
+            <p className="py-1 px-4 font-semibold">Sélectionner les secteurs</p>
+            <div className="w-[100%] h-[1px] bg-gray-300 mt-2 mb-3"></div>
+            {Object.keys(filters).map((sector) => (
+              <div key={sector} className="px-4 py-2">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    name={sector}
+                    checked={filters[sector]}
+                    onChange={handleCheckboxChange}
+                    className="form-checkbox h-4 w-4 accent-[#003761] border-gray-300 rounded ring-[#003761] hover:ring-2 hover:ring-offset-2 cursor-pointer transition ease-in-out 700ms"
+                  />
+                  <span className="ml-2">{sector.replace(/([A-Z])/g, ' $1').trim()}</span>
+                </label>
+              </div>
+            ))}
           </div>
         </div>
       )}

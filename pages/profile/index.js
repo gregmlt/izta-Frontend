@@ -2,13 +2,13 @@ import CompaniesLikedContainer from "@/components/CompaniesLikedContainer";
 import Navbar from "@/components/Navbar";
 import PersonalAreaNavigation from "@/components/PersonalAreaNavigation";
 import UserDataModal from "@/components/UserDataModal.js";
-import CompagnyProfileModal from "@/components/CompanyProfileModal";
 import StatisticsModal from "@/components/StatisticsModal";
 import KudosListModal from "@/components/KudosListModal";
-import React, { useState, useEffect } from "react";
-import { logout } from "@/reducers/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import { logout } from "@/reducers/users";
+import FindACompany from "@/components/FindACompany";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
@@ -16,29 +16,28 @@ export default function Profile() {
   const token = useSelector((state) => state.users.value.token);
   const dispatch = useDispatch();
   const router = useRouter();
-  
 
   useEffect(() => {
     fetch(`http://localhost:3000/users/infos/${token}`)
-    .then(response => response.json())
-    .then(data => {
-      if(data.result) {
-        setUserFirstName(data.data.firstname)
-      } else {
-        console.error(error)
-      }
-    })
-    
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setUserFirstName(data.data.firstname);
+        } else {
+          console.error("Utilisateur non connecté");
+        }
+      });
   }, [token]);
- 
-
-  
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
     dispatch(logout());
     // Rediriger vers la page d'accueil
     router.push("/");
+  };
+
+  const handlePushToLogin = () => {
+    router.push("/login");
   };
 
   return (
@@ -69,8 +68,7 @@ export default function Profile() {
             {activeTab === "statistiques" && <StatisticsModal />}
             {activeTab === "infos-perso" && <UserDataModal />}
             {activeTab === "kudos-liste" && <KudosListModal />}
-
-            {/* <CompagnyProfileModal /> */}
+            <FindACompany />
           </div>
         </div>
       </div>

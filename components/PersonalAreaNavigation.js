@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PrimaryButton from "./PrimaryButton";
 import ClapSVGIcons from "./iconsSVG/ClapSVGIcons";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCompanyFromUser, putCompanyToUser } from "@/reducers/companies";
+import { putCompanyToUser } from "@/reducers/companies";
 
 export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
   const dispatch = useDispatch();
@@ -20,8 +20,6 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
         }
       });
   }, [hasACompany]);
-
-  console.log(hasACompany);
 
   return (
     <div className="w-[32%] h-[100%] bg-white rounded-lg flex flex-col py-7 px-8">
@@ -134,7 +132,7 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
         {!hasACompany && (
           <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
             <p className="mb-5">
-              Vous avez été désigner comme administrateur de votre entreprise{" "}
+              Vous avez été désigné comme administrateur de votre entreprise{" "}
             </p>
             <PrimaryButton
               text="Connecter mon entreprise"

@@ -179,7 +179,7 @@ export default function Login() {
       <div className="flex ">
         <div className=" flex justify-center items-center bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/images/Team-building.jpg')] w-[50%] h-[100vh] bg-right bg-cover ">
           <p className="w-[700px] text-5xl font-medium text-white ">
-            Votre engagement commence ici
+          Engageons-nous aujourd'hui pour faire de chaque projet un moteur de changement positif.
           </p>
         </div>
         <div className="flex flex-col items-center justify-center w-[50%] h-[100vh]">

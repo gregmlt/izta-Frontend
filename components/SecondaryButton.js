@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function SecondaryButton({ clickFunc, text, hoverColor, margin }) {
+export default function SecondaryButton({
+  clickFunc,
+  text,
+  hoverColor,
+  margin,
+}) {
   return (
     <div>
       <button
