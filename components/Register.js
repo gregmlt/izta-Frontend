@@ -192,7 +192,7 @@ export default function Login() {
               alt="Your Company"
             />
             <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-[#004E89]">
-              Créer votre compte
+              Créez votre compte
             </h2>
           </div>
 
@@ -215,7 +215,7 @@ export default function Login() {
                         htmlFor="surname"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Prenom
+                        Prénom
                       </label>
                       <div className="mt-2">
                         <input
@@ -359,12 +359,11 @@ export default function Login() {
                   </p>
                   <ul className="mt-3 list-disc">
                     <li>
-                      Visiter votre profil pour personnaliser vos préférences et
-                      compléter votre profil.
+                      Visiter mon profil pour personnaliser mes préférences et
+                      compléter mes données.
                     </li>
                     <li>
-                      Explorer la page d'accueil pour découvrir ce que nous
-                      offrons.
+                      Retourner à l'accueil.
                     </li>
                   </ul>
                 </p>

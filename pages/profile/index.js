@@ -2,6 +2,7 @@ import CompaniesLikedContainer from "@/components/CompaniesLikedContainer";
 import Navbar from "@/components/Navbar";
 import PersonalAreaNavigation from "@/components/PersonalAreaNavigation";
 import UserDataModal from "@/components/UserDataModal.js";
+import CompagnyProfileModal from "@/components/CompanyProfileModal";
 import StatisticsModal from "@/components/StatisticsModal";
 import KudosListModal from "@/components/KudosListModal";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,28 +12,26 @@ import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
 
 
-
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
   const [userFirstName, setUserFirstName] = useState("");
+  const [hasACompany, setHasCompany] = useState(false)
   const token = useSelector((state) => state.users.value.token);
   const dispatch = useDispatch();
   const router = useRouter();
-  
 
   useEffect(() => {
     fetch(`http://localhost:3000/users/infos/${token}`)
-    .then(response => response.json())
-    .then(data => {
-      if(data.result) {
-        setUserFirstName(data.data.firstname)
-      } else {
-        console.error('Utilisateur non connecté')
-      }
-    })
-    
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setHasCompany(data.data.company.length === 0)
+          setUserFirstName(data.data.firstname);
+        } else {
+          console.error("Utilisateur non connecté");
+        }
+      });
   }, [token]);
- 
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
@@ -69,11 +68,19 @@ export default function Profile() {
             onLogout={handleLogout}
           />
           <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
+
+           
+           
             {activeTab === "entreprises" && <CompaniesLikedContainer />}
             {activeTab === "statistiques" && <StatisticsModal />}
             {activeTab === "infos-perso" && <UserDataModal />}
             {activeTab === "kudos-liste" && <KudosListModal />}
-            <FindACompany />
+            {activeTab === "mes-infos-entreprise" && <CompagnyProfileModal />}
+            {activeTab === "trouver-entreprise" && <FindACompany />}
+           
+           
+           
+
           </div>
         </div>
       </div>
