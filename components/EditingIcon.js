@@ -1,18 +1,15 @@
 import React from "react";
 
-export default function EditingIcon({ func }) {
+export default function EditingIcon({ margin }) {
   return (
-    <div
-      onClick={func}
-      className=" flex cursor-pointer p-5 w-[65px] rounded-full bg-gray-200 hover:bg-[#f2c9ba]"
-    >
+    <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6 cursor-pointer items-center justify-center"
+          className={`w-6 h-6 ${margin}`}
         >
           <path
             strokeLinecap="round"
