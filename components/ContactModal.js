@@ -6,7 +6,6 @@ function ContactModal() {
   const [Email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState(""); // Ajoutez l'état pour le numéro de téléphone
-  const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
 
 
@@ -24,6 +23,7 @@ function ContactModal() {
       const data = await response.json();
       if (data.success) {
         alert("Message envoyé avec succès");
+        resetForm();
       } else {
         setError("Erreur lors de l'envoi du message");
       }
@@ -31,6 +31,14 @@ function ContactModal() {
       console.error("Error:", error);
       setError("Erreur lors de l'envoi du message");
     }
+  };
+
+  const resetForm = () => {
+    setName("");
+    setEmail("");
+    setMessage("");
+    setPhone("");
+    setError("");
   };
 
   return (
