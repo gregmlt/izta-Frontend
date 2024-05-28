@@ -40,23 +40,23 @@ export default function HomeContainer() {
       <div>
         <div className="w-[100%] h-[300px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1))] flex justify-evenly">
           <div className="flex flex-col justify-center items-center text-white">
-            <p className="font-bold text-5xl">+50 000€</p>
-            <p className="font- text-xl">de promesse de dons</p>
+            <p className="font-bold text-5xl">+590</p>
+            <p className="font- text-xl">entreprises évaluées</p>
           </div>
 
           <div className="flex flex-col justify-center items-center text-white">
-            <p className="font-bold text-5xl">50</p>
-            <p className="font- text-xl">associations partenaires</p>
+            <p className="font-bold text-5xl">5</p>
+            <p className="font- text-xl">labels </p>
           </div>
 
           <div className="flex flex-col justify-center items-center text-white">
             <p className="font-bold text-5xl">10</p>
-            <p className="font- text-xl">entreprises</p>
+            <p className="font- text-xl">entreprises partenaires</p>
           </div>
 
           <div className="flex flex-col justify-center items-center text-white">
-            <p className="font-bold text-5xl">6000</p>
-            <p className="font- text-xl">employés à mobiliser</p>
+            <p className="font-bold text-5xl">+1M</p>
+            <p className="font- text-xl">employés concernés</p>
           </div>
         </div>
       </div>
