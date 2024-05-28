@@ -3,56 +3,42 @@ import PrimaryButton from "./PrimaryButton";
 
 function ContactModal() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [Email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState(""); // Ajoutez l'état pour le numéro de téléphone
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (!consent) {
-  //     setError("Vous devez accepter les termes et conditions pour continuer.");
-  //     return;
-  //   }
-  //   console.log({ name, email, message, phone });
-  //   setError("");
-  // };
-
 
   const handleSubmit = async (e) => {
+    console.log("click");
     e.preventDefault();
-    if (!consent) {
-      setError("Vous devez accepter les termes et conditions pour continuer.");
-      return;
-    }
     try {
-      const response = await fetch("http://localhost:3000/send-email", {
+      const response = await fetch("http://localhost:3000/form/form-data", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, message, phone })
+        body: JSON.stringify({ name, email: Email, message, phone }),
       });
       const data = await response.json();
       if (data.success) {
-        alert("Email envoyé avec succès");
+        alert("Message envoyé avec succès");
       } else {
-        setError("Erreur lors de l'envoi de l'email");
+        setError("Erreur lors de l'envoi du message");
       }
     } catch (error) {
       console.error("Error:", error);
-      setError("Erreur lors de l'envoi de l'email");
+      setError("Erreur lors de l'envoi du message");
     }
   };
-
 
   return (
     <div className="w-[100%] h-auto bg-white rounded-md mt-10 ">
       <p className="text-lg font-medium mb-10">
         Notre équipe est prête à vous répondre et à vous assister.
       </p>
-      <form onSubmit={handleSubmit} className="">
+      <div className="">
         <div className="mb-4 mt-4">
           <label
             htmlFor="name"
@@ -97,7 +83,7 @@ function ContactModal() {
             type="email"
             id="email"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            value={email}
+            value={Email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Votre email"
             required
@@ -130,16 +116,16 @@ function ContactModal() {
             politique de confidentialité
           </a>
         </p>
-        <div className="flex justify-end mt-5">
+        <div className="flex justify-end mt-5" onClick={handleSubmit}>
           <PrimaryButton
             text="Envoyer mon message"
             bgColor="bg-[#003761]"
             hoverColor="hover:bg-[#5488b0]"
             typeBtn="submit"
-            width="w-full" 
+            width="w-full"
           />
         </div>
-      </form>
+      </div>
     </div>
   );
 }
