@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSocket } from "../pages/SocketProvider";
+import Router from "next/router";
 
 export default function SearchBar({ width }) {
   const socket = useSocket();
@@ -8,6 +9,7 @@ export default function SearchBar({ width }) {
 
   const search = () => {
     socket.emit("searchQuery", { query: searchValue });
+    Router.push("/results");
   };
 
   return (
