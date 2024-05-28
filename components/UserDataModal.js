@@ -7,7 +7,7 @@ import SecondaryButton from "./SecondaryButton";
 import { useSelector } from "react-redux";
 import DateBirthPicker from "./DateBirthPicker";
 import FindACompany from "./FindACompany";
-import CompanyProfileModal from "./CompanyProfileModal"
+import CompanyProfileModal from "./CompanyProfileModal";
 
 export default function UserDataModal({}) {
   const [isEditing, setIsEditing] = useState(false);
@@ -129,8 +129,14 @@ export default function UserDataModal({}) {
   return (
     <div>
       <div className="flex flex-col w-[100%] h-[auto] ">
-        <div className="self-end">
-          <EditingIcon func={handleEditClick} />
+        <div className="self-end mb-4">
+          <button
+            className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
+            onClick={handleEditClick}
+          >
+            <p>Modifier les informations</p>
+            <EditingIcon margin="ml-3" />
+          </button>
         </div>
         <p className="text-3xl font-medium">Mon profil</p>
         <p className="mt-4 w-[85%] ">
@@ -147,9 +153,8 @@ export default function UserDataModal({}) {
           <div className="flex flex-col w-[100%] mr-5">
             <label htmlFor="prenom">Prénom</label>
             <input
-              
               className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                !isEditing ? 'bg-gray-200' : ''
+                !isEditing ? "bg-gray-200" : ""
               }`}
               type="text"
               id="firstname"
@@ -164,9 +169,9 @@ export default function UserDataModal({}) {
           <div className="flex flex-col w-[100%]">
             <label htmlFor="name">Nom</label>
             <input
-                            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                              !isEditing ? 'bg-gray-200' : ''
-                            }`}
+              className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                !isEditing ? "bg-gray-200" : ""
+              }`}
               type="text"
               id="name"
               value={nom}
@@ -184,9 +189,9 @@ export default function UserDataModal({}) {
           <div className="flex flex-col w-[100%] mr-5">
             <label htmlFor="prenom">Email</label>
             <input
-                            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                              !isEditing ? 'bg-gray-200' : ''
-                            }`}
+              className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                !isEditing ? "bg-gray-200" : ""
+              }`}
               type="text"
               id="firstname"
               value={email}
@@ -200,9 +205,9 @@ export default function UserDataModal({}) {
           <div className="flex flex-col w-[100%]">
             <label htmlFor="name">Mot de passe</label>
             <input
-                            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                              !isEditing ? 'bg-gray-200' : 'bg-gray-200'
-                            }`}
+              className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                !isEditing ? "bg-gray-200" : "bg-gray-200"
+              }`}
               type="text"
               id="name"
               value="**********"
@@ -227,9 +232,9 @@ export default function UserDataModal({}) {
         <div className="flex flex-col w-[100%]">
           <label htmlFor="prenom">Adresse</label>
           <input
-                          className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                            !isEditing ? 'bg-gray-200' : ''
-                          }`}
+            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             type="text"
             id="address"
             value={address}
@@ -247,9 +252,9 @@ export default function UserDataModal({}) {
         <div className="flex flex-col w-[32%] ">
           <label htmlFor="city">Ville</label>
           <input
-                          className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                            !isEditing ? 'bg-gray-200' : ''
-                          }`}
+            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             type="text"
             id="city"
             value={city}
@@ -269,9 +274,9 @@ export default function UserDataModal({}) {
         <div className="flex flex-col w-[32%]">
           <label htmlFor="zipcode">Code postal</label>
           <input
-                          className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                            !isEditing ? 'bg-gray-200' : ''
-                          }`}
+            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             type="text"
             id="zipcode"
             value={zipcode}
