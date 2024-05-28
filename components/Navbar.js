@@ -12,7 +12,7 @@ export default function Navbar({ background }) {
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.users.value.token);
-  console.log(token);
+
 
   const handlePushToLogin = () => {
     router.push("/login");
@@ -24,9 +24,7 @@ const handlePushToAboutUs = () => {
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
-    console.log("Déconnexion en cours...");
     dispatch(logout());
-    console.log("Token supprimé de du store");
     // Rediriger vers la page d'accueil
     router.push("./");
   };
