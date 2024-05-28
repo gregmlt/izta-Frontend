@@ -2,7 +2,9 @@ import React, { useEffect, useRef } from "react";
 
 const DropDownDiploma = ({ filters, onFilterChange }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedDiploma, setSelectedDiploma] = React.useState("Sélectionner votre diplôme");
+  const [selectedDiploma, setSelectedDiploma] = React.useState(
+    "Sélectionner votre diplôme"
+  );
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -34,7 +36,7 @@ const DropDownDiploma = ({ filters, onFilterChange }) => {
         <button
           type="button"
           onClick={toggleDropdown}
-          className="inline-flex justify-center w-full px-4 py-3 text-sm font-semibold rounded-md bg-gray-200 hover:bg-[#f2c9ba]"
+          className="inline-flex justify-center w-full px-4 py-3 text-sm font-semibold rounded-md bg-white border border-gray-400 hover:bg-[#f2c9ba]"
         >
           {selectedDiploma}
           <svg
@@ -88,14 +90,6 @@ const DropDownDiploma = ({ filters, onFilterChange }) => {
 };
 
 export default DropDownDiploma;
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useRef } from "react";
 
@@ -160,7 +154,7 @@ export default DropDownDiploma;
 //             aria-labelledby="options-menu"
 //           >
 //             {Object.keys(filters).map((filterKey) => (
-//               <div className="px-4 py-2" 
+//               <div className="px-4 py-2"
 //               key={filterKey}
 //               onClick={() => handleDiplomaSelect(filterKey)}>
 //                 <label className="inline-flex items-center">

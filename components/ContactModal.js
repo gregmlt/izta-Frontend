@@ -9,15 +9,43 @@ function ContactModal() {
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (!consent) {
+  //     setError("Vous devez accepter les termes et conditions pour continuer.");
+  //     return;
+  //   }
+  //   console.log({ name, email, message, phone });
+  //   setError("");
+  // };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!consent) {
       setError("Vous devez accepter les termes et conditions pour continuer.");
       return;
     }
-    console.log({ name, email, message, phone });
-    setError("");
+    try {
+      const response = await fetch("http://localhost:3000/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, message, phone })
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert("Email envoyé avec succès");
+      } else {
+        setError("Erreur lors de l'envoi de l'email");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError("Erreur lors de l'envoi de l'email");
+    }
   };
+
 
   return (
     <div className="w-[100%] h-auto bg-white rounded-md mt-10 ">
@@ -108,7 +136,7 @@ function ContactModal() {
             bgColor="bg-[#003761]"
             hoverColor="hover:bg-[#5488b0]"
             typeBtn="submit"
-            width="w-full"
+            width="w-full" 
           />
         </div>
       </form>

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
 import EditingIcon from "./EditingIcon";
 import { useSelector } from "react-redux";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function CompagnyProfileModal() {
   const [isEditing, setIsEditing] = useState(false);
@@ -49,9 +52,7 @@ function CompagnyProfileModal() {
     if (e !== "password") setIsEditing(true);
   };
 
- 
   const token = useSelector((state) => state.users.value.token);
-
 
   ///////// recuperation des données de l'entreprise ////////
 
@@ -144,11 +145,27 @@ function CompagnyProfileModal() {
       .catch((error) => console.error("Error updating company data:", error));
   };
 
+  const [dateOfCreation, setDateOfCreation] = useState(null);
+
+  const handleDateChange = (date) => {
+    setDateOfCreation(date);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white rounded-md">
       <div className="flex flex-col w-[100%] h-[auto] ">
-        <div className="self-end">
-          <EditingIcon func={handleEditClick} />
+        <div className="self-end mb-4">
+          <button
+            className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
+            onClick={handleEditClick}
+          >
+            <p>Modifier les informations</p>
+            <EditingIcon margin="ml-3" />
+          </button>
         </div>
         <p className="text-3xl font-medium">Informations entreprise</p>
         <p className="mt-4 w-[85%] ">
@@ -166,7 +183,9 @@ function CompagnyProfileModal() {
             type="text"
             id="companyName"
             value={companyName}
-            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className={`mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             onChange={(e) => setCompanyName(e.target.value)}
             disabled={!isEditing}
           />
@@ -176,7 +195,9 @@ function CompagnyProfileModal() {
           <textarea
             id="description"
             value={description}
-            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className={`mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             rows="4"
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Donnez une brève introduction de votre entreprise, 
@@ -193,7 +214,9 @@ y compris sa mission et ses valeurs."
           <input
             type="text"
             value={website}
-            className="rounded-sm border border-slate-300 px-3 py-2"
+            className={` rounded-sm border border-slate-300 px-3 py-2 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             onChange={(e) => setWebsite(e.target.value)}
             disabled={!isEditing}
           />
@@ -203,7 +226,9 @@ y compris sa mission et ses valeurs."
           <input
             type="text"
             value={linkedin}
-            className="rounded-sm border border-slate-300 px-3 py-2"
+            className={` rounded-sm border border-slate-300 px-3 py-2 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             onChange={(e) => setLinkedin(e.target.value)}
             disabled={!isEditing}
           />
@@ -213,7 +238,9 @@ y compris sa mission et ses valeurs."
           <input
             type="text"
             value={glassdoor}
-            className="rounded-sm border border-slate-300 px-3 py-2"
+            className={` rounded-sm border border-slate-300 px-3 py-2 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             onChange={(e) => setGlassdoor(e.target.value)}
             disabled={!isEditing}
           />
@@ -223,7 +250,9 @@ y compris sa mission et ses valeurs."
           <input
             type="text"
             value={welcometothejungle}
-            className="rounded-sm border border-slate-300 px-3 py-2"
+            className={` rounded-sm border border-slate-300 px-3 py-2 ${
+              !isEditing ? "bg-gray-200" : ""
+            }`}
             onChange={(e) => setWelcometothejungle(e.target.value)}
             disabled={!isEditing}
           />
@@ -253,23 +282,28 @@ y compris sa mission et ses valeurs."
                 type="text"
                 id="siretNumber"
                 value={siret}
-                className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={` mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                  !isEditing ? "bg-gray-200" : " "
+                }`}
                 onChange={(e) => setSiret(e.target.value)}
                 disabled={!isEditing}
               />
             </div>
             <div className="w-[40%]">
-              <label htmlFor="creationDate" className="block ">
-                Date de création
-              </label>
-              <input
-                type="text"
-                id="creationDate"
-                value={creationDate}
-                className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                onChange={(e) => setCreationDate(e.target.value)}
-                disabled={!isEditing}
-              />
+              <div className="w-full flex flex-col ml-5">
+                <label>Date de création:</label>
+                <DatePicker
+                  selected={dateOfCreation}
+                  onChange={handleDateChange}
+                  dateFormat="dd/MM/yyyy"
+                  className={` mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : "cursor-pointer"
+                  }`}
+                  placeholderText="Sélectionnez votre date de création"
+                  maxDate={new Date()}
+                  disabled={!isEditing}
+                />
+              </div>
             </div>
           </div>
 
@@ -282,7 +316,9 @@ y compris sa mission et ses valeurs."
               type="text"
               id="address"
               value={adress}
-              className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className={` mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                !isEditing ? "bg-gray-200" : ""
+              }`}
               onChange={(e) => setAdress(e.target.value)}
               disabled={!isEditing}
             />
@@ -301,7 +337,9 @@ y compris sa mission et ses valeurs."
                 type="text"
                 id="city"
                 value={city}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={` mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                  !isEditing ? "bg-gray-200" : ""
+                }`}
                 onChange={(e) => setCity(e.target.value)}
                 disabled={!isEditing}
               />
@@ -309,13 +347,15 @@ y compris sa mission et ses valeurs."
             <div className="w-full md:w-1/3 px-2">
               <label
                 htmlFor="region"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Région
               </label>
               <select
                 id="region"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={`mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 cursor-pointer ${
+                  !isEditing ? "bg-gray-200" : ""
+                }`}
                 disabled={!isEditing}
               >
                 <option value="">Sélectionner</option>
@@ -333,7 +373,9 @@ y compris sa mission et ses valeurs."
                 type="text"
                 id="postalCode"
                 value={postalCode}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={` mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                  !isEditing ? "bg-gray-200" : ""
+                }`}
                 onChange={(e) => setPostalCode(e.target.value)}
                 disabled={!isEditing}
               />
@@ -353,7 +395,9 @@ y compris sa mission et ses valeurs."
                 id="employeeCount"
                 value={employeeNumber}
                 onChange={handleEmployeeNumberChange}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                  !isEditing ? "bg-gray-200" : "cursor-pointer"
+                }`}
                 disabled={!isEditing}
               >
                 {employeeOptions.map((option, index) => (
@@ -374,7 +418,9 @@ y compris sa mission et ses valeurs."
                 id="industry"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                  !isEditing ? "bg-gray-200" : "cursor-pointer"
+                }`}
                 disabled={!isEditing}
               >
                 <option value="">Sélectionner</option>
@@ -392,7 +438,9 @@ y compris sa mission et ses valeurs."
                 id="labels"
                 value={selectedLabel}
                 onChange={handleLabelChange}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                  !isEditing ? "bg-gray-200" : "cursor-pointer"
+                }`}
                 disabled={!isEditing}
               >
                 <option value="">Sélectionner</option>
@@ -444,7 +492,9 @@ y compris sa mission et ses valeurs."
                 </svg>
                 <input
                   type="text"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : ""
+                  }`}
                   placeholder="Nombre d'hommes"
                 />
               </div>
@@ -470,7 +520,9 @@ y compris sa mission et ses valeurs."
                 </svg>
                 <input
                   type="text"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : ""
+                  }`}
                   placeholder="Nombre de femmes"
                 />
               </div>
@@ -505,7 +557,9 @@ y compris sa mission et ses valeurs."
                 </svg>
                 <input
                   type="text"
-                  className="mt-1 block p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : ""
+                  }`}
                   placeholder="Nombre d'hommes"
                 />
               </div>
@@ -531,7 +585,9 @@ y compris sa mission et ses valeurs."
                 </svg>
                 <input
                   type="text"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : ""
+                  }`}
                   placeholder="Nombre de femmes"
                 />
               </div>
@@ -548,7 +604,9 @@ y compris sa mission et ses valeurs."
                 <select
                   value={ageMoyen}
                   onChange={(e) => setAgeMoyen(e.target.value)}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={` mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : "cursor-pointer"
+                  }`}
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
@@ -562,7 +620,9 @@ y compris sa mission et ses valeurs."
                 <select
                   value={ecartSalaire}
                   onChange={(e) => setEcartSalaire(e.target.value)}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={`mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : "cursor-pointer"
+                  }`}
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
@@ -580,7 +640,9 @@ y compris sa mission et ses valeurs."
                 <select
                   value={turnover}
                   onChange={(e) => setTurnover(e.target.value)}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={`mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : "cursor-pointer"
+                  }`}
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
@@ -594,7 +656,9 @@ y compris sa mission et ses valeurs."
                 <select
                   value={mecenat}
                   onChange={(e) => setMecenat(e.target.value)}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className={`mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                    !isEditing ? "bg-gray-200" : "cursor-pointer"
+                  }`}
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
@@ -607,11 +671,12 @@ y compris sa mission et ses valeurs."
       </div>
 
       <div className="flex justify-end mt-16">
-        <div className="mr-3">
-          <PrimaryButton
+        <div>
+          <SecondaryButton
             text="Annuler"
-            bgColor="bg-gray-400"
-            hoverColor="hover:bg-[#3371a1]"
+            hoverColor="hover:bg-[#B0C8DA]"
+            margin="mr-4"
+            onClick={handleCancelClick}
           />
         </div>
         <div>
