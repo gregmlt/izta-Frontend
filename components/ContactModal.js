@@ -20,11 +20,11 @@ function ContactModal() {
   };
 
   return (
-    <div className="w-[100%] bg-white rounded-md mt-10 ">
+    <div className="w-[100%] h-auto bg-white rounded-md mt-10 ">
       <p className="text-lg font-medium mb-10">
         Notre équipe est prête à vous répondre et à vous assister.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="">
         <div className="mb-4 mt-4">
           <label
             htmlFor="name"

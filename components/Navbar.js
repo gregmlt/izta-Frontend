@@ -18,6 +18,10 @@ export default function Navbar({ background }) {
     router.push("/login");
   };
 
+const handlePushToAboutUs = () => {
+  router.push("/aboutus");
+}
+
   const handleLogout = () => {
     // Effacer le token dans le store Redux
     console.log("Déconnexion en cours...");
@@ -28,7 +32,7 @@ export default function Navbar({ background }) {
   };
 
   return (
-    <div className="h-[80px] w-[85%] fixed flex justify-between py-4 px-6 items-center border rounded border-gray-400 backdrop-blur-md z-11">
+    <div className="h-[80px] w-[85%] fixed flex justify-between py-4 px-6 items-center border rounded border-gray-400 backdrop-blur-md z-20">
       <div className="flex items-center">
         <div className="w-[100px] h-[50px]">
           <Link href="./">
@@ -36,7 +40,7 @@ export default function Navbar({ background }) {
           </Link>
         </div>
         <div className="flex ml-20">
-          <Link href="#">Qui sommes-nous ?</Link>
+          <p className="cursor-pointer" onClick={handlePushToAboutUs}>Qui sommes-nous ?</p>
           <Link className="pl-10" href="#">
             Contact
           </Link>

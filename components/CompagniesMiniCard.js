@@ -18,7 +18,7 @@ export default function CompagniesMiniCard({companyId,companyName
 
 
   return (
-    <div onClick={handleRedirect} className="h-[auto] flex items-center justify-between py-4 px-3 border border-2 rounded-lg mb-5 g-white hover:border-[#003761] cursor-pointer transition ease-in-out 800ms hover-slide-right">
+    <div onClick={handleRedirect} className="h-[auto] flex items-center justify-between py-4 px-3 border border-2 rounded-lg mb-5 g-white hover:border-[#003761] cursor-pointer transition ease-in-out 000ms hover-slide-up hover:shadow-lg">
       <div className="flex items-center">
       <div className="bg-[url('/images/Team-building.jpg')] w-[100px] h-[100px] border-2 bg-cover bg-center no-repeat rounded-full">
       </div>
@@ -27,8 +27,8 @@ export default function CompagniesMiniCard({companyId,companyName
         <p className="text-gray-500">Industrie catégorie...</p>
       </div>
       </div>
-      <div className="text-blue-500 hover-slide-right">
-      <ArrowRightSVGIcons color="[#003761]"/>
+      <div className="text-blue-500 hov">
+      {/* <ArrowRightSVGIcons color="[#003761]"/> */}
       </div>
     </div>
   );

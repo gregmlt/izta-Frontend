@@ -5,7 +5,6 @@ import PaginatedBlocks from "../PaginatedBlocks";
 import FiltersBlock from "../FiltersBlock";
 import Navbar from "../Navbar";
 
-
 const blocks = [
   <CompanySearchResultsModal />,
   <CompanySearchResultsModal />,
@@ -28,10 +27,12 @@ const blocks = [
 function CompanySearchResultsContainer() {
   return (
     <div>
-    <Navbar />
-    <div className="w-full h-[400px] bg-gradient-to-r from-[#ECB19B] via-[#E8A187] to-[#003761]/60 flex justify-center items-center">
-      <FiltersBlock />
-    </div>
+      <div className=" w-full h-[600px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1))]">
+        <Navbar />
+        <div className="w-full flex justify-center pt-8">
+          <FiltersBlock />
+        </div>
+      </div>
       <div className="px-[130px]">
         <div className="flex justify-between items-center my-10">
           <div className="flex w-[6%] justify-between">
