@@ -16,7 +16,7 @@ function index() {
     .then((data) => {
 
         // Update the users state with users that have a non-empty company array
-        setUsers(data.users.filter(user => user.company.length > 0))
+        setUsers(data.users.filter(user => ((user.company.length > 0) && (user.verification === false))))
     })
     .catch(error => console.error('Error fetching users:', error));
   }, [])
@@ -28,6 +28,7 @@ function index() {
      // Check if the entered email and password match the predefined admin credentials
     if (email === adminEmail && password === adminPassword) {
       setIsLoggedIn(true); // Set the login state to true if credentials are correct
+      
     } else {
       alert('Email ou mot de passe incorrect.');
       setEmail(""); // Clear the email input
@@ -38,24 +39,18 @@ function index() {
 
   
 
-  const handleVerificationChange = (userId, currentVerificationStatus) => {
-
-     // Send a PUT request to the server to update the user's verification status
+  const handleVerificationChange = (userId, verificationStatus) => {
     fetch(`http://localhost:3000/users/verification/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-
-      // Toggle the verification status
-      body: JSON.stringify({ verification: !currentVerificationStatus })
+      body: JSON.stringify({ verification: verificationStatus })
     })
       .then(response => response.json())
       .then((data) => {
-        // Update the users state with the new verification status
-        setUsers(users.map(user => user._id === userId ? { ...user, verification: !currentVerificationStatus, company: !currentVerificationStatus ? [] : user.company } : user));
+        setUsers(users.map(user => user._id === userId ? { ...user, verification: verificationStatus, company: verificationStatus ? user.company : [] } : user));
       })
-      
       .catch(error => {
         console.error('Error updating verification status:', error);
       });
@@ -109,27 +104,32 @@ function index() {
   <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">Bienvenue Melanie</h2>
   <p className="py-5 underline font-semibold text-center text-gray-700">Personnes en attente de vérification</p>
   <ul className="space-y-4">
-    {users.map(user => (
-      <li key={user._id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-        <div className="flex-1">
-          <p className="block text-lg text-gray-800"><span className='font-bold mb-2'>Nom:</span> {user.firstname} {user.lastname}</p>
-          <p className="text-gray-600 mb-2"><span className='font-bold'>Email:</span> {user.email}</p>
-          <p className="text-gray-600 mb-2"><span className='font-bold'>Nom de l'entreprise:</span> {user.company[0].companyName}</p>
-        </div>
-        <div className="mt-4 sm:mt-0 sm:ml-4">
-          <label className="inline-flex items-center">
-            <input
-              type="checkbox"
-              className="form-checkbox h-5 w-5 text-indigo-600"
-              checked={user.verification}
-              onChange={() => handleVerificationChange(user._id, user.verification)}
-            />
-            <span className="ml-2 text-gray-700">Vérifié</span>
-          </label>
-        </div>
-      </li>
-    ))}
-  </ul>
+            {users.map(user => (
+              <li key={user._id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-lg bg-gray-50 hover:bg-gray-100 transition">
+                <div className="flex-1">
+                  <p className="block text-lg text-gray-800"><span className='font-bold mb-2'>Nom:</span> {user.firstname} {user.lastname}</p>
+                  <p className="text-gray-600 mb-2"><span className='font-bold'>Email:</span> {user.email}</p>
+                  {user.company.length > 0 && (
+                    <p className="text-gray-600 mb-2"><span className='font-bold'>Nom de l'entreprise:</span> {user.company[0].companyName}</p>
+                  )}
+                </div>
+                <div className="mt-4 sm:mt-0 sm:ml-4 flex space-x-2">
+                  <button
+                    className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
+                    onClick={() => handleVerificationChange(user._id, true)}
+                  >
+                    Accepter
+                  </button>
+                  <button
+                    className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                    onClick={() => handleVerificationChange(user._id, false)}
+                  >
+                    Refuser
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
   <button
     onClick={handleLogout}
     className="w-full bg-red-600 text-white py-2 px-4 rounded-lg mt-6 hover:bg-red-700 transition"
