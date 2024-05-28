@@ -1,30 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import ContactContainer from "./ContactContainer";
 import CompanySearchResultsModal from "../CompanySearchResultsModal";
 import PaginatedBlocks from "../PaginatedBlocks";
 import FiltersBlock from "../FiltersBlock";
 import Navbar from "../Navbar";
-
-const blocks = [
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-];
+import { useEffect, useState } from "react";
+import { useSocket } from "../../pages/SocketProvider";
 
 function CompanySearchResultsContainer() {
+  const [blocks, setBlocks] = useState([]);
+  const socket = useSocket();
+  useEffect(() => {
+    socket &&
+      socket.on("searchResults", (data) => {
+        const companies = data.companies.map((e) => (
+          <CompanySearchResultsModal
+            key={e.companyName}
+            name={e.companyName}
+            taille={e.employeeNumber}
+          />
+        ));
+        setBlocks(companies);
+      });
+
+    return () => {
+      socket && socket.off("searchResults");
+    };
+  }, [socket]);
+
   return (
     <div>
       <div className=" w-full h-[600px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1))]">
@@ -87,11 +90,6 @@ function CompanySearchResultsContainer() {
           </div>
         </div>
         <PaginatedBlocks items={blocks} />
-
-        {/* <CompanySearchResultsModal />
-        <CompanySearchResultsModal />
-        <CompanySearchResultsModal />
-        <CompanySearchResultsModal /> */}
       </div>
       <ContactContainer />
     </div>

@@ -4,11 +4,9 @@ import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import ButtonWithUnderline from "./ButtonWithUnderline";
 import ArrowRightSVGIcons from "./iconsSVG/ArrowRightSVGIcons";
 
-function CompanySearchResultsModal() {
+function CompanySearchResultsModal({ name, taille }) {
   return (
-    
     <div className="rounded-md shadow-lg w-[75%] min-h-[200px] mx-auto flex my-5">
-        
       <div className="w-[23%] p-4">
         <svg
           className="absolute fixed top-[28px]"
@@ -40,7 +38,7 @@ function CompanySearchResultsModal() {
       <div className="p-3 flex flex-col w-[100%]">
         <div className=" h-[50%] flex justify-between items-center">
           <div>
-            <h1 className="text-4xl font-bold">Vinci</h1>
+            <h1 className="text-4xl font-bold">{name}</h1>
             <StarsSVGIcons />
           </div>
           <div className="ml-7">
@@ -49,8 +47,8 @@ function CompanySearchResultsModal() {
               énergétique et de la construction
             </p>
             <p className="text-sm">
-              <span className="font-semibold">Taille:</span> 10 000 salariés et
-              plus
+              <span className="font-semibold">Taille:</span>
+              {taille}
             </p>
           </div>
           <div className="mt-[-60px]">
@@ -59,11 +57,11 @@ function CompanySearchResultsModal() {
         </div>
         <div className="h-[50%] flex justify-between items-end">
           <p className="text-xs w-[75%]">
-            Deuxième entreprise mondiale des métiers des concessions et de
-            la construction, employant 275 000 salariés à travers le
-            monde.Vinci, anciennement Société générale d'entreprises (SGE), est
-            la deuxième entreprise mondiale des métiers des concessions et de
-            la construction, employant 275 000 salariés à travers le monde.
+            Le Lorem Ipsum est simplement du faux texte employé dans la
+            composition et la mise en page avant impression. Le Lorem Ipsum est
+            le faux texte standard de l'imprimerie depuis les années 1500, quand
+            un imprimeur anonyme assembla ensemble des morceaux de texte pour
+            réaliser un livre spécimen de polices de texte.
           </p>
           <div className="mb-[-22px] text-[#003761] text-xs flex justify-center items-center">
             <ButtonWithUnderline
