@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import ContactContainer from "./ContactContainer";
 import CompanySearchResultsModal from "../CompanySearchResultsModal";
 import PaginatedBlocks from "../PaginatedBlocks";
 import FiltersBlock from "../FiltersBlock";
 import Navbar from "../Navbar";
+import { useEffect } from "react";
+import { useSocket } from "../../pages/SocketProvider";
 
 const blocks = [
   <CompanySearchResultsModal />,
@@ -25,6 +27,18 @@ const blocks = [
 ];
 
 function CompanySearchResultsContainer() {
+  const socket = useSocket();
+  useEffect(() => {
+    socket &&
+      socket.on("searchResults", (data) => {
+        console.log(data);
+      });
+
+    return () => {
+      socket && socket.off("searchResults");
+    };
+  }, [socket]);
+
   return (
     <div>
       <div className=" w-full h-[600px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1))]">
