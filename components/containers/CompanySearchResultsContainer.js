@@ -4,34 +4,23 @@ import CompanySearchResultsModal from "../CompanySearchResultsModal";
 import PaginatedBlocks from "../PaginatedBlocks";
 import FiltersBlock from "../FiltersBlock";
 import Navbar from "../Navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSocket } from "../../pages/SocketProvider";
 
-const blocks = [
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-  <CompanySearchResultsModal />,
-];
-
 function CompanySearchResultsContainer() {
+  const [blocks, setBlocks] = useState([]);
   const socket = useSocket();
   useEffect(() => {
     socket &&
       socket.on("searchResults", (data) => {
-        console.log(data);
+        const companies = data.companies.map((e) => (
+          <CompanySearchResultsModal
+            key={e.companyName}
+            name={e.companyName}
+            taille={e.employeeNumber}
+          />
+        ));
+        setBlocks(companies);
       });
 
     return () => {
@@ -101,11 +90,6 @@ function CompanySearchResultsContainer() {
           </div>
         </div>
         <PaginatedBlocks items={blocks} />
-
-        {/* <CompanySearchResultsModal />
-        <CompanySearchResultsModal />
-        <CompanySearchResultsModal />
-        <CompanySearchResultsModal /> */}
       </div>
       <ContactContainer />
     </div>
