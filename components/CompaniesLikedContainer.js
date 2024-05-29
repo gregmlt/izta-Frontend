@@ -29,7 +29,6 @@ export default function CompaniesLikedContainer() {
         console.error("Erreur des données utilisateur");
         
       }
-    };
 
     if (token) {
       fetchUserData();
@@ -47,7 +46,11 @@ export default function CompaniesLikedContainer() {
               Voici les entreprises que vous avez ajoutées à vos favoris.
             </p>
             {companiesLikedList.map((company, index) => (
-              <CompagniesMiniCard key={index} companyName={company.companyName} companyId={company._id} />
+              <CompagniesMiniCard
+                key={index}
+                companyName={company.companyName}
+                companyId={company._id}
+              />
             ))}
           </>
         ) : (

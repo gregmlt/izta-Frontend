@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopCompanieModal from "../TopCompaniesModal";
 import ButtonWithUnderline from "../ButtonWithUnderline";
 import PrimaryButton from "../PrimaryButton";
@@ -8,6 +8,7 @@ import Router from "next/router";
 function TopCompaniesContainer() {
   const [activeSet, setActiveSet] = useState(1);
   const socket = useSocket();
+  //const [data, setData] = useState([])
 
   const dataSet1 = [
     {
@@ -56,6 +57,12 @@ function TopCompaniesContainer() {
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
     },
   ];
+
+  // useEffect( async () => {
+  //   const topRatedCompanies = await fetch("http://localhost:3000/top-rating");
+  //   setData(companies)
+
+  // }, [])
 
   const renderModals = (data) => {
     return data
