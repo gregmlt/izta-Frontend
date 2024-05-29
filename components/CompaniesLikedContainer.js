@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import CompagniesMiniCard from "./CompagniesMiniCard";
 import { useSelector } from "react-redux";
-import { useSelector } from "react-redux";
+
 
 export default function CompaniesLikedContainer() {
-  const [companiesLikedList, setCompaniesLikedList] = useState([]);
-  const token = useSelector((state) => state.users.value.token);
+  
   const [companiesLikedList, setCompaniesLikedList] = useState([]);
   const token = useSelector((state) => state.users.value.token);
 
@@ -19,25 +18,16 @@ export default function CompaniesLikedContainer() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-      const response = await fetch(
-        `http://localhost:3000/users/infos/${token}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
         }
-      );
       );
 
       if (response.ok) {
         const userData = await response.json();
         setCompaniesLikedList(userData.data.likedCompanies);
-        setCompaniesLikedList(userData.data.likedCompanies);
+       
       } else {
         console.error("Erreur des données utilisateur");
-        console.error("Erreur des données utilisateur");
+        
       }
     };
 
@@ -45,7 +35,7 @@ export default function CompaniesLikedContainer() {
       fetchUserData();
     }
   }, [token]);
-  }, [token]);
+  
 
   return (
     <>

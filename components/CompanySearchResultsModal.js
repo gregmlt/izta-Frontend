@@ -5,10 +5,10 @@ import ButtonWithUnderline from "./ButtonWithUnderline";
 import ArrowRightSVGIcons from "./iconsSVG/ArrowRightSVGIcons";
 import { useRouter } from "next/router";
 
-function CompanySearchResultsModal({ name, taille, id }) {
+function CompanySearchResultsModal({ name, taille, companyId }) {
   const router = useRouter();
   const handleCompanyPage = () => {
-    router.push(`/company/${id}`);
+    router.push(`/company/${companyId}`);
   };
 
   return (
