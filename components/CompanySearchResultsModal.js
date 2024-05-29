@@ -3,10 +3,19 @@ import StarsSVGIcons from "./iconsSVG/StarsSVGIcons";
 import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import ButtonWithUnderline from "./ButtonWithUnderline";
 import ArrowRightSVGIcons from "./iconsSVG/ArrowRightSVGIcons";
+import { useRouter } from "next/router";
 
-function CompanySearchResultsModal({ name, taille }) {
+function CompanySearchResultsModal({ name, taille, id }) {
+  const router = useRouter();
+  const handleCompanyPage = () => {
+    router.push(`/company/${id}`);
+  };
+
   return (
-    <div className="rounded-md shadow-lg w-[75%] min-h-[200px] mx-auto flex my-5">
+    <div
+      onClick={handleCompanyPage}
+      className="rounded-md shadow-lg w-[75%] min-h-[200px] mx-auto flex my-5"
+    >
       <div className="w-[23%] p-4">
         <svg
           className="absolute fixed top-[28px]"
