@@ -91,7 +91,9 @@ function CompanySearchResultsContainer() {
         </div>
         <PaginatedBlocks items={blocks} />
       </div>
+      <div id="contact">
       <ContactContainer />
+      </div>
     </div>
   );
 }

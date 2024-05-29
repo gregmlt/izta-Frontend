@@ -6,6 +6,7 @@ import FiltersBlock from "../FiltersBlock";
 import { useRouter } from 'next/router';
 import { useParams } from 'next/navigation';
 import { useSelector } from "react-redux";
+import ContactContainer from '../containers/ContactContainer';
 
 
 
@@ -75,6 +76,9 @@ function CompanyPageContainer() {
 
         {/* Modal avec les informations de l'entreprise */}
         <CompanyInfoModal companyName={companyInfo.companyName}/>
+    </div>
+    <div id="contact">
+      <ContactContainer />
     </div>
     </div>
   )
