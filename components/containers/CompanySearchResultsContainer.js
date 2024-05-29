@@ -36,7 +36,8 @@ function CompanySearchResultsContainer() {
     });
 
     return () => {
-      socket && socket.off("searchResults", "dicoverResults");
+      socket.off("searchResults");
+      socket.off("dicoverResults");
     };
   }, [socket]);
 
