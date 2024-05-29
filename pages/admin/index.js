@@ -8,6 +8,7 @@ function index() {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);
+  const [usersAlreadyChecked, setUsersAlreadyChecked] = useState([]);
 
   useEffect(() => {
     // Fetch the list of users from the server

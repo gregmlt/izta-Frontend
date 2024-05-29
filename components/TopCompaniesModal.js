@@ -8,7 +8,7 @@ function TopCompaniesModal({ imageSrc, title, description }) {
     <img src={imageSrc} alt={title} className="w-full h-[170px] object-cover rounded-md" />
     <h2 className="text-xl font-semibold mt-4">{title}</h2>
     <p className="mt-2">{description}</p>
-    <button className="mt-4 md:mt-auto self-end m text-[#003761] hover:underline-[#003761]">En savoir plus</button>
+    <button className="mt-4 md:mt-auto self-end text-[#003761] hover:underline-[#003761]">En savoir plus</button>
     
   </div>
   )

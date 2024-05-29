@@ -17,23 +17,25 @@ function CompanySearchResultsContainer() {
             key={e["_id"]}
             name={e.companyName}
             taille={e.employeeNumber}
-            id={e["_id"]}
+            companyId={e["_id"]}
           />
         ));
         setBlocks(companies);
       });
 
-    socket.on("discoverResults", (data) => {
-      const companies = data.companies.map((e) => (
-        <CompanySearchResultsModal
-          key={e["_id"]}
-          name={e.companyName}
-          taille={e.employeeNumber}
-          id={e["_id"]}
-        />
-      ));
-      setBlocks(companies);
-    });
+    socket &&
+      socket.on("discoverResults", (data) => {
+        console.log("coucou");
+        const companies = data.companies.map((e) => (
+          <CompanySearchResultsModal
+            key={e["_id"]}
+            name={e.companyName}
+            taille={e.employeeNumber}
+            id={e["_id"]}
+          />
+        ));
+        setBlocks(companies);
+      });
 
     return () => {
       socket.off("searchResults");
@@ -113,6 +115,7 @@ function CompanySearchResultsContainer() {
         </div>
         <PaginatedBlocks items={blocks} />
       </div>
+
     </div>
   );
 }
