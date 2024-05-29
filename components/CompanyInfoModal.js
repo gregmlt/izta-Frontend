@@ -5,7 +5,7 @@ import MedalSVGIcons from "./iconsSVG/MedalSVGIcons";
 import KudosButton from "./KudosButton";
 import InfoSVGIcon from "./iconsSVG/InfoSVGIcon";
 
-function CompanyInfoModal({ companyName }) {
+function CompanyInfoModal({ companyName, taille }) {
   const [showPopover, setShowPopover] = useState(false);
 
   return (
@@ -68,8 +68,7 @@ function CompanyInfoModal({ companyName }) {
             énergétique et de la construction
           </p>
           <p className="text-sm mb-3">
-            <span className="font-semibold">Taille:</span> 10 000 salariés et
-            plus
+            <span className="font-semibold">Taille:</span> {taille}
           </p>
         </div>
       </div>
