@@ -221,13 +221,35 @@ function CompagnyProfileModal() {
     <div className="flex flex-col min-h-screen bg-white rounded-md">
       <div className="flex flex-col w-[100%] h-[auto] ">
         <div className="self-end mb-4">
-          <button
-            className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
-            onClick={handleEditClick}
-          >
-            <p>Modifier les informations</p>
-            <EditingIcon margin="ml-3" />
-          </button>
+          {!isEditing && (
+            <button
+              className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
+              onClick={handleEditClick}
+            >
+              <p>Modifier les informations</p>
+              <EditingIcon margin="ml-3" />
+            </button>
+          )}
+          {isEditing && (
+            <div className="flex justify-end">
+              <div>
+                <SecondaryButton
+                  text="Annuler"
+                  hoverColor="hover:bg-[#B0C8DA]"
+                  margin="mr-4"
+                  clickFunc={handleCancelClick}
+                />
+              </div>
+              <div>
+                <PrimaryButton
+                  bgColor="bg-[#003761]"
+                  text="Enregistrer les modifications"
+                  hoverColor="hover:bg-[#3371a1]"
+                  clickFunc={handleSaveChanges}
+                />
+              </div>
+            </div>
+          )}
         </div>
         <p className="text-3xl font-medium">Informations entreprise</p>
         <p className="mt-4 w-[85%] ">
@@ -733,24 +755,6 @@ y compris sa mission et ses valeurs."
         </div>
       </div>
 
-      <div className="flex justify-end mt-16">
-        <div>
-          <SecondaryButton
-            text="Annuler"
-            hoverColor="hover:bg-[#B0C8DA]"
-            margin="mr-4"
-            onClick={handleCancelClick}
-          />
-        </div>
-        <div>
-          <PrimaryButton
-            bgColor="bg-[#003761]"
-            text="Enregistrer les modifications"
-            hoverColor="hover:bg-[#3371a1]"
-            clickFunc={handleSaveChanges}
-          />
-        </div>
-      </div>
       {showConfirmation && (
         <div
           className={`mt-4 ${

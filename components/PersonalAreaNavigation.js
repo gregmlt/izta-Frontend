@@ -31,7 +31,6 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
       });
   }, [hasACompany]);
 
-  console.log(hasACompany);
   return (
     <div className="w-[32%] h-auto bg-white rounded-lg flex flex-col py-7 px-8">
       <div className="flex flex-col w-[100%]">
@@ -125,14 +124,14 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                         role="menuitem"
                       >
-                        mes informations d'entreprise
+                        Mes informations d'entreprise
                       </button>
                       <button
                         onClick={() => setActiveTab("statistiques")}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                         role="menuitem"
                       >
-                        mes statistiques
+                        Mes statistiques
                       </button>
                     </div>
                   </div>
