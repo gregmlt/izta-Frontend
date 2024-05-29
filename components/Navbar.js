@@ -38,7 +38,7 @@ const handlePushToAboutUs = () => {
   };
 
   return (
-    <div className="h-[80px] w-[85%] fixed flex justify-between py-4 px-6 items-center border rounded border-gray-400 backdrop-blur-md z-20">
+    <div className="h-[80px] w-[85%] fixed flex justify-between py-4 px-6 items-center border rounded border-gray-400 backdrop-blur-md z-30">
       <div className="flex items-center">
         <div className="w-[100px] h-[50px]">
           <Link href="./">

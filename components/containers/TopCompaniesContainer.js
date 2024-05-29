@@ -8,7 +8,7 @@ import Router from "next/router";
 function TopCompaniesContainer() {
   const [activeSet, setActiveSet] = useState(1);
   const socket = useSocket();
-  const [data, setData] = useState([])
+  //const [data, setData] = useState([])
 
   const dataSet1 = [
     {
@@ -58,11 +58,11 @@ function TopCompaniesContainer() {
     },
   ];
 
-  useEffect( async () => {
-    const topRatedCompanies = await fetch("http://localhost:3000/top-rating");
-    setData(companies)
+  // useEffect( async () => {
+  //   const topRatedCompanies = await fetch("http://localhost:3000/top-rating");
+  //   setData(companies)
 
-  }, [])
+  // }, [])
 
   const renderModals = (data) => {
     return data
