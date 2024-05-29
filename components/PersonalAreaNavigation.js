@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { putCompanyToUser } from "@/reducers/companies";
 
 export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
-  const [entrepriseOptionIsOpen, setEntrepriseOptionIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const [entrepriseOptionIsOpen, setEntrepriseOptionIsOpen] = useState(false);
   const token = useSelector((state) => state.users.value.token);
   const hasACompany = useSelector((state) => state.companies.value.hasACompany);
 
@@ -31,6 +31,7 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
       });
   }, [hasACompany]);
 
+  console.log(hasACompany);
   return (
     <div className="w-[32%] h-auto bg-white rounded-lg flex flex-col py-7 px-8">
       <div className="flex flex-col w-[100%]">
@@ -167,7 +168,7 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
               Ma liste d'entreprises likées
             </button>
 
-            <button
+            {/* <button
               onClick={() => setActiveTab("recherches")}
               type="button"
               className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms  focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
@@ -187,7 +188,7 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
                 />
               </svg>
               Mes recherches précédentes
-            </button>
+            </button> */}
 
             <button
               onClick={() => setActiveTab("infos-perso")}

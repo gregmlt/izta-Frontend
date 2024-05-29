@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import PrimaryButton from "../PrimaryButton";
 import { logout } from "../../reducers/users";
+import { deleteCompanyFromUser } from "@/reducers/companies";
 
 export default function ProfileIcon() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -20,6 +21,7 @@ export default function ProfileIcon() {
   };
 
   const handleLogout = () => {
+    dispatch(deleteCompanyFromUser());
     // Effacer le token dans le store Redux
     dispatch(logout());
     // Rediriger vers la page d'accueil

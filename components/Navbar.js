@@ -23,6 +23,7 @@ export default function Navbar({ background }) {
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
+    dispatch(deleteCompanyFromUser());
     dispatch(logout());
     // Rediriger vers la page d'accueil
     router.push("./");
