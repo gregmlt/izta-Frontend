@@ -43,6 +43,48 @@ const PaginatedBlocks = ({ items }) => {
     paginatedItemsRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    const maxPagesToShow = 5;
+
+    if (totalPages <= maxPagesToShow) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      const startPage = Math.max(1, currentPage - 4);
+      const endPage = Math.min(totalPages, currentPage + 5);
+      const hasLeftSpill = startPage > 2;
+      const hasRightSpill = endPage < totalPages - 1;
+      const spillOffset = maxPagesToShow - (endPage - startPage + 1);
+
+      if (hasLeftSpill && !hasRightSpill) {
+        const extraPages = Array.from({ length: spillOffset }, (_, i) => startPage - spillOffset + i);
+        pageNumbers.push(...extraPages, ...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i));
+      } else if (!hasLeftSpill && hasRightSpill) {
+        const extraPages = Array.from({ length: spillOffset }, (_, i) => endPage + i + 1);
+        pageNumbers.push(...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i), ...extraPages);
+      } else {
+        pageNumbers.push(...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i));
+      }
+
+      if (startPage > 2) {
+        pageNumbers.unshift("...");
+      }
+      if (endPage < totalPages - 1) {
+        pageNumbers.push("...");
+      }
+      if (startPage !== 1) {
+        pageNumbers.unshift(1);
+      }
+      if (endPage !== totalPages) {
+        pageNumbers.push(totalPages);
+      }
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <div className="p-4 h-[1400px] flex flex-col">
       <div
@@ -82,18 +124,20 @@ const PaginatedBlocks = ({ items }) => {
           </button>
         </div>
         <div className="flex space-x-2">
-          {Array.from({ length: totalPages }, (_, i) => (
+          {renderPageNumbers().map((page, index) => (
             <button
-              key={i + 1}
+              key={index}
               onClick={() => {
-                handlePageClick(i + 1);
-                scrollToTop();
+                if (page !== "...") {
+                  handlePageClick(page);
+                  scrollToTop();
+                }
               }}
               className={`py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                currentPage === i + 1 ? "bg-[#E28A69] text-black" : "text-black"
+                currentPage === page ? "bg-[#E28A69] text-black" : "text-black"
               }`}
             >
-              {i + 1}
+              {page}
             </button>
           ))}
         </div>
@@ -102,7 +146,7 @@ const PaginatedBlocks = ({ items }) => {
             handleNextPage();
             scrollToTop();
           }}
-          disabled={currentPage === 1}
+          disabled={currentPage === totalPages}
           className="flex items-end"
         >
           <button className="w-[70px] text-black font-bold  rounded focus:outline-none focus:shadow-outline">
