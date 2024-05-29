@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import TopCompanieModal from "../TopCompaniesModal";
 import ButtonWithUnderline from "../ButtonWithUnderline";
 import PrimaryButton from "../PrimaryButton";
+import { useSocket } from "../../pages/SocketProvider";
+import Router from "next/router";
 
 function TopCompaniesContainer() {
   const [activeSet, setActiveSet] = useState(1);
+  const socket = useSocket();
 
   const dataSet1 = [
     {
@@ -67,42 +70,46 @@ function TopCompaniesContainer() {
       ));
   };
 
+  const handleDiscover = () => {
+    socket.emit("searchDiscover");
+    Router.push("/results");
+  };
+
   return (
     <div className="text-balance py-[72px]  ">
-    <h1 className="w-full flex justify-center text-2xl md:text-4xl leading-6 font-bold text-[#003761] py-6 md:py-10">
-      Découvrez les meilleures entreprises
-    </h1>
-    <div className="flex flex-col items-center">
-      <div className="mb-4 flex flex-col md:flex-row">
-        <ButtonWithUnderline
-          onClick={() => setActiveSet(1)}
-          text="Entreprises de ma région"
-          underlineColor="bg-[#003761]"
-          type="button"
-          className="mb-2 md:mb-0 md:mr-4"  // Ajout de marge droite en mode desktop
-        />
-        <ButtonWithUnderline
-          onClick={() => setActiveSet(2)}
-          text="Entreprises notées par IZTA"
-          underlineColor="bg-[#003761]"
-          type="button"
-          className="mb-2 md:mb-0 md:ml-4"  // Ajout de marge gauche en mode desktop
+      <h1 className="w-full flex justify-center text-2xl md:text-4xl leading-6 font-bold text-[#003761] py-6 md:py-10">
+        Découvrez les meilleures entreprises
+      </h1>
+      <div className="flex flex-col items-center">
+        <div className="mb-4 flex flex-col md:flex-row">
+          <ButtonWithUnderline
+            onClick={() => setActiveSet(1)}
+            text="Entreprises de ma région"
+            underlineColor="bg-[#003761]"
+            type="button"
+            className="mb-2 md:mb-0 md:mr-4" // Ajout de marge droite en mode desktop
+          />
+          <ButtonWithUnderline
+            onClick={() => setActiveSet(2)}
+            text="Entreprises notées par IZTA"
+            underlineColor="bg-[#003761]"
+            type="button"
+            className="mb-2 md:mb-0 md:ml-4" // Ajout de marge gauche en mode desktop
+          />
+        </div>
+        <div className="flex flex-wrap justify-center items-center">
+          {activeSet === 1 ? renderModals(dataSet1) : renderModals(dataSet2)}
+        </div>
+      </div>
+      <div className="flex justify-center my-10">
+        <PrimaryButton
+          text="Découvrir d'autres entreprises"
+          bgColor="bg-[#003761]"
+          hoverColor="hover:bg-[#5488b0]"
+          clickFunc={handleDiscover}
         />
       </div>
-      <div className="flex flex-wrap justify-center items-center">
-        {activeSet === 1 ? renderModals(dataSet1) : renderModals(dataSet2)}
-      </div>
     </div>
-    <div className="flex justify-center my-10">
-      <PrimaryButton
-        text="Découvrir d'autres entreprises"
-        bgColor="bg-[#003761]"
-        hoverColor="hover:bg-[#5488b0]"
-      />
-    </div>
-  </div>
-  
-
   );
 }
 
