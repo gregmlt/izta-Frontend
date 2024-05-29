@@ -57,7 +57,7 @@ function CompanyPageContainer({companyId}) {
 
   // Fonction pour naviguer vers la page de profil
   const previewPage = () => {
-    router.push("/profile");
+    router.back();
   }
   return (
     <div>

@@ -21,6 +21,7 @@ export default function Profile() {
   const token = useSelector((state) => state.users.value.token);
   const dispatch = useDispatch();
   const router = useRouter();
+ 
 
   useEffect(() => {
     fetch(`http://localhost:3000/users/infos/${token}`)
