@@ -68,7 +68,9 @@ export default function HomeContainer() {
         </div>
       </div>
       <TopCompaniesContainer />
-      <ContactContainer />
+      <div id="contact">
+        <ContactContainer />
+      </div>
       <Footer />
     </div>
   );
