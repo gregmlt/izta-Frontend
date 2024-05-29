@@ -17,7 +17,7 @@ function CompanySearchResultsContainer() {
             key={e["_id"]}
             name={e.companyName}
             taille={e.employeeNumber}
-            id={e["_id"]}
+            companyId={e["_id"]}
           />
         ));
         setBlocks(companies);

@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react'
 import ArrowLeftSVGIcons from '../iconsSVG/ArrowLeftSVGIcons'
 import CompanyInfoModal from '../CompanyInfoModal'
 import Navbar from '../Navbar'
-import FiltersBlock from "../FiltersBlock";
 import { useRouter } from 'next/router';
 import { useParams } from 'next/navigation';
-import { useSelector } from "react-redux";
 import SearchBar from '../SearchBar';
 
 
-function CompanyPageContainer() {
+function CompanyPageContainer({companyId}) {
    // État local pour stocker les informations de l'entreprise
   const [companyInfo, setCompanyInfo] = useState({});
 
@@ -18,12 +16,11 @@ function CompanyPageContainer() {
   const router = useRouter();
 
   // Extraire l'ID de l'entreprise des paramètres
-  const companyIdx = params.id;
-
+  
+ 
 
   
-// Récupérer le token utilisateur depuis le store Redux
-  const token = useSelector((state) => state.users.value.token);
+
 
 
   useEffect(() => {
@@ -32,15 +29,17 @@ function CompanyPageContainer() {
     const fetchCompanyInfo = async () => {
       try {
         // Faire une requête pour récupérer les informations de l'utilisateur
-        const response = await fetch(`http://localhost:3000/users/infos/${token}`);
+        const response = await fetch(`http://localhost:3000/companies/get/company/${companyId}`);
         const data = await response.json();
-        
+        console.log(data)
+        setCompanyInfo(data.company)
          // Filtrer les entreprises likées pour trouver celle qui correspond à l'ID
-         const newCompanyInfoData = data.data.likedCompanies.filter(el => el._id === companyIdx)
-         const newCompanyInfoDataObject = newCompanyInfoData[0];
+
+        //  const newCompanyInfoData = data.data.likedCompanies.filter(el => el._id === companyIdx)
+        //  const newCompanyInfoDataObject = newCompanyInfoData[0];
 
          // Mettre à jour l'état local avec les informations de l'entreprise trouvée
-         setCompanyInfo(newCompanyInfoDataObject)
+        //  setCompanyInfo(data)
       } catch (error) {
         console.error("Erreur lors de la récupération des informations de l'entreprise:", error);
       }
@@ -48,10 +47,12 @@ function CompanyPageContainer() {
 
 
     // Si l'ID de l'entreprise est présent, récupérer les informations
-    if (companyIdx) {
+    
+    if (companyId) {
       fetchCompanyInfo();
     }
-  }, [companyIdx, token]); // Ajouter token dans les dépendances pour éviter un avertissement
+    
+  }, [companyId]); // Ajouter token dans les dépendances pour éviter un avertissement
 
 
   // Fonction pour naviguer vers la page de profil
@@ -84,8 +85,11 @@ function CompanyPageContainer() {
         </div>
 
         {/* Modal avec les informations de l'entreprise */}
-        <CompanyInfoModal companyName={companyInfo.companyName}/>
+        <CompanyInfoModal companyName={companyInfo.companyName} taille={companyInfo.employeeNumber}/>
     </div>
+    {/* <div id="contact">
+      <ContactContainer />
+    </div> */}
     </div>
   )
 }

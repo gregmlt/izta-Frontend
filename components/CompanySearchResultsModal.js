@@ -4,7 +4,8 @@ import ButtonWithUnderline from "./ButtonWithUnderline";
 import ArrowRightSVGIcons from "./iconsSVG/ArrowRightSVGIcons";
 import { useRouter } from "next/router";
 
-function CompanySearchResultsModal({ name, taille, starsCount, imageSrc }) {
+
+function CompanySearchResultsModal({ name, taille, starsCount, imageSrc, companyId}) {
   const capitalizeFirstLetter = (str) => {
     if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -44,6 +45,7 @@ function CompanySearchResultsModal({ name, taille, starsCount, imageSrc }) {
       return text;
     }
     return text.slice(0, maxLength) + "...";
+
   };
 
   return (
