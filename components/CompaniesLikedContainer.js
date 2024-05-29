@@ -20,14 +20,14 @@ export default function CompaniesLikedContainer() {
           }
         );
 
-      if (response.ok) {
-        const userData = await response.json();
-        console.log(userData.data)
-        setCompaniesLikedList(userData.data.likedCompanies);
-       
-      } else {
-        console.error("Erreur des données utilisateur");
-        
+        if (response.ok) {
+          const userData = await response.json();
+          setCompaniesLikedList(userData.data.likedCompanies);
+        } else {
+          console.error("Erreur des données utilisateur");
+        }
+      } catch (error) {
+        console.error("Erreur de la requête fetch:", error);
       }
     };
 
