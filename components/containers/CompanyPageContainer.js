@@ -6,8 +6,7 @@ import FiltersBlock from "../FiltersBlock";
 import { useRouter } from 'next/router';
 import { useParams } from 'next/navigation';
 import { useSelector } from "react-redux";
-import ContactContainer from '../containers/ContactContainer';
-
+import SearchBar from '../SearchBar';
 
 
 function CompanyPageContainer() {
@@ -61,12 +60,22 @@ function CompanyPageContainer() {
   }
   return (
     <div>
-        {/* Barre de navigation */}
-       <Navbar />
+       <div className=" w-full h-[600px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/Logo/backgground.png')] bg-cover bg-bottom">
+      <div className="w-full flex justify-center pt-8">
+        <Navbar />
+      </div>
+      <div className="w-full flex flex-col justify-center items-center my-10 mt-20">
+          <div>
+            <p className="text-3xl mt-[25%] font-semibold text-white mb-10">
+              Renseignez-vous sur l’engagement d’une entreprise.
+            </p>
+          </div>
+          <div className="w-[50%] justify-center items-center">
+            <SearchBar width="w-full" />
+          </div>
+        </div>
+      </div>
 
-    <div className="w-full h-[450px] bg-gradient-to-r from-[#ECB19B] via-[#E8A187] to-[#003761]/60 flex justify-center items-center">
-      <FiltersBlock />
-    </div>
 
     {/* Section principale avec les informations de l'entreprise */}
     <div className='px-[120px] py-[100px]'> 

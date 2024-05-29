@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
+import Footer from "@/components/Footer";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
@@ -77,6 +78,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

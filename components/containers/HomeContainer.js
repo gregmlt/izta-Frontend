@@ -14,13 +14,13 @@ export default function HomeContainer() {
       </div>
       <div className="w-full h-[95%] px-[120px] flex flex-col items-center justify-center pb-9 m">
         <div className="flex justify-center w-[100%]">
-          <div className="w-[50%] text-end text-[#003761] content-end pr-5">
-            <h1 className="text-8xl font-bold">
+          <div className="w-[50%] text-end  text-[#003761] pt-6 pr-5">
+            <h1 className="text-8xl font-bold place-content-end">
               C'est quoi
               <p className="text-[140px]"> IZTA ?</p>
             </h1>
           </div>
-          <div className="w-[50%] content-end pl-5">
+          <div className="w-[50%] content-end pl-5 pb-3">
             <p className="pr-[150px]">
               Bienvenue sur IZTA, la plateforme qui vous permet de trouver les
               entreprises avec les engagements sociaux et environnementaux les
