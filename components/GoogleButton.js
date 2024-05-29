@@ -18,7 +18,7 @@ const GoogleOAuthButton = () => {
   return (
     <button
       onClick={handleGoogleSignIn}
-      className="flex items-center justify-center px-4 py-3 bg-white-500 text-black border border-gray-400 rounded-md hover:bg-white w-[300px]"
+      className="flex items-center justify-center px-4 py-3 bg-white-500 text-black border border-gray-400 rounded-md hover:bg-white w-[100%]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

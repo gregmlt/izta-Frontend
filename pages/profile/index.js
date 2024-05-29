@@ -11,11 +11,11 @@ import React, { useState, useEffect } from "react";
 import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
 
-
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
   const [userFirstName, setUserFirstName] = useState("");
-  const [hasACompany, setHasCompany] = useState(false)
+  const [hasACompany, setHasCompany] = useState(false);
+  const [data, setData] = useState("");
   const token = useSelector((state) => state.users.value.token);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function Profile() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          setHasCompany(data.data.company.length === 0)
+          setHasCompany(data.data.company.length === 0);
           setUserFirstName(data.data.firstname);
         } else {
           console.error("Utilisateur non connecté");
@@ -68,19 +68,12 @@ export default function Profile() {
             onLogout={handleLogout}
           />
           <div className="w-[67%] h-[100%] bg-white rounded-lg flex flex-col py-10 p-10 ">
-
-           
-           
             {activeTab === "entreprises" && <CompaniesLikedContainer />}
             {activeTab === "statistiques" && <StatisticsModal />}
             {activeTab === "infos-perso" && <UserDataModal />}
             {activeTab === "kudos-liste" && <KudosListModal />}
             {activeTab === "mes-infos-entreprise" && <CompagnyProfileModal />}
             {activeTab === "trouver-entreprise" && <FindACompany />}
-           
-           
-           
-
           </div>
         </div>
       </div>

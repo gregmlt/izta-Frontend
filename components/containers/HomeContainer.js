@@ -4,17 +4,18 @@ import TopCompaniesContainer from "./TopCompaniesContainer";
 import ContactContainer from "./ContactContainer";
 import FiltersBlock from "../FiltersBlock";
 import Footer from "../Footer";
+import SearchBar from "../SearchBar";
 
 export default function HomeContainer() {
   return (
-    <div className=" w-full h-[100vh] bg-[#f7f5f1] bg-[url('/Logo/backgground.png')] bg-cover bg-center bg-no-repeat">
+    <div className="w-full h-[100vh] bg-[#f7f5f1] bg-[url('/Logo/backgground.png')] bg-cover bg-center bg-no-repeat">
       <div className="w-full flex justify-center pt-8">
         <Navbar />
       </div>
       <div className="w-full h-[95%] px-[120px] flex flex-col items-center justify-center pb-9 m">
         <div className="flex justify-center w-[100%]">
-          <div className="w-[50%] text-end text-[#003761] content-end pr-5 ">
-            <h1 className="text-8xl font-bold ">
+          <div className="w-[50%] text-end text-[#003761] content-end pr-5">
+            <h1 className="text-8xl font-bold">
               C'est quoi
               <p className="text-[140px]"> IZTA ?</p>
             </h1>
@@ -26,16 +27,22 @@ export default function HomeContainer() {
               plus forts en France. Notre mission principale est de mettre en
               avant ces sociétés et de vous permettre de trouver l’entreprise
               qui vous correspond en fonction des critères qui comptent pour
-              vous. Filtrez les entreprises selon vos critères. Laissez-vous
-              guider et likez vos entreprises préférées.
+              vous et likez vos entreprises préférées.
             </p>
           </div>
         </div>
-        <div className="pt-10">
-          <FiltersBlock />
+
+        <div className="w-full flex flex-col justify-center items-center my-10 mt-20">
+          <div>
+            <p className="text-3xl font-semibold text-[#003761] mb-10">
+              Renseignez-vous sur l’engagement d’une entreprise.
+            </p>
+          </div>
+          <div className="w-[50%] justify-center items-center">
+            <SearchBar width="w-full" />
+          </div>
         </div>
       </div>
-      <div></div>
 
       <div>
         <div className="w-[100%] h-[300px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1))] flex justify-evenly">
@@ -61,7 +68,9 @@ export default function HomeContainer() {
         </div>
       </div>
       <TopCompaniesContainer />
-      <ContactContainer />
+      <div id="contact">
+        <ContactContainer />
+      </div>
       <Footer />
     </div>
   );

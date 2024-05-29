@@ -69,83 +69,86 @@ export default function index() {
         <div className="w-[15%] m-5 bg-[url('/images/foret.jpg')] bg-cover bg-center bg-no-repeat rounded-md"></div>
         <div className="w-[15%] m-5 bg-[url('/images/ampoule.jpg')] bg-cover bg-center bg-no-repeat rounded-md"></div>
         <div className="w-[15%] m-5 bg-[url('/images/people.jpg')] bg-cover bg-center bg-no-repeat rounded-md"></div>
-       
+
         <div className="w-[50%] ml-20 place-self-center">
           <h1 className="text-5xl text-black font-semibold mb-10 mt-10 ">
-          Nos Valeurs
+            Nos Valeurs
           </h1>
 
           <ul className="list-disc list-inside ml-5">
             <li className="mb-3">
-            <span className="font-semibold">Engagement écologique</span> : Nous valorisons les entreprises qui prennent des mesures concrètes pour réduire leur impact environnemental.
+              <span className="font-semibold">Engagement écologique</span> :
+              Nous valorisons les entreprises qui prennent des mesures concrètes
+              pour réduire leur impact environnemental.
             </li>
             <li className="mb-3">
-            <span className="font-semibold">Innovation</span> : Nous utilisons des technologies avancées comme la géolocalisation, des connexions API avec des bases de données telles que SIRENE, et l'intelligence artificielle pour optimiser la présentation des engagements RSE des entreprises.
+              <span className="font-semibold">Innovation</span> : Nous utilisons
+              des technologies avancées comme la géolocalisation, des connexions
+              API avec des bases de données telles que SIRENE, et l'intelligence
+              artificielle pour optimiser la présentation des engagements RSE
+              des entreprises.
             </li>
             <li className="mb-3">
-            <span className="font-semibold">Transparence et Sécurité</span> : La sécurité des données personnelles est primordiale pour nous, tout comme la transparence dans la communication des performances écologiques des entreprises.
+              <span className="font-semibold">Transparence et Sécurité</span> :
+              La sécurité des données personnelles est primordiale pour nous,
+              tout comme la transparence dans la communication des performances
+              écologiques des entreprises.
             </li>
-
           </ul>
         </div>
-
       </div>
       <div className="flex flex-col items-center justify-center w-[100%] h-[700px] px-[120px] mt-5 bg-[#eeeae2]">
+        <h1 className="text-5xl text-black font-semibold mb-20 mt-20 ">
+          Pourquoi choisir IZTA
+        </h1>
 
-          <h1 className="text-5xl text-black font-semibold mb-20 mt-20 ">
-          Pourquoi choisir IZTA 
-          </h1>
-
-          <div className="flex justify-center">
-
+        <div className="flex justify-center">
           <div className="flex flex-col w-[300px] h-[300px] mr-5">
-      <div className="flex items-center mb-8">
-        <img src="/Logo/Logo.svg" className="w-[30px] " />
-        <p className="text-xl font-semibold">Une stratégie sur mesure</p>
-      </div>
-      <p className="text-lg ml-6">
-        Stratégie 360°, alignée avec vos objectifs et conforme avec la
-        certification RSE
-      </p>
-    </div>
-          <div className="flex flex-col w-[350px] h-[300px] mr-5">
-      <div className="flex items-center mb-8">
-        <img src="/Logo/Logo.svg" className="w-[30px] " />
-        <p className="text-xl font-semibold">Gestion administrative de A à Z</p>
-      </div>
-      <p className="text-lg ml-6">
-      Nous vous offrons des conseils pour une gestion claire et performante de vos démarches de mécénat
-      </p>
-    </div>
-          <div className="flex flex-col w-[350px] h-[300px] mr-5">
-      <div className="flex items-center mb-8">
-        <img src="/Logo/Logo.svg" className="w-[30px] " />
-        <p className="text-xl font-semibold">Suivi des actions de contrepartie</p>
-      </div>
-      <p className="text-lg ml-6">
-      Impliquez vos équipes et communiquez vos valeurs avec impact au sein de votre organisation
-      </p>
-    </div>
-          <div className="flex flex-col w-[350px] h-[300px] mr-5">
-      <div className="flex items-center mb-8">
-        <img src="/Logo/Logo.svg" className="w-[30px] " />
-        <p className="text-xl font-semibold">Garant de la confiance</p>
-      </div>
-      <p className="text-lg ml-6">
-      Nous sélectionnons les associations selon des critères stricts pour avancer en toute confiance
-      </p>
-    </div>
-
-
-
-
+            <div className="flex items-center mb-8">
+              <img src="/Logo/Logo.svg" className="w-[30px] " />
+              <p className="text-xl font-semibold">Une stratégie sur mesure</p>
+            </div>
+            <p className="text-lg ml-6">
+              Stratégie 360°, alignée avec vos objectifs et conforme avec la
+              certification RSE
+            </p>
           </div>
-
-
+          <div className="flex flex-col w-[350px] h-[300px] mr-5">
+            <div className="flex items-center mb-8">
+              <img src="/Logo/Logo.svg" className="w-[30px] " />
+              <p className="text-xl font-semibold">
+                Gestion administrative de A à Z
+              </p>
+            </div>
+            <p className="text-lg ml-6">
+              Nous vous offrons des conseils pour une gestion claire et
+              performante de vos démarches de mécénat
+            </p>
+          </div>
+          <div className="flex flex-col w-[350px] h-[300px] mr-5">
+            <div className="flex items-center mb-8">
+              <img src="/Logo/Logo.svg" className="w-[30px] " />
+              <p className="text-xl font-semibold">
+                Suivi des actions de contrepartie
+              </p>
+            </div>
+            <p className="text-lg ml-6">
+              Impliquez vos équipes et communiquez vos valeurs avec impact au
+              sein de votre organisation
+            </p>
+          </div>
+          <div className="flex flex-col w-[350px] h-[300px] mr-5">
+            <div className="flex items-center mb-8">
+              <img src="/Logo/Logo.svg" className="w-[30px] " />
+              <p className="text-xl font-semibold">Garant de la confiance</p>
+            </div>
+            <p className="text-lg ml-6">
+              Nous sélectionnons les associations selon des critères stricts
+              pour avancer en toute confiance
+            </p>
+          </div>
+        </div>
       </div>
-
-
-
 
       <Footer />
     </div>

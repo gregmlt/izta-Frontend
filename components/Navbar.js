@@ -12,7 +12,7 @@ export default function Navbar({ background }) {
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.users.value.token);
-  console.log(token);
+
 
   const handlePushToLogin = () => {
     router.push("/login");
@@ -24,11 +24,17 @@ const handlePushToAboutUs = () => {
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
-    console.log("Déconnexion en cours...");
     dispatch(logout());
-    console.log("Token supprimé de du store");
     // Rediriger vers la page d'accueil
     router.push("./");
+  };
+
+  const handleScrollToContact = (e) => {
+    e.preventDefault();
+    const contactSection = document.getElementById("contact");
+    const yOffset = -115; // décalage de 100 pixels
+    const yPosition = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: yPosition, behavior: "smooth" });
   };
 
   return (
@@ -41,9 +47,9 @@ const handlePushToAboutUs = () => {
         </div>
         <div className="flex ml-20">
           <p className="cursor-pointer" onClick={handlePushToAboutUs}>Qui sommes-nous ?</p>
-          <Link className="pl-10" href="#">
+          <a className="pl-10" href="#contact" onClick={handleScrollToContact}>
             Contact
-          </Link>
+          </a>
         </div>
       </div>
 

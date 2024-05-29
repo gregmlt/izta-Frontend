@@ -13,7 +13,7 @@ export default function SearchBar({ width }) {
   };
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <input
         type="text"
         placeholder="Rechercher une entreprise ..."

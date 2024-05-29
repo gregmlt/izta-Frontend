@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import PrimaryButton from "../PrimaryButton";
-import { logout } from '../../reducers/users'
+import { logout } from "../../reducers/users";
 
 export default function ProfileIcon() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -10,7 +10,6 @@ export default function ProfileIcon() {
   const router = useRouter();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.users.value.token);
-  console.log(token)
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -22,9 +21,7 @@ export default function ProfileIcon() {
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
-    console.log('Déconnexion en cours...');
     dispatch(logout());
-    console.log('Token supprimé du store');
     // Rediriger vers la page d'accueil
     router.push("/");
   };
@@ -65,12 +62,22 @@ export default function ProfileIcon() {
             {token && (
               <>
                 <div className="pb-2">
-                  <PrimaryButton text="Voir mon profil" border="border border-1 border-[#003761]" textColor="text-[#003761]" width="w-full" hoverColor="hover:bg-[#003761] hover:text-white" clickFunc={handlePushToProfile} />
+                  <PrimaryButton
+                    text="Voir mon profil"
+                    border="border border-1 border-[#003761]"
+                    textColor="text-[#003761]"
+                    width="w-full"
+                    hoverColor="hover:bg-[#003761] hover:text-white"
+                    clickFunc={handlePushToProfile}
+                  />
                 </div>
                 <div className="w-[100%] h-[1px] bg-gray-300 mt-2 mb-3"></div>
-                  <div className="py-1 pl-2 text-sm font- bg-[F7F5F1] rounded hover:text-[#a0624b] transition ease-in-out 800ms cursor-pointer" onClick={handleLogout} >
-                    Se déconnecter
-                  </div>
+                <div
+                  className="py-1 pl-2 text-sm font- bg-[F7F5F1] rounded hover:text-[#a0624b] transition ease-in-out 800ms cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Se déconnecter
+                </div>
               </>
             )}
           </div>

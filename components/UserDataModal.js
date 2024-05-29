@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import DateBirthPicker from "./DateBirthPicker";
 import FindACompany from "./FindACompany";
 import CompanyProfileModal from "./CompanyProfileModal";
+import ChangePassword from "./ChangePassword";
+import { isPagesAPIRouteMatch } from "next/dist/server/future/route-matches/pages-api-route-match";
 
 export default function UserDataModal({}) {
   const [isEditing, setIsEditing] = useState(false);
@@ -19,6 +21,7 @@ export default function UserDataModal({}) {
   const [city, setCity] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [isChangePassword, setIsChangePassword] = useState(false);
   const [filters, setFilters] = useState({
     DNB: false,
     CAP: false,
@@ -104,6 +107,10 @@ export default function UserDataModal({}) {
     setIsEditing(false);
   };
 
+  const handleChangePassword = () =>{
+    setIsChangePassword(true);
+  }
+
   const handleFilterChange = (e) => {
     setFilters({
       ...filters,
@@ -126,8 +133,16 @@ export default function UserDataModal({}) {
     });
   };
 
+  const testfunction = () => {
+    if(isChangePassword) {
+      setIsChangePassword(false)
+    }
+  }
+
   return (
     <div>
+      {!isChangePassword ? 
+      (  <>
       <div className="flex flex-col w-[100%] h-[auto] ">
         <div className="self-end mb-4">
           <button
@@ -214,13 +229,13 @@ export default function UserDataModal({}) {
               onChange={(e) => setPassword(e.target.value)}
               disabled
             />
-            <div className="text-[13px] self-end mt-3">
-              <a
-                href="#"
+            <div className="text-[13px] self-end mt-3 " onClick={handleChangePassword}>
+              <p
+               
                 className="font-medium text-[#003761] hover:text-[#ce7e60] underline underline-offset-2"
               >
                 Modifier mon mot de passe
-              </a>
+              </p>
             </div>
           </div>
         </div>
@@ -348,7 +363,13 @@ export default function UserDataModal({}) {
           hoverColor="hover:bg-[#3371a1]"
           clickFunc={handleSaveClick}
         />
-      </div>
+      </div> 
+      </>)
+      :
+      (<ChangePassword />)
+    }
+    
+
     </div>
   );
 }
