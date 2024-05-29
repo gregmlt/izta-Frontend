@@ -8,7 +8,8 @@ import Router from "next/router";
 function TopCompaniesContainer() {
   const [activeSet, setActiveSet] = useState(1);
   const socket = useSocket();
-  //const [data, setData] = useState([])
+  const [topRatedCompanies, setTopRatedCompanies] = useState([]);
+  const [error, setError] = useState(null);
 
   const dataSet1 = [
     {
@@ -34,29 +35,29 @@ function TopCompaniesContainer() {
     },
   ];
 
-  const dataSet2 = [
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title: "Modal 1 - Set 2",
-      description:
-        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
-    },
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title: "Modal 2 - Set 2",
-      description:
-        "Aliquam erat volutpat. Phasellus at lacus nec nisi gravida euismod.",
-    },
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1657664042448-c955b411d9d0?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title: "Modal 3 - Set 2",
-      description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-    },
-  ];
+  // const dataSet2 = [
+  //   {
+  //     imageSrc:
+  //       "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     title: "Modal 1 - Set 2",
+  //     description:
+  //       "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
+  //   },
+  //   {
+  //     imageSrc:
+  //       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     title: "Modal 2 - Set 2",
+  //     description:
+  //       "Aliquam erat volutpat. Phasellus at lacus nec nisi gravida euismod.",
+  //   },
+  //   {
+  //     imageSrc:
+  //       "https://images.unsplash.com/photo-1657664042448-c955b411d9d0?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     title: "Modal 3 - Set 2",
+  //     description:
+  //       "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+  //   },
+  // ];
 
   // useEffect( async () => {
   //   const topRatedCompanies = await fetch("http://localhost:3000/top-rating");
@@ -64,15 +65,37 @@ function TopCompaniesContainer() {
 
   // }, [])
 
+  const fetchTopRatedCompanies = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/companies/top-rating"
+      );
+      const data = await response.json();
+
+      if (data.result) {
+        setTopRatedCompanies(data.data);
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError("Erreur lors de la récupération des entreprises");
+    }
+  };
+
+  useEffect(() => {
+    fetchTopRatedCompanies();
+  }, []);
+
   const renderModals = (data) => {
     return data
       .slice(0, 3)
       .map((item, index) => (
         <TopCompanieModal
-          key={index}
-          imageSrc={item.imageSrc}
-          title={item.title}
+          key={item["_id"]}
+          imageSrc={item.companyLogo}
+          title={item.companyName}
           description={item.description}
+          companyId={item["_id"]}
         />
       ));
   };
@@ -89,23 +112,23 @@ function TopCompaniesContainer() {
       </h1>
       <div className="flex flex-col items-center">
         <div className="mb-4 flex flex-col md:flex-row">
-          <ButtonWithUnderline
+          {/* <ButtonWithUnderline
             onClick={() => setActiveSet(1)}
             text="Entreprises de ma région"
             underlineColor="bg-[#003761]"
             type="button"
             className="mb-2 md:mb-0 md:mr-4" // Ajout de marge droite en mode desktop
-          />
-          <ButtonWithUnderline
+          /> */}
+          {/* <ButtonWithUnderline
             onClick={() => setActiveSet(2)}
             text="Entreprises notées par IZTA"
             underlineColor="bg-[#003761]"
             type="button"
             className="mb-2 md:mb-0 md:ml-4" // Ajout de marge gauche en mode desktop
-          />
+          /> */}
         </div>
         <div className="flex flex-wrap justify-center items-center">
-          {activeSet === 1 ? renderModals(dataSet1) : renderModals(dataSet2)}
+          {renderModals(topRatedCompanies)}
         </div>
       </div>
       <div className="flex justify-center my-10">
