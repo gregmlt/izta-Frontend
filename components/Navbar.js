@@ -13,14 +13,13 @@ export default function Navbar({ background }) {
 
   const token = useSelector((state) => state.users.value.token);
 
-
   const handlePushToLogin = () => {
     router.push("/login");
   };
 
-const handlePushToAboutUs = () => {
-  router.push("/aboutus");
-}
+  const handlePushToAboutUs = () => {
+    router.push("/aboutus");
+  };
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
@@ -33,7 +32,8 @@ const handlePushToAboutUs = () => {
     e.preventDefault();
     const contactSection = document.getElementById("contact");
     const yOffset = -115; // décalage de 100 pixels
-    const yPosition = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    const yPosition =
+      contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
     window.scrollTo({ top: yPosition, behavior: "smooth" });
   };
 
@@ -46,7 +46,9 @@ const handlePushToAboutUs = () => {
           </Link>
         </div>
         <div className="flex ml-20">
-          <p className="cursor-pointer" onClick={handlePushToAboutUs}>Qui sommes-nous ?</p>
+          <p className="cursor-pointer" onClick={handlePushToAboutUs}>
+            Qui sommes-nous ?
+          </p>
           <a className="pl-10" href="#contact" onClick={handleScrollToContact}>
             Contact
           </a>
@@ -54,7 +56,6 @@ const handlePushToAboutUs = () => {
       </div>
 
       <div className="flex items-center">
-        <SearchBar width="w-[300px]" />
         <div className="ml-3 flex items-center">
           {token && (
             <>

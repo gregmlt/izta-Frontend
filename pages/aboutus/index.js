@@ -1,18 +1,21 @@
 import React from "react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import SearchBar from "@/components/SearchBar";
+import Navbar from "@/components/Navbar";
 
 export default function index() {
   return (
     <div>
       <div className="w-full h-full px-[120px]">
         <div className="w-[100%] h-[50px] mt-4 flex">
-          <Link href="./">
+          <Navbar />
+          {/* <Link href="./">
             <img src="/Logo/Logomark.svg" className="w-[100%] h-[100%]" />
-          </Link>
+          </Link> */}
         </div>
       </div>
-      <div className="flex flex-col justify-center bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.9),rgba(16,34,93,1)),url('/images/campain-asso.jpg')] bg-cover h-[700px] px-[120px] mt-5">
+      <div className="flex flex-col justify-center bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.9),rgba(16,34,93,1)),url('/images/campain-asso.jpg')] bg-cover h-[700px] px-[120px] mt-10">
         <h1 className="text-5xl text-white font-semibold w-[50%] mb-10">
           Transformons la Transition Écologique Ensemble avec IZTA
         </h1>
