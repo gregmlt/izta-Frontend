@@ -16,7 +16,7 @@ export default function SearchBar({ width }) {
     <div className="flex w-full">
       <input
         type="text"
-        placeholder="Rechercher une entreprise ..."
+        placeholder="Chercher une entreprise par son nom, son numéro de SIRET ou SIREN"
         className={`${width} px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none out-of-range:border-[#003761] focus:ring-1 focus:border-[#003761]`}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}

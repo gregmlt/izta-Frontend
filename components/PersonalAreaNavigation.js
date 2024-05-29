@@ -213,7 +213,7 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
 
             <div className="w-[80%] h-[auto] flex flex-col px-4 py-5 border rounded-lg mb-10">
               <p className="mb-5">
-                Vous avez été désigné comme administrateur de votre entreprise{" "}
+                Si vous souhaitez être administrateur d'entreprise{" "}
               </p>
               <div onClick={() => setActiveTab("trouver-entreprise")}>
                 <PrimaryButton

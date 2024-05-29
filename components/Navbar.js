@@ -39,7 +39,7 @@ const handlePushToAboutUs = () => {
         </div>
         <div className="flex ml-20">
           <p className="cursor-pointer" onClick={handlePushToAboutUs}>Qui sommes-nous ?</p>
-          <Link className="pl-10" href="#">
+          <Link className="pl-10" href="#contact">
             Contact
           </Link>
         </div>

@@ -17,10 +17,14 @@ function Footer() {
         </div>
         <div className="flex items-center mt-8">
           
-          <div className="pr-4">
+        <div className="pr-4">
+          <a href="https://www.linkedin.com/company/iztafrance/" target="_blank" >
             <LinkedinSVGIcons />
-          </div>
-          <TwitterSVGIcons />
+          </a>
+        </div>
+        <a href="https://twitter.com/your_twitter_link" target="_blank">
+            <TwitterSVGIcons />
+          </a>
         </div>
       </div>
       <div className="w-[100%] h-[1px] bg-gray-300 mt-14"></div>
