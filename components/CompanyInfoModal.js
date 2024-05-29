@@ -49,11 +49,11 @@ function CompanyInfoModal({ companyName, taille }) {
             Description
           </h3>
           <p className="text-balance pt-7">
-            Deuxième entreprise mondiale des métiers des concessions et de
-            la construction, employant 275 000 salariés à travers le
-            monde.Vinci, anciennement Société générale d'entreprises (SGE), est
-            la deuxième entreprise mondiale des métiers des concessions et de
-            la construction, employant 275 000 salariés à travers le monde.
+            Deuxième entreprise mondiale des métiers des concessions et de
+            la construction, employant 275 000 salariés à travers le
+            monde.Vinci, anciennement Société générale d'entreprises (SGE), est
+            la deuxième entreprise mondiale des métiers des concessions et de
+            la construction, employant 275 000 salariés à travers le monde.
           </p>
         </div>
         <div className="h-[100%] w-[40%] pl-3 bg-white rounded-lg shadow-lg">

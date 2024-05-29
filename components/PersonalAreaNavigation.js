@@ -4,7 +4,11 @@ import ClapSVGIcons from "./iconsSVG/ClapSVGIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { putCompanyToUser } from "@/reducers/companies";
 
-export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
+export default function PersonalAreaNavigation({
+  activeTab,
+  setActiveTab,
+  onLogout,
+}) {
   const [entrepriseOptionIsOpen, setEntrepriseOptionIsOpen] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.users.value.token);
@@ -39,7 +43,11 @@ export default function PersonalAreaNavigation({ setActiveTab, onLogout }) {
             <button
               onClick={() => setActiveTab("entreprises")}
               type="button"
-              className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
+              className={`flex items-center py-4 px-3 mt-2 text-md font-medium rounded transition ease-in-out 800ms focus:outline-none focus:ring-2 ${
+                activeTab === "entreprises"
+                  ? " ring-2 ring-[#f2c9ba]"
+                  : "ring-[#f2c9ba] "
+              }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

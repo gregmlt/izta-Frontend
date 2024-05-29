@@ -65,6 +65,7 @@ export default function Profile() {
 
         <div className="flex justify-between">
           <PersonalAreaNavigation
+          activeTab={activeTab}
             setActiveTab={setActiveTab}
             onLogout={handleLogout}
           />

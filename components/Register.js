@@ -176,14 +176,21 @@ export default function Login() {
     <>
       <div className="flex">
         <div className=" flex justify-center items-center bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/images/Team-building.jpg')] w-[50%] h-[100vh] bg-right bg-cover ">
-          <p className="w-[700px] text-5xl font-medium text-white ">
+          <p className="w-[90%] text-5xl font-medium text-white px-10 ">
             Engageons-nous aujourd'hui pour faire de chaque projet un moteur de
             changement positif.
           </p>
         </div>
         <div className="flex flex-col items-center justify-center w-[50%] h-[100vh]">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            
+            <div className="my-7">
+              <img
+                className="mx-auto h-10 w-auto"
+                src="/Logo/Logomark.svg"
+                alt="Your Company"
+              />
+            </div>
+
             <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-[#004E89]">
               Créez votre compte
             </h2>
@@ -202,7 +209,7 @@ export default function Login() {
             ) : (
               step === 1 && (
                 <form className="space-y-6 w-[100%]">
-                  <div className="flex mt-8 w-[100%]">
+                  <div className="flex mt-8 w-[100%] justify-between">
                     <div className="mr-5">
                       <label
                         htmlFor="surname"
@@ -355,9 +362,7 @@ export default function Login() {
                       Visiter mon profil pour personnaliser mes préférences et
                       compléter mes données.
                     </li>
-                    <li>
-                      Retourner à l'accueil.
-                    </li>
+                    <li>Retourner à l'accueil.</li>
                   </ul>
                 </p>
                 <div className="flex mt-10">
@@ -523,13 +528,6 @@ export default function Login() {
                 </Link>
               </p>
             )}
-          </div>
-          <div className="my-7">
-          <img
-              className="mx-auto h-10 w-auto"
-              src="/Logo/Logomark.svg"
-              alt="Your Company"
-            />
           </div>
         </div>
       </div>
