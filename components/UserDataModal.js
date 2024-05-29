@@ -100,16 +100,16 @@ export default function UserDataModal({}) {
       }
     });
     setIsEditing(false);
-    console.log("Saved data:", data);
   };
 
   const handleCancelClick = () => {
+    console.log("coucou");
     setIsEditing(false);
   };
 
-  const handleChangePassword = () =>{
+  const handleChangePassword = () => {
     setIsChangePassword(true);
-  }
+  };
 
   const handleFilterChange = (e) => {
     setFilters({
@@ -133,243 +133,239 @@ export default function UserDataModal({}) {
     });
   };
 
-  const testfunction = () => {
-    if(isChangePassword) {
-      setIsChangePassword(false)
-    }
-  }
-
   return (
     <div>
-      {!isChangePassword ? 
-      (  <>
-      <div className="flex flex-col w-[100%] h-[auto] ">
-        <div className="self-end mb-4">
-          <button
-            className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
-            onClick={handleEditClick}
-          >
-            <p>Modifier les informations</p>
-            <EditingIcon margin="ml-3" />
-          </button>
-        </div>
-        <p className="text-3xl font-medium">Mon profil</p>
-        <p className="mt-4 w-[85%] ">
-          Les détails que vous fournissez sur cette page seront accessibles au
-          public. Assurez-vous de ne partager que les informations que vous êtes
-          à l'aise de rendre publiques.
-        </p>
-      </div>
-
-      {/* Input firstname */}
-
-      <div className="mt-10 w-[85%]">
-        <div className="flex">
-          <div className="flex flex-col w-[100%] mr-5">
-            <label htmlFor="prenom">Prénom</label>
-            <input
-              className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                !isEditing ? "bg-gray-200" : ""
-              }`}
-              type="text"
-              id="firstname"
-              value={prenom}
-              onChange={(e) => setPrenom(e.target.value)}
-              disabled={!isEditing}
-            />
+      {!isChangePassword ? (
+        <>
+          <div className="flex flex-col w-[100%] h-[auto] ">
+            <div className="self-end mb-4">
+              {!isEditing && (
+                <button
+                  className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
+                  onClick={handleEditClick}
+                >
+                  <p>Modifier les informations</p>
+                  <EditingIcon margin="ml-3" />
+                </button>
+              )}
+              {isEditing && (
+                <div className="flex justify-end">
+                  <SecondaryButton
+                    text="Annuler"
+                    hoverColor="hover:bg-[#B0C8DA]"
+                    margin="mr-4"
+                    clickFunc={handleCancelClick}
+                  />
+                  <PrimaryButton
+                    text="Enregistrer les modifications"
+                    bgColor="bg-[#003761]"
+                    hoverColor="hover:bg-[#3371a1]"
+                    clickFunc={handleSaveClick}
+                  />
+                </div>
+              )}
+            </div>
+            <p className="text-3xl font-medium">Mon profil</p>
+            <p className="mt-4 w-[85%] ">
+              Les détails que vous fournissez sur cette page seront accessibles
+              au public. Assurez-vous de ne partager que les informations que
+              vous êtes à l'aise de rendre publiques.
+            </p>
           </div>
 
-          {/* Input Name */}
+          {/* Input firstname */}
 
-          <div className="flex flex-col w-[100%]">
-            <label htmlFor="name">Nom</label>
-            <input
-              className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                !isEditing ? "bg-gray-200" : ""
-              }`}
-              type="text"
-              id="name"
-              value={nom}
-              onChange={(e) => setNom(e.target.value)}
-              disabled={!isEditing}
-            />
-          </div>
-        </div>
-      </div>
+          <div className="mt-10 w-[85%]">
+            <div className="flex">
+              <div className="flex flex-col w-[100%] mr-5">
+                <label htmlFor="prenom">Prénom</label>
+                <input
+                  className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                    !isEditing ? "bg-gray-200" : ""
+                  }`}
+                  type="text"
+                  id="firstname"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                  disabled={!isEditing}
+                />
+              </div>
 
-      {/* Input Email */}
+              {/* Input Name */}
 
-      <div className="mt-10 w-[85%]">
-        <div className="flex">
-          <div className="flex flex-col w-[100%] mr-5">
-            <label htmlFor="prenom">Email</label>
-            <input
-              className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                !isEditing ? "bg-gray-200" : ""
-              }`}
-              type="text"
-              id="firstname"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={!isEditing}
-            />
-          </div>
-
-          {/* Input Password */}
-
-          <div className="flex flex-col w-[100%]">
-            <label htmlFor="name">Mot de passe</label>
-            <input
-              className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-                !isEditing ? "bg-gray-200" : "bg-gray-200"
-              }`}
-              type="text"
-              id="name"
-              value="**********"
-              onChange={(e) => setPassword(e.target.value)}
-              disabled
-            />
-            <div className="text-[13px] self-end mt-3 " onClick={handleChangePassword}>
-              <p
-               
-                className="font-medium text-[#003761] hover:text-[#ce7e60] underline underline-offset-2"
-              >
-                Modifier mon mot de passe
-              </p>
+              <div className="flex flex-col w-[100%]">
+                <label htmlFor="name">Nom</label>
+                <input
+                  className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                    !isEditing ? "bg-gray-200" : ""
+                  }`}
+                  type="text"
+                  id="name"
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
+                  disabled={!isEditing}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Input Adress*/}
+          {/* Input Email */}
 
-      <div className="flex w-[85%] mt-10">
-        <div className="flex flex-col w-[100%]">
-          <label htmlFor="prenom">Adresse</label>
-          <input
-            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-              !isEditing ? "bg-gray-200" : ""
-            }`}
-            type="text"
-            id="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            disabled={!isEditing}
-          />
-        </div>
-      </div>
+          <div className="mt-10 w-[85%]">
+            <div className="flex">
+              <div className="flex flex-col w-[100%] mr-5">
+                <label htmlFor="prenom">Email</label>
+                <input
+                  className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                    !isEditing ? "bg-gray-200" : ""
+                  }`}
+                  type="text"
+                  id="firstname"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={!isEditing}
+                />
+              </div>
 
-      {/* Input range / city & district & zip code  */}
+              {/* Input Password */}
 
-      <div className="flex w-[85%] mt-10 justify-between">
-        {/* Input city */}
+              <div className="flex flex-col w-[100%]">
+                <label htmlFor="name">Mot de passe</label>
+                <input
+                  className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                    !isEditing ? "bg-gray-200" : "bg-gray-200"
+                  }`}
+                  type="text"
+                  id="name"
+                  value="**********"
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled
+                />
+                <div
+                  className="text-[13px] self-end mt-3 "
+                  onClick={handleChangePassword}
+                >
+                  <p className="font-medium text-[#003761] hover:text-[#ce7e60] underline underline-offset-2">
+                    Modifier mon mot de passe
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div className="flex flex-col w-[32%] ">
-          <label htmlFor="city">Ville</label>
-          <input
-            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-              !isEditing ? "bg-gray-200" : ""
-            }`}
-            type="text"
-            id="city"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            disabled={!isEditing}
-          />
-        </div>
+          {/* Input Adress*/}
 
-        {/* DATE PICKER */}
+          <div className="flex w-[85%] mt-10">
+            <div className="flex flex-col w-[100%]">
+              <label htmlFor="prenom">Adresse</label>
+              <input
+                className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                  !isEditing ? "bg-gray-200" : ""
+                }`}
+                type="text"
+                id="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                disabled={!isEditing}
+              />
+            </div>
+          </div>
 
-        <div className="flex flex-col w-[32%]">
-          <DateBirthPicker editing={!isEditing} />
-        </div>
+          {/* Input range / city & district & zip code  */}
 
-        {/* Input Zipcode */}
+          <div className="flex w-[85%] mt-10 justify-between">
+            {/* Input city */}
 
-        <div className="flex flex-col w-[32%]">
-          <label htmlFor="zipcode">Code postal</label>
-          <input
-            className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
-              !isEditing ? "bg-gray-200" : ""
-            }`}
-            type="text"
-            id="zipcode"
-            value={zipcode}
-            onChange={(e) => setZipcode(e.target.value)}
-            disabled={!isEditing}
-          />
-        </div>
-      </div>
+            <div className="flex flex-col w-[32%] ">
+              <label htmlFor="city">Ville</label>
+              <input
+                className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                  !isEditing ? "bg-gray-200" : ""
+                }`}
+                type="text"
+                id="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                disabled={!isEditing}
+              />
+            </div>
 
-      <div className="w-[100%] h-[1px] bg-gray-300 mt-14"></div>
+            {/* DATE PICKER */}
 
-      <div>
-        <p className="text-2xl font-medium mt-7 mb-9">
-          Informations complémentaires
-        </p>
-      </div>
+            <div className="flex flex-col w-[32%]">
+              <DateBirthPicker editing={!isEditing} />
+            </div>
 
-      <div>
-        <p className="mb-3 font-medium">Diplôme</p>
-        <DropDownDiploma
-          filters={filters}
-          onFilterChange={handleFilterChange}
-        />
-      </div>
+            {/* Input Zipcode */}
 
-      <div className="mb-10">
-        <p className="mb-3 mt-10 font-medium">Votre situation</p>
-        <CheckboxWithLabel
-          text="Je me renseigne"
-          checked={checkboxes.renseigne}
-          onCheckboxChange={(e) =>
-            handleCheckboxChange({
-              ...e,
-              target: { ...e.target, name: "renseigne" },
-            })
-          }
-        />
-        <CheckboxWithLabel
-          text="Je suis à l’écoute"
-          checked={checkboxes.ecoute}
-          onCheckboxChange={(e) =>
-            handleCheckboxChange({
-              ...e,
-              target: { ...e.target, name: "ecoute" },
-            })
-          }
-        />
-        <CheckboxWithLabel
-          text="Je suis en recherche active"
-          checked={checkboxes.recherche}
-          onCheckboxChange={(e) =>
-            handleCheckboxChange({
-              ...e,
-              target: { ...e.target, name: "recherche" },
-            })
-          }
-        />
-      </div>
-      <div className="flex justify-end">
-        <SecondaryButton
-          text="Annuler"
-          hoverColor="hover:bg-[#B0C8DA]"
-          margin="mr-4"
-          onClick={handleCancelClick}
-        />
-        <PrimaryButton
-          text="Enregistrer les modifications"
-          bgColor="bg-[#003761]"
-          hoverColor="hover:bg-[#3371a1]"
-          clickFunc={handleSaveClick}
-        />
-      </div> 
-      </>)
-      :
-      (<ChangePassword />)
-    }
-    
+            <div className="flex flex-col w-[32%]">
+              <label htmlFor="zipcode">Code postal</label>
+              <input
+                className={`rounded-md border-0 px-4 py-3 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 ${
+                  !isEditing ? "bg-gray-200" : ""
+                }`}
+                type="text"
+                id="zipcode"
+                value={zipcode}
+                onChange={(e) => setZipcode(e.target.value)}
+                disabled={!isEditing}
+              />
+            </div>
+          </div>
 
+          <div className="w-[100%] h-[1px] bg-gray-300 mt-14"></div>
+
+          <div>
+            <p className="text-2xl font-medium mt-7 mb-9">
+              Informations complémentaires
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-3 font-medium">Diplôme</p>
+            <DropDownDiploma
+              filters={filters}
+              onFilterChange={handleFilterChange}
+            />
+          </div>
+
+          <div className="mb-10">
+            <p className="mb-3 mt-10 font-medium">Votre situation</p>
+            <CheckboxWithLabel
+              text="Je me renseigne"
+              checked={checkboxes.renseigne}
+              onCheckboxChange={(e) =>
+                handleCheckboxChange({
+                  ...e,
+                  target: { ...e.target, name: "renseigne" },
+                })
+              }
+            />
+            <CheckboxWithLabel
+              text="Je suis à l’écoute"
+              checked={checkboxes.ecoute}
+              onCheckboxChange={(e) =>
+                handleCheckboxChange({
+                  ...e,
+                  target: { ...e.target, name: "ecoute" },
+                })
+              }
+            />
+            <CheckboxWithLabel
+              text="Je suis en recherche active"
+              checked={checkboxes.recherche}
+              onCheckboxChange={(e) =>
+                handleCheckboxChange({
+                  ...e,
+                  target: { ...e.target, name: "recherche" },
+                })
+              }
+            />
+          </div>
+        </>
+      ) : (
+        <ChangePassword />
+      )}
     </div>
   );
 }

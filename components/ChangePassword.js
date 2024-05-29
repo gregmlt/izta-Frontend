@@ -41,7 +41,7 @@ export default function ChangePassword() {
       newPassword,
     };
 
-    fetch(`http://localhost:3000/users/password-change/${token}`, {
+    fetch(`http://localhost:3000/passwords/password-change/${token}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -174,4 +174,3 @@ export default function ChangePassword() {
     </>
   );
 }
-

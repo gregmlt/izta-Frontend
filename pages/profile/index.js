@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
 import Footer from "@/components/Footer";
+import { deleteCompanyFromUser } from "@/reducers/companies";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
@@ -39,6 +40,7 @@ export default function Profile() {
     dispatch(logout());
     // Rediriger vers la page d'accueil
     router.push("/");
+    dispatch(deleteCompanyFromUser());
   };
 
   const handlePushToLogin = () => {

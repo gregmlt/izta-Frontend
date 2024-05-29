@@ -10,7 +10,6 @@ export default function PersonalAreaNavigation({
   onLogout,
 }) {
   const [entrepriseOptionIsOpen, setEntrepriseOptionIsOpen] = useState(false);
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.users.value.token);
   const hasACompany = useSelector((state) => state.companies.value.hasACompany);
 
@@ -66,7 +65,7 @@ export default function PersonalAreaNavigation({
               Ma liste d'entreprises likées
             </button>
 
-            <button
+            {/* <button
               onClick={() => setActiveTab("recherches")}
               type="button"
               className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms  focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
@@ -86,7 +85,7 @@ export default function PersonalAreaNavigation({
                 />
               </svg>
               Mes recherches précédentes
-            </button>
+            </button> */}
 
             <button
               onClick={() => setActiveTab("infos-perso")}
@@ -132,14 +131,14 @@ export default function PersonalAreaNavigation({
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                         role="menuitem"
                       >
-                        mes informations d'entreprise
+                        Mes informations d'entreprise
                       </button>
                       <button
                         onClick={() => setActiveTab("statistiques")}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                         role="menuitem"
                       >
-                        mes statistiques
+                        Mes statistiques
                       </button>
                     </div>
                   </div>
@@ -175,7 +174,7 @@ export default function PersonalAreaNavigation({
               Ma liste d'entreprises likées
             </button>
 
-            <button
+            {/* <button
               onClick={() => setActiveTab("recherches")}
               type="button"
               className="flex items-center py-4 px-3 mt-2 text-md font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms  focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
@@ -195,7 +194,7 @@ export default function PersonalAreaNavigation({
                 />
               </svg>
               Mes recherches précédentes
-            </button>
+            </button> */}
 
             <button
               onClick={() => setActiveTab("infos-perso")}

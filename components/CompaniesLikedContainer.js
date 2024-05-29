@@ -2,32 +2,32 @@ import React, { useEffect, useState } from "react";
 import CompagniesMiniCard from "./CompagniesMiniCard";
 import { useSelector } from "react-redux";
 
-
 export default function CompaniesLikedContainer() {
-  
   const [companiesLikedList, setCompaniesLikedList] = useState([]);
   const token = useSelector((state) => state.users.value.token);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await fetch(
-        `http://localhost:3000/users/infos/${token}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      try {
+        const response = await fetch(
+          `http://localhost:3000/users/infos/${token}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      if (response.ok) {
-        const userData = await response.json();
-        setCompaniesLikedList(userData.data.likedCompanies);
-       
-      } else {
-        console.error("Erreur des données utilisateur");
-        
+        if (response.ok) {
+          const userData = await response.json();
+          setCompaniesLikedList(userData.data.likedCompanies);
+        } else {
+          console.error("Erreur des données utilisateur");
+        }
+      } catch (error) {
+        console.error("Erreur de la requête fetch:", error);
       }
     };
 
@@ -35,7 +35,6 @@ export default function CompaniesLikedContainer() {
       fetchUserData();
     }
   }, [token]);
-  
 
   return (
     <>
@@ -47,7 +46,11 @@ export default function CompaniesLikedContainer() {
               Voici les entreprises que vous avez ajoutées à vos favoris.
             </p>
             {companiesLikedList.map((company, index) => (
-              <CompagniesMiniCard key={index} companyName={company.companyName} companyId={company._id} />
+              <CompagniesMiniCard
+                key={index}
+                companyName={company.companyName}
+                companyId={company._id}
+              />
             ))}
           </>
         ) : (

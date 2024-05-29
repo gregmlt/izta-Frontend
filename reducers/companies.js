@@ -10,14 +10,10 @@ export const companiesSlice = createSlice({
   initialState,
   reducers: {
     putCompanyToUser: (state, action) => {
-      state.value = {
-        hasACompany: true,
-      };
+      state.value.hasACompany = true;
     },
     deleteCompanyFromUser: (state) => {
-      state.value = {
-        hasACompany: false,
-      };
+      state.value.hasACompany = false;
     },
   },
 });
