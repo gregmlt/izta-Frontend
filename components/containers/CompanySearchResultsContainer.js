@@ -15,9 +15,10 @@ function CompanySearchResultsContainer() {
       socket.on("searchResults", (data) => {
         const companies = data.companies.map((e) => (
           <CompanySearchResultsModal
-            key={e.companyName}
+            key={e["_id"]}
             name={e.companyName}
             taille={e.employeeNumber}
+            id={e["_id"]}
           />
         ));
         setBlocks(companies);
