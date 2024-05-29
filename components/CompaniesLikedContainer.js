@@ -23,6 +23,7 @@ export default function CompaniesLikedContainer() {
 
       if (response.ok) {
         const userData = await response.json();
+        console.log(userData.data)
         setCompaniesLikedList(userData.data.likedCompanies);
        
       } else {
