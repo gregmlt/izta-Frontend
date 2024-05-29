@@ -5,7 +5,7 @@ import ChevronLeftSVGIcons from "./iconsSVG/ChevronLeftSVGIcons";
 
 const PaginatedBlocks = ({ items }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 3;
 
   // Calculer les index des éléments actuels
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -44,7 +44,7 @@ const PaginatedBlocks = ({ items }) => {
   };
 
   return (
-    <div className="p-4 h-[1400px] flex flex-col">
+    <div className="h-[1400px] flex flex-col ">
       <div
         ref={paginatedItemsRef}
         className="relative h-full overflow-hidden flex-grow"
@@ -55,11 +55,12 @@ const PaginatedBlocks = ({ items }) => {
             style={style}
             className="absolute top-0 left-0 w-full h-full"
           >
-            <div className="flex flex-col w-full h-full">
+            <div className="flex w-full h-full">
               {items
                 .slice((item - 1) * itemsPerPage, item * itemsPerPage)
                 .map((item, index) => (
-                  <div key={index} className="p-2">
+                  <div key={index} className="p-4 ">
+                    {item}
                     {item}
                   </div>
                 ))}

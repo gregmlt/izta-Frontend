@@ -100,6 +100,7 @@ function CompanySearchResultsContainer() {
         </div>
         <PaginatedBlocks items={blocks} />
       </div>
+
     </div>
   );
 }
