@@ -4,7 +4,7 @@ const ButtonWithUnderline = ({ text, onClick, underlineColor, type }) => {
   return (
     <button 
     onClick={onClick} 
-    className="text-md inline-block relative my-3 md:my-5 mx-4 btn4 pb-1 font-semibold tracking-wider leading-none overflow-hidden" 
+    className="text-[16px] inline-block relative my-3 mr-2 btn4 pb-1 font-semibold tracking-wider leading-none overflow-hidden" 
     type={type}
   >
     <span 
