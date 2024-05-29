@@ -12,6 +12,7 @@ export default function PersonalAreaNavigation({
   const [entrepriseOptionIsOpen, setEntrepriseOptionIsOpen] = useState(false);
   const token = useSelector((state) => state.users.value.token);
   const hasACompany = useSelector((state) => state.companies.value.hasACompany);
+  const dispatch = useDispatch();
 
   const toggleDropdown = () => {
     setEntrepriseOptionIsOpen(!entrepriseOptionIsOpen);
