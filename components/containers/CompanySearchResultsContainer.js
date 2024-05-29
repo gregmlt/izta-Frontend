@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useSocket } from "../../pages/SocketProvider";
 import SearchBar from "../SearchBar";
 
-
 function CompanySearchResultsContainer() {
   const [blocks, setBlocks] = useState([]);
   const socket = useSocket();
@@ -15,26 +14,42 @@ function CompanySearchResultsContainer() {
       socket.on("searchResults", (data) => {
         const companies = data.companies.map((e) => (
           <CompanySearchResultsModal
-            key={e.companyName}
+            key={e["_id"]}
             name={e.companyName}
             taille={e.employeeNumber}
+            id={e["_id"]}
+          />
+        ));
+        setBlocks(companies);
+      });
+
+    socket &&
+      socket.on("discoverResults", (data) => {
+        console.log("coucou");
+        const companies = data.companies.map((e) => (
+          <CompanySearchResultsModal
+            key={e["_id"]}
+            name={e.companyName}
+            taille={e.employeeNumber}
+            id={e["_id"]}
           />
         ));
         setBlocks(companies);
       });
 
     return () => {
-      socket && socket.off("searchResults");
+      socket.off("searchResults");
+      socket.off("dicoverResults");
     };
   }, [socket]);
 
   return (
     <div>
       <div className=" w-full h-[600px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/Logo/backgground.png')] bg-cover bg-bottom">
-      <div className="w-full flex justify-center pt-8">
-        <Navbar />
-      </div>
-      <div className="w-full flex flex-col justify-center items-center my-10 mt-20">
+        <div className="w-full flex justify-center pt-8">
+          <Navbar />
+        </div>
+        <div className="w-full flex flex-col justify-center items-center my-10 mt-20">
           <div>
             <p className="text-3xl mt-[25%] font-semibold text-white mb-10">
               Renseignez-vous sur l’engagement d’une entreprise.

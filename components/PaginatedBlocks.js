@@ -5,7 +5,7 @@ import ChevronLeftSVGIcons from "./iconsSVG/ChevronLeftSVGIcons";
 
 const PaginatedBlocks = ({ items }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   // Calculer les index des éléments actuels
   const indexOfLastItem = currentPage * itemsPerPage;
