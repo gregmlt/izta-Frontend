@@ -40,8 +40,8 @@ function ContactContainer() {
   };
 
   return (
-    <div id="contact" className="flex justify-center items-center h-auto h-[870px] w-full bg-white">
-      <div className="flex justify-center items-end bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/images/Team.jpg')] w-full h-full bg-left bg-cover pl-20">
+    <div id="contact" className="flex justify-center items-center h-auto h-[900px] w-full bg-white">
+      <div className="flex justify-center items-end bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/images/Team.jpg')] w-full h-[100%] bg-left bg-cover pl-20">
         <blockquote className="w-full text-lg text-white mb-20 mr-10 pl-[120px]">
           <div className="w-14 mb-4">
             <img src="./images/quote.svg" alt="quote" />
