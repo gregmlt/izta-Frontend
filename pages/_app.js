@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import SocketProvider from "./SocketProvider.js";
+import { SearchResultsProvider } from './SearchResultsContext.js';
 
 const reducers = combineReducers({ users, companies });
 
@@ -32,7 +33,9 @@ export default function App({ Component, pageProps }) {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <SocketProvider>
+        <SearchResultsProvider>
           <Component {...pageProps} />
+        </SearchResultsProvider>
         </SocketProvider>
       </PersistGate>
     </Provider>
