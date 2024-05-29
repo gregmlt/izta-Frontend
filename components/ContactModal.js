@@ -34,7 +34,7 @@ function ContactModal() {
   };
 
   return (
-    <div className="w-[100%] h-auto bg-white rounded-md mt-10 ">
+    <div className="w-[100%] h-auto bg-white rounded-md">
       <p className="text-lg font-medium mb-10">
         Notre équipe est prête à vous répondre et à vous assister.
       </p>

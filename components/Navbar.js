@@ -31,6 +31,14 @@ const handlePushToAboutUs = () => {
     router.push("./");
   };
 
+  const handleScrollToContact = (e) => {
+    e.preventDefault();
+    const contactSection = document.getElementById("contact");
+    const yOffset = -115; // décalage de 100 pixels
+    const yPosition = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: yPosition, behavior: "smooth" });
+  };
+
   return (
     <div className="h-[80px] w-[85%] fixed flex justify-between py-4 px-6 items-center border rounded border-gray-400 backdrop-blur-md z-20">
       <div className="flex items-center">
@@ -41,9 +49,9 @@ const handlePushToAboutUs = () => {
         </div>
         <div className="flex ml-20">
           <p className="cursor-pointer" onClick={handlePushToAboutUs}>Qui sommes-nous ?</p>
-          <Link className="pl-10" href="#">
+          <a className="pl-10" href="#contact" onClick={handleScrollToContact}>
             Contact
-          </Link>
+          </a>
         </div>
       </div>
 

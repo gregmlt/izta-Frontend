@@ -9,13 +9,7 @@ function ContactContainer() {
             <h3 className='font-medium text-[24px] text-[#003761]'>Nous sommes là pour vous aider !</h3>
             <p className='text-balance text-[20px] leading-7 tracking-wide pt-[100px]'>Que vous ayez des questions, des commentaires ou que vous souhaitiez en savoir plus sur nos produits et services, n'hésitez pas à nous contacter. Notre équipe est prête à vous assister et à répondre à vos besoins.</p>
         </div>
-        <div className='w-[50%] h-[70%]'>
-
-
-
-
-
-          
+        <div className='w-[50%] h-[70%] '>   
         <ContactModal />
         </div>
     </div>

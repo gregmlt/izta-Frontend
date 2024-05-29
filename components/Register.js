@@ -26,7 +26,6 @@ export default function Login() {
   const token = useSelector((state) => state.users.value.token);
 
   const handleSubmit = (e) => {
-    console.log(prenom, nom, email, password);
     e.preventDefault();
     if (!isCompany) {
       const data = {
@@ -106,7 +105,6 @@ export default function Login() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log(data);
           setStep(3);
           setEntrepriseTrouvee(true);
           setEntrepriseName(data.company.companyName);
@@ -141,7 +139,6 @@ export default function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result) {
           setStep(4); // Passer à l'étape finale après la sélection de l'entreprise
         } else if (data.message === "User already owns this company") {
@@ -177,7 +174,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex ">
+      <div className="flex">
         <div className=" flex justify-center items-center bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/images/Team-building.jpg')] w-[50%] h-[100vh] bg-right bg-cover ">
           <p className="w-[700px] text-5xl font-medium text-white ">
             Engageons-nous aujourd'hui pour faire de chaque projet un moteur de
@@ -186,17 +183,13 @@ export default function Login() {
         </div>
         <div className="flex flex-col items-center justify-center w-[50%] h-[100vh]">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-              className="mx-auto h-10 w-auto"
-              src="/Logo/Logomark.svg"
-              alt="Your Company"
-            />
+            
             <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-[#004E89]">
               Créez votre compte
             </h2>
           </div>
 
-          <div className="w-[55%]">
+          <div className="w-[50%]">
             {loading ? (
               <div className="flex justify-center items-center h-[100%] mt-5 mb-[50%]">
                 <div>
@@ -210,7 +203,7 @@ export default function Login() {
               step === 1 && (
                 <form className="space-y-6 w-[100%]">
                   <div className="flex mt-8 w-[100%]">
-                    <div className="mr-12">
+                    <div className="mr-5">
                       <label
                         htmlFor="surname"
                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -226,7 +219,7 @@ export default function Login() {
                           required
                           value={prenom}
                           onChange={(e) => setPrenom(e.target.value)}
-                          className="block w-[120%] rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:color-[#5488b0] sm:text-sm sm:leading-6"
+                          className="block w-[100%] rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:color-[#5488b0] sm:text-sm sm:leading-6"
                         />
                       </div>
                     </div>
@@ -246,7 +239,7 @@ export default function Login() {
                           required
                           value={nom}
                           onChange={(e) => setNom(e.target.value)}
-                          className="block w-[120%] rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:color-[#5488b0] sm:text-sm sm:leading-6"
+                          className="block w-[100%] rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:color-[#5488b0] sm:text-sm sm:leading-6"
                         />
                       </div>
                     </div>
@@ -286,7 +279,7 @@ export default function Login() {
                         Mot de passe
                       </label>
                     </div>
-                    <div className="mt-2">
+                    <div className="mt-2 w-[100%]">
                       <input
                         id="password"
                         name="password"
@@ -530,6 +523,13 @@ export default function Login() {
                 </Link>
               </p>
             )}
+          </div>
+          <div className="my-7">
+          <img
+              className="mx-auto h-10 w-auto"
+              src="/Logo/Logomark.svg"
+              alt="Your Company"
+            />
           </div>
         </div>
       </div>
