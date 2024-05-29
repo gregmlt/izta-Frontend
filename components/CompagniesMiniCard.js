@@ -1,5 +1,4 @@
 import React from "react";
-import ArrowRightSVGIcons from "./iconsSVG/ArrowRightSVGIcons";
 import { useRouter } from "next/router";
 
 
@@ -11,8 +10,8 @@ export default function CompagniesMiniCard({companyId,companyName
 
 }) {
   const router = useRouter();
+
   const handleRedirect = () => {
-    
     router.push(`/company/${companyId}`);
   };
 
@@ -28,7 +27,6 @@ export default function CompagniesMiniCard({companyId,companyName
       </div>
       </div>
       <div className="text-blue-500 hov">
-      {/* <ArrowRightSVGIcons color="[#003761]"/> */}
       </div>
     </div>
   );
