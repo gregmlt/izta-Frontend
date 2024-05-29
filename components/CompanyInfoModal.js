@@ -3,10 +3,13 @@ import StarsSVGIcons from "./iconsSVG/StarsSVGIcons";
 import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import MedalSVGIcons from "./iconsSVG/MedalSVGIcons";
 import KudosButton from "./KudosButton";
+import InfoSVGIcon from "./iconsSVG/InfoSVGIcon";
 
 function CompanyInfoModal({ companyName }) {
+  const [showPopover, setShowPopover] = useState(false);
+
   return (
-    <div className="h-[500px] w-[800px] mx-auto my-[70px] flex flex-col">
+    <div className="h-[500px] w-[60%] mx-auto my-[70px] flex flex-col">
       <div className="bg-white rounded-md shadow-lg w-[100%] min-h-[200px] flex my-5">
         <div className="w-[23%] p-4 relative">
           <div className="absolute top-[-89%]">
@@ -70,8 +73,31 @@ function CompanyInfoModal({ companyName }) {
           </p>
         </div>
       </div>
-      <div className="self-end mt-3">
-        <KudosButton />
+      <div className="self-end flex items-center mt-3 relative cursor-pointer ">
+        <div
+          className="mr-4"
+          onMouseEnter={() => setShowPopover(true)}
+          onMouseLeave={() => setShowPopover(false)}
+        >
+          <InfoSVGIcon />
+          {showPopover && (
+            <div className="absolute top-7 right-[calc(100%+10px)] w-64 p-3 text-sm text-black bg-[#B0C8DA] rounded-lg shadow-lg ">
+              <p className="font-semibold text-md mb-2">
+                C'est quoi les Kudos ?
+              </p>
+              <p className="mb-1">
+                Les Kudos sont un moyen simple et efficace de montrer votre
+                appréciation pour les entreprises engagées dans la transition
+                écologique.
+              </p>
+              <p>
+                Chaque Kudo compte et aide à créer un impact positif ! Montrez
+                votre soutien dès maintenant !
+              </p>
+            </div>
+          )}
+        </div>
+        <KudosButton hoverColor="hover:bg-[#3371a1]" />
       </div>
     </div>
   );

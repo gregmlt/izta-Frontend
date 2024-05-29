@@ -1,11 +1,11 @@
 import React from "react";
-import ContactContainer from "./ContactContainer";
 import CompanySearchResultsModal from "../CompanySearchResultsModal";
 import PaginatedBlocks from "../PaginatedBlocks";
-import FiltersBlock from "../FiltersBlock";
 import Navbar from "../Navbar";
 import { useEffect, useState } from "react";
 import { useSocket } from "../../pages/SocketProvider";
+import SearchBar from "../SearchBar";
+
 
 function CompanySearchResultsContainer() {
   const [blocks, setBlocks] = useState([]);
@@ -31,10 +31,19 @@ function CompanySearchResultsContainer() {
 
   return (
     <div>
-      <div className=" w-full h-[600px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1))]">
+      <div className=" w-full h-[600px] bg-[linear-gradient(to_left_bottom,rgba(206,100,38,0.7),rgba(16,34,93,1)),url('/Logo/backgground.png')] bg-cover bg-bottom">
+      <div className="w-full flex justify-center pt-8">
         <Navbar />
-        <div className="w-full flex justify-center pt-8">
-          <FiltersBlock />
+      </div>
+      <div className="w-full flex flex-col justify-center items-center my-10 mt-20">
+          <div>
+            <p className="text-3xl mt-[25%] font-semibold text-white mb-10">
+              Renseignez-vous sur l’engagement d’une entreprise.
+            </p>
+          </div>
+          <div className="w-[50%] justify-center items-center">
+            <SearchBar width="w-full" />
+          </div>
         </div>
       </div>
       <div className="px-[130px]">
@@ -92,7 +101,6 @@ function CompanySearchResultsContainer() {
         </div>
         <PaginatedBlocks items={blocks} />
       </div>
-      <ContactContainer />
     </div>
   );
 }

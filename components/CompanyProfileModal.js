@@ -7,7 +7,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function CompagnyProfileModal() {
+  // Déclarations d'état
   const [isEditing, setIsEditing] = useState(false);
+  const [company, setCompany] = useState(null);
+  const [initialData, setInitialData] = useState({});
   const [companyName, setCompanyName] = useState("");
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
@@ -38,6 +41,8 @@ function CompagnyProfileModal() {
   const [like, setLike] = useState([]);
   const [employeeOptions, setEmployeeOptions] = useState([]);
   const [selectedLabel, setSelectedLabel] = useState("");
+  const [confirmationMessage, setConfirmationMessage] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const labelOptions = ["RSE Engagé", "Ecovadis", "B-corp", "Positive-company"];
 
   const handleEmployeeNumberChange = (e) => {
@@ -54,7 +59,7 @@ function CompagnyProfileModal() {
 
   const token = useSelector((state) => state.users.value.token);
 
-  ///////// recuperation des données de l'entreprise ////////
+  ///////// Recuperation des données de l'entreprise ////////
 
   useEffect(() => {
     fetch(`http://localhost:3000/companies/infos/${token}`)
@@ -62,6 +67,8 @@ function CompagnyProfileModal() {
       .then((data) => {
         if (data.result && data.data.length > 0) {
           const companyData = data.data[0];
+          setCompany(companyData);
+          setInitialData(companyData); // Initialisez les données initiales ici
           setCompanyName(companyData.companyName);
           setDescription(companyData.description);
           setWebsite(companyData.website);
@@ -98,6 +105,20 @@ function CompagnyProfileModal() {
   ///////// fetch method PUT pour modifier les données de l'entreprise ////////
 
   const handleSaveChanges = () => {
+    if (!company) {
+      console.error("Company data is not loaded");
+      return;
+    }
+
+    if (!hasDataChanged()) {
+      setConfirmationMessage("Aucun champ n'a été modifié.");
+      setShowConfirmation(true);
+      setTimeout(() => {
+        setShowConfirmation(false);
+      }, 5000); // 5 secondes
+      return;
+    }
+
     const updatedData = {
       companyName,
       description,
@@ -127,7 +148,7 @@ function CompagnyProfileModal() {
       kudos,
       like,
     };
-
+    console.log("Company ID:", company._id);
     fetch(`http://localhost:3000/companies/infos/${company._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -138,6 +159,14 @@ function CompagnyProfileModal() {
         if (data.result) {
           console.log("Company data updated successfully:", data);
           setIsEditing(false);
+          setConfirmationMessage(
+            "Les informations ont été modifiées avec succès."
+          );
+          setShowConfirmation(true);
+          // Masquer le message après quelques secondes
+          setTimeout(() => {
+            setShowConfirmation(false);
+          }, 5000); // 5 secondes
         } else {
           console.error("Error updating company data:", data);
         }
@@ -153,6 +182,39 @@ function CompagnyProfileModal() {
 
   const handleCancelClick = () => {
     setIsEditing(false);
+  };
+
+  const hasDataChanged = () => {
+    if (!initialData) return false;
+    return (
+      companyName !== initialData.companyName ||
+      description !== initialData.description ||
+      website !== initialData.website ||
+      linkedin !== initialData.linkedin ||
+      glassdoor !== initialData.glassdoor ||
+      welcometothejungle !== initialData.welcometothejungle ||
+      siren !== initialData.siren ||
+      siret !== initialData.siret ||
+      creationDate !== initialData.creationDate ||
+      adress !== initialData.adress ||
+      city !== initialData.city ||
+      postalCode !== initialData.postalCode ||
+      employeeNumber !== initialData.employeeNumber ||
+      industry !== initialData.industry ||
+      labels !== initialData.labels ||
+      pariteEntreprise !== initialData.pariteEntreprise ||
+      pariteDirection !== initialData.pariteDirection ||
+      ageMoyen !== initialData.ageMoyen ||
+      ecartSalaire !== initialData.ecartSalaire ||
+      turnover !== initialData.turnover ||
+      mecenat !== initialData.mecenat ||
+      territorialScore !== initialData.territorialScore ||
+      socialScore !== initialData.socialScore ||
+      fiscalScore !== initialData.fiscalScore ||
+      companyLogo !== initialData.companyLogo ||
+      JSON.stringify(kudos) !== JSON.stringify(initialData.kudos) ||
+      JSON.stringify(like) !== JSON.stringify(initialData.like)
+    );
   };
 
   return (
@@ -662,7 +724,8 @@ y compris sa mission et ses valeurs."
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
-                  {/* Ajouter d'autres options ici */}
+                  <option value="oui">Oui</option>
+                  <option value="non">Non</option>
                 </select>
               </div>
             </div>
@@ -688,6 +751,17 @@ y compris sa mission et ses valeurs."
           />
         </div>
       </div>
+      {showConfirmation && (
+        <div
+          className={`mt-4 ${
+            confirmationMessage === "Aucun champ n'a été modifié."
+              ? "text-red-600"
+              : "text-green-600"
+          }`}
+        >
+          {confirmationMessage}
+        </div>
+      )}
     </div>
   );
 }
