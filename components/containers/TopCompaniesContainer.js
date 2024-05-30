@@ -116,8 +116,8 @@ function TopCompaniesContainer() {
   };
 
   return (
-    <div className="text-balance py-[72px]  ">
-      <h1 className="w-full flex justify-center text-2xl md:text-4xl leading-6 font-bold text-[#003761] py-6 md:py-10">
+    <div className="text-balance py-[70px] w-full">
+      <h1 className="w-full flex justify-center text-4xl md:text-4xl leading-6 font-bold text-[#003761] py-6 ">
         Découvrez les meilleures entreprises
       </h1>
       <div className="flex flex-col items-center">
@@ -137,7 +137,7 @@ function TopCompaniesContainer() {
             className="mb-2 md:mb-0 md:ml-4" // Ajout de marge gauche en mode desktop
           /> */}
         </div>
-        <div className="flex flex-wrap justify-center items-center">
+        <div className="flex w-[70%] justify-between items-center ">
           {renderModals(topRatedCompanies)}
         </div>
       </div>
