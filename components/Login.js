@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import GoogleOAuthButton from "./GoogleButton";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addTokenToStore } from "@/reducers/users";
+import { useDispatch, useSelector } from "react-redux";
+import { addTokenToStore, switchVerification } from "@/reducers/users";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -12,6 +12,7 @@ export default function Login() {
   const [forgotPassword, setForgotPassword] = useState(false); // Nouvel état pour gérer l'affichage
   const dispatch = useDispatch();
   const router = useRouter();
+  console.log({ verifier: useSelector((state) => state.users.verification) });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +26,8 @@ export default function Login() {
       .then((data) => {
         if (data.result) {
           dispatch(addTokenToStore(data));
+          dispatch(switchVerification(data.verification));
+          console.log(data.verification);
           router.push("/profile");
           setAutorized(true);
         } else {

@@ -44,6 +44,7 @@ function CompagnyProfileModal() {
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const labelOptions = ["RSE Engagé", "Ecovadis", "B-corp", "Positive-company"];
+  const isVerified = useSelector((state) => state.users.value.verification);
 
   const handleEmployeeNumberChange = (e) => {
     setEmployeeNumber(e.target.value);
@@ -215,40 +216,56 @@ function CompagnyProfileModal() {
     );
   };
 
+  let button;
+
+  console.log(isVerified);
+
+  if (isVerified) {
+    if (!isEditing) {
+      button = (
+        <button
+          className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
+          onClick={handleEditClick}
+        >
+          <p>Modifier les informations</p>
+          <EditingIcon margin="ml-3" />
+        </button>
+      );
+    } else if (isEditing) {
+      button = (
+        <div className="flex justify-end">
+          <div>
+            <SecondaryButton
+              text="Annuler"
+              hoverColor="hover:bg-[#B0C8DA]"
+              margin="mr-4"
+              clickFunc={handleCancelClick}
+            />
+          </div>
+          <div>
+            <PrimaryButton
+              bgColor="bg-[#003761]"
+              text="Enregistrer les modifications"
+              hoverColor="hover:bg-[#3371a1]"
+              clickFunc={handleSaveChanges}
+            />
+          </div>
+        </div>
+      );
+    }
+  } else if (!isVerified) {
+    button = (
+      <p>
+        Attendez la vérification de votre statut d'administrateur pour pouvoir
+        modifier les informations de l'entreprise
+      </p>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-white rounded-md">
       <div className="flex flex-col w-[100%] h-[auto] ">
-        <div className="self-end mb-4">
-          {!isEditing && (
-            <button
-              className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
-              onClick={handleEditClick}
-            >
-              <p>Modifier les informations</p>
-              <EditingIcon margin="ml-3" />
-            </button>
-          )}
-          {isEditing && (
-            <div className="flex justify-end">
-              <div>
-                <SecondaryButton
-                  text="Annuler"
-                  hoverColor="hover:bg-[#B0C8DA]"
-                  margin="mr-4"
-                  clickFunc={handleCancelClick}
-                />
-              </div>
-              <div>
-                <PrimaryButton
-                  bgColor="bg-[#003761]"
-                  text="Enregistrer les modifications"
-                  hoverColor="hover:bg-[#3371a1]"
-                  clickFunc={handleSaveChanges}
-                />
-              </div>
-            </div>
-          )}
-        </div>
+        <div className="self-end mb-4">{button}</div>
         <p className="text-3xl font-medium">Informations entreprise</p>
         <p className="mt-4 w-[85%] ">
           Ceci est un paragraphe exemple qui contient deux lignes.

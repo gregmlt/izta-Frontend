@@ -6,7 +6,7 @@ import CheckedIcon from "./CheckedIcon";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import { useDispatch, useSelector } from "react-redux";
-import { addTokenToStore } from "@/reducers/users";
+import { addTokenToStore, switchVerification } from "@/reducers/users";
 
 export default function Login() {
   const [prenom, setPrenom] = useState("");
@@ -45,6 +45,7 @@ export default function Login() {
             setAutorized(true);
             setLoading(true);
             dispatch(addTokenToStore(data));
+            dispatch(switchVerification(data.verification));
             setTimeout(() => {
               // Passer à l'étape suivante après 2 secondes
               setLoading(false);
@@ -73,6 +74,7 @@ export default function Login() {
             setAutorized(true);
             setLoading(true);
             dispatch(addTokenToStore(data));
+            dispatch(switchVerification(data.verification));
             setTimeout(() => {
               // Passer à l'étape suivante après 2 secondes
               setLoading(false);
