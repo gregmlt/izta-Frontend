@@ -12,37 +12,41 @@ function CompanySearchResultsContainer() {
   const [blocks, setBlocks] = useState([]);
   const socket = useSocket();
   useEffect(() => {
-    socket.on("searchResults", (data) => {
-      const companies = data.companies.map((e) => (
-        <CompanySearchResultsModal
-          key={e["_id"]}
-          name={e.companyName}
-          taille={e.employeeNumber}
-          companyId={e["_id"]}
-          starsCount={e.noteIzta}
-        />
-      ));
-      setSearchResults(companies);
-      setBlocks(companies);
-    });
+    if (socket) {
+      socket.on("searchResults", (data) => {
+        const companies = data.companies.map((e) => (
+          <CompanySearchResultsModal
+            key={e["_id"]}
+            name={e.companyName}
+            taille={e.employeeNumber}
+            companyId={e["_id"]}
+            starsCount={e.noteIzta}
+          />
+        ));
+        setSearchResults(companies);
+        setBlocks(companies);
+      });
 
-    socket.on("discoverResults", (data) => {
-      const companies = data.companies.map((e) => (
-        <CompanySearchResultsModal
-          key={e["_id"]}
-          name={e.companyName}
-          taille={e.employeeNumber}
-          companyId={e["_id"]}
-          starsCount={e.noteIzta}
-        />
-      ));
-      setSearchResults(companies);
-      setBlocks(companies);
-    });
+      socket.on("discoverResults", (data) => {
+        const companies = data.companies.map((e) => (
+          <CompanySearchResultsModal
+            key={e["_id"]}
+            name={e.companyName}
+            taille={e.employeeNumber}
+            companyId={e["_id"]}
+            starsCount={e.noteIzta}
+          />
+        ));
+        setSearchResults(companies);
+        setBlocks(companies);
+      });
+    }
 
     return () => {
-      socket.off("searchResults");
-      socket.off("discoverResults");
+      if (socket) {
+        socket.off("searchResults");
+        socket.off("discoverResults");
+      }
     };
   }, [socket]);
 
