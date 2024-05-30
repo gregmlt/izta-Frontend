@@ -14,7 +14,6 @@ function CompanyPageContainer({companyId}) {
   const [companyInfo, setCompanyInfo] = useState({});
 
   // Récupérer les paramètres de l'URL, y compris l'ID de l'entreprise
-  const params = useParams()
   const router = useRouter();
 
   // Extraire l'ID de l'entreprise des paramètres
@@ -33,8 +32,9 @@ function CompanyPageContainer({companyId}) {
         // Faire une requête pour récupérer les informations de l'utilisateur
         const response = await fetch(`http://localhost:3000/companies/get/company/${companyId}`);
         const data = await response.json();
-        console.log(data)
+       
         setCompanyInfo(data.company)
+        
          // Filtrer les entreprises likées pour trouver celle qui correspond à l'ID
 
         //  const newCompanyInfoData = data.data.likedCompanies.filter(el => el._id === companyIdx)
@@ -55,6 +55,7 @@ function CompanyPageContainer({companyId}) {
     }
     
   }, [companyId]); // Ajouter token dans les dépendances pour éviter un avertissement
+
 
 
   // Fonction pour naviguer vers la page de profil
@@ -87,7 +88,7 @@ function CompanyPageContainer({companyId}) {
         </div>
 
         {/* Modal avec les informations de l'entreprise */}
-        <CompanyInfoModal companyName={companyInfo.companyName} taille={companyInfo.employeeNumber}/>
+        <CompanyInfoModal companyName={companyInfo.companyName} taille={companyInfo.employeeNumber} companyId={companyInfo._id}/>
     </div>
     {/* <div id="contact">
       <ContactContainer />

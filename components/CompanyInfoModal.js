@@ -4,9 +4,12 @@ import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import MedalSVGIcons from "./iconsSVG/MedalSVGIcons";
 import KudosButton from "./KudosButton";
 import InfoSVGIcon from "./iconsSVG/InfoSVGIcon";
+import { useSelector } from "react-redux";
 
-function CompanyInfoModal({ companyName, taille, starsCount }) {
+function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   const [showPopover, setShowPopover] = useState(false);
+  
+  
 
   const capitalizeFirstLetter = (str) => {
     if (!str) return str;
