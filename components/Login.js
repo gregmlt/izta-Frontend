@@ -35,6 +35,32 @@ export default function Login() {
       });
   };
 
+// fetch pour envoyer le mail de récupération de mot de passe
+ const sendMail = (e) => {
+    e.preventDefault();
+
+    fetch("http://localhost:3000/passwords/forgot-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setMessage("E-mail de réinitialisation envoyé avec succès.");
+          setAutorized(true);
+        } else {
+          setMessage(data.message || "Erreur lors de l'envoi de l'e-mail.");
+          setAutorized(false);
+        }
+      })
+      .catch((error) => {
+        setMessage("Erreur lors de l'envoi de l'e-mail.");
+        setAutorized(false);
+      });
+  };
+
+
   /////// fonction pour réinitialiser le mot de passe
 
   const handleForgotPasswordSubmit = (e) => {

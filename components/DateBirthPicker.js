@@ -10,7 +10,7 @@ const DateBirthPicker = ({ editing }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <label>Date de Naissance:</label>
       <DatePicker
         selected={dateOfBirth}
