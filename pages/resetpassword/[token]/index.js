@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 export default function ResetPassword() {
   const router = useRouter();
-  console.log({ token: router.query.token });
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -11,12 +11,27 @@ export default function ResetPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (newPassword === confirmPassword) {
-      setMessage("Mot de passe réinitialisé");
-      setMessageType("success");
-    } else {
-      setMessage("Les mots de passe ne correspondent pas");
-      setMessageType("error");
+      fetch(
+        `http://localhost:3000/passwords/password-change/${router.query.token}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ newPassword }),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            console.log(data);
+            setMessage("Mot de passe réinitialisé");
+            setMessageType("success");
+          } else {
+            setMessage("Les mots de passe ne correspondent pas");
+            setMessageType("error");
+          }
+        });
     }
   };
 
