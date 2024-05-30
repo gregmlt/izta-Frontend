@@ -142,7 +142,7 @@ const PaginatedBlocks = ({ items }) => {
           className="flex items-center"
         >
           <ChevronLeftSVGIcons />
-          <button className="w-[70px] ml-3 text-[#003761] font-bold rounded focus:outline-none focus:shadow-outline">
+          <button className="w-[70px] mr-4 text-[#003761] font-bold rounded focus:outline-none focus:shadow-outline">
             Previous
           </button>
         </div>
@@ -157,7 +157,9 @@ const PaginatedBlocks = ({ items }) => {
                 }
               }}
               className={`py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                currentPage === page ? "bg-[#E28A69] text-black" : " hover:bg-gray-200"
+                currentPage === page
+                  ? "bg-[#E28A69] text-black"
+                  : " hover:bg-gray-200"
               }`}
             >
               {page}
@@ -172,7 +174,7 @@ const PaginatedBlocks = ({ items }) => {
           disabled={currentPage === totalPages}
           className="flex items-end"
         >
-          <button className="w-[70px] text-[#003761] font-bold rounded focus:outline-none focus:shadow-outline">
+          <button className="w-[70px] text-[#003761] font-bold rounded focus:outline-none focus:shadow-outline ml-4">
             Next
           </button>
           <ChevronRightSVGIcons />

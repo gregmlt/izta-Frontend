@@ -8,7 +8,7 @@ function ChevronRightSVGIcons({color}) {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke={color}
+        stroke="#003761"
         className="w-5 h-5 cursor-pointer"
       >
         <path

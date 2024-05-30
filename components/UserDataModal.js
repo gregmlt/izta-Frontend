@@ -243,7 +243,7 @@ export default function UserDataModal({}) {
                   className="text-[13px] self-end mt-3 "
                   onClick={handleChangePassword}
                 >
-                  <p className="font-medium text-[#003761] hover:text-[#ce7e60] underline underline-offset-2">
+                  <p className="font-medium text-[#003761] hover:text-[#ce7e60] underline underline-offset-2 cursor-pointer">
                     Modifier mon mot de passe
                   </p>
                 </div>
