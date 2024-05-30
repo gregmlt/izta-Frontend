@@ -8,8 +8,6 @@ import { useSelector } from "react-redux";
 
 function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   const [showPopover, setShowPopover] = useState(false);
-  
-  
 
   const capitalizeFirstLetter = (str) => {
     if (!str) return str;
@@ -152,8 +150,8 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
 
 export default CompanyInfoModal;
 
-
-{/* <div className="w-[23%] p-4 relative">
+{
+  /* <div className="w-[23%] p-4 relative">
   <div className="absolute top-[-89%]">
     <MedalSVGIcons />
   </div>
@@ -162,4 +160,5 @@ export default CompanyInfoModal;
     src="https://images.unsplash.com/photo-1512403754473-27835f7b9984?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     className="rounded-sm h-[100%] object-cover"
   />
-</div> */}
+</div> */
+}

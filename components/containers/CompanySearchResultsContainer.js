@@ -5,7 +5,7 @@ import Navbar from "../Navbar";
 import { useEffect, useState } from "react";
 import { useSocket } from "../../pages/SocketProvider";
 import SearchBar from "../SearchBar";
-import { useSearchResults } from '../../pages/SearchResultsContext';
+import { useSearchResults } from "../../pages/SearchResultsContext";
 
 function CompanySearchResultsContainer() {
   const { searchResults, setSearchResults } = useSearchResults();
@@ -20,6 +20,7 @@ function CompanySearchResultsContainer() {
             name={e.companyName}
             taille={e.employeeNumber}
             companyId={e["_id"]}
+            starsCount={e.noteIzta}
           />
         ));
         setSearchResults(companies);
@@ -35,6 +36,7 @@ function CompanySearchResultsContainer() {
             name={e.companyName}
             taille={e.employeeNumber}
             companyId={e["_id"]}
+            starsCount={e.noteIzta}
           />
         ));
         setSearchResults(companies);
@@ -101,8 +103,9 @@ function CompanySearchResultsContainer() {
             </svg>
           </div>
           <div className="w-[25%] flex flex-col items-end">
-            <p className="font-semibold">Nombre d’entreprises trouvées: {blocks.length}</p>
-           
+            <p className="font-semibold">
+              Nombre d’entreprises trouvées: {blocks.length}
+            </p>
           </div>
         </div>
         <PaginatedBlocks items={blocks} />
