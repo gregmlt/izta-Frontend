@@ -5,6 +5,8 @@ import Navbar from '../Navbar'
 import { useRouter } from 'next/router';
 import { useParams } from 'next/navigation';
 import SearchBar from '../SearchBar';
+import ContactContainer from '../containers/ContactContainer';
+import Footer from '../Footer';
 
 
 function CompanyPageContainer({companyId}) {
@@ -90,6 +92,8 @@ function CompanyPageContainer({companyId}) {
     {/* <div id="contact">
       <ContactContainer />
     </div> */}
+    <ContactContainer />
+    <Footer />
     </div>
   )
 }
