@@ -10,42 +10,43 @@ import { useSearchResults } from "../../pages/SearchResultsContext";
 function CompanySearchResultsContainer() {
   const { searchResults, setSearchResults } = useSearchResults();
   const [blocks, setBlocks] = useState([]);
+  console.log(blocks);
   const socket = useSocket();
   useEffect(() => {
-    socket &&
-      socket.on("searchResults", (data) => {
-        const companies = data.companies.map((e) => (
-          <CompanySearchResultsModal
-            key={e["_id"]}
-            name={e.companyName}
-            taille={e.employeeNumber}
-            companyId={e["_id"]}
-            starsCount={e.noteIzta}
-          />
-        ));
-        setSearchResults(companies);
-        setBlocks(companies);
-      });
+    socket.on("searchResults", (data) => {
+      const companies = data.companies.map((e) => (
+        <CompanySearchResultsModal
+          key={e["_id"]}
+          name={e.companyName}
+          taille={e.employeeNumber}
+          companyId={e["_id"]}
+          starsCount={e.noteIzta}
+        />
+      ));
+      console.log("coucou1");
+      setSearchResults(companies);
+      setBlocks(companies);
+    });
 
-    socket &&
-      socket.on("discoverResults", (data) => {
-        console.log("coucou");
-        const companies = data.companies.map((e) => (
-          <CompanySearchResultsModal
-            key={e["_id"]}
-            name={e.companyName}
-            taille={e.employeeNumber}
-            companyId={e["_id"]}
-            starsCount={e.noteIzta}
-          />
-        ));
-        setSearchResults(companies);
-        setBlocks(companies);
-      });
+    socket.on("discoverResults", (data) => {
+      console.log(data);
+      const companies = data.companies.map((e) => (
+        <CompanySearchResultsModal
+          key={e["_id"]}
+          name={e.companyName}
+          taille={e.employeeNumber}
+          companyId={e["_id"]}
+          starsCount={e.noteIzta}
+        />
+      ));
+      console.log("coucou2");
+      setSearchResults(companies);
+      setBlocks(companies);
+    });
 
     return () => {
       socket.off("searchResults");
-      socket.off("dicoverResults");
+      socket.off("discoverResults");
     };
   }, [socket]);
 

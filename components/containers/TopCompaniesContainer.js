@@ -10,7 +10,6 @@ function TopCompaniesContainer() {
   const socket = useSocket();
   const [topRatedCompanies, setTopRatedCompanies] = useState([]);
   const [error, setError] = useState(null);
- 
 
   const dataSet1 = [
     {
@@ -87,28 +86,27 @@ function TopCompaniesContainer() {
     fetchTopRatedCompanies();
   }, []);
 
-  const defaultImage = 
-    'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-  
-
-  
+  const defaultImage =
+    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   const renderModals = (data) => {
-    return data
-      .slice(0, 3)
-      .map((item, index) => (
-        <TopCompanieModal
-          key={item["_id"]}
-          imageSrc={item.companyLogo || defaultImage}
-          title={item.companyName}
-          description={item.description}
-          companyId={item["_id"]}
-        />
-      ));
+    return data.map((item, index) => {
+      if (index > 2) {
+        return null;
+      } else {
+        return (
+          <TopCompanieModal
+            key={item["_id"]}
+            imageSrc={item.companyLogo || defaultImage}
+            title={item.companyName}
+            description={item.description}
+            companyId={item["_id"]}
+            starsCount={item.noteIzta}
+          />
+        );
+      }
+    });
   };
-
- 
-
 
   const handleDiscover = () => {
     socket.emit("searchDiscover");

@@ -5,7 +5,7 @@ import ChevronLeftSVGIcons from "./iconsSVG/ChevronLeftSVGIcons";
 
 const PaginatedBlocks = ({ items }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 6;
 
   // Calculer les index des éléments actuels
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -59,13 +59,36 @@ const PaginatedBlocks = ({ items }) => {
       const spillOffset = maxPagesToShow - (endPage - startPage + 1);
 
       if (hasLeftSpill && !hasRightSpill) {
-        const extraPages = Array.from({ length: spillOffset }, (_, i) => startPage - spillOffset + i);
-        pageNumbers.push(...extraPages, ...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i));
+        const extraPages = Array.from(
+          { length: spillOffset },
+          (_, i) => startPage - spillOffset + i
+        );
+        pageNumbers.push(
+          ...extraPages,
+          ...Array.from(
+            { length: endPage - startPage + 1 },
+            (_, i) => startPage + i
+          )
+        );
       } else if (!hasLeftSpill && hasRightSpill) {
-        const extraPages = Array.from({ length: spillOffset }, (_, i) => endPage + i + 1);
-        pageNumbers.push(...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i), ...extraPages);
+        const extraPages = Array.from(
+          { length: spillOffset },
+          (_, i) => endPage + i + 1
+        );
+        pageNumbers.push(
+          ...Array.from(
+            { length: endPage - startPage + 1 },
+            (_, i) => startPage + i
+          ),
+          ...extraPages
+        );
       } else {
-        pageNumbers.push(...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i));
+        pageNumbers.push(
+          ...Array.from(
+            { length: endPage - startPage + 1 },
+            (_, i) => startPage + i
+          )
+        );
       }
 
       if (startPage > 2) {
@@ -102,7 +125,6 @@ const PaginatedBlocks = ({ items }) => {
                 .slice((item - 1) * itemsPerPage, item * itemsPerPage)
                 .map((item, index) => (
                   <div key={index} className="p-4 ">
-                    {item}
                     {item}
                   </div>
                 ))}
