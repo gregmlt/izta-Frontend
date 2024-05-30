@@ -3,6 +3,7 @@ import PrimaryButton from "./PrimaryButton";
 import ClapSVGIcons from "./iconsSVG/ClapSVGIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { putCompanyToUser } from "@/reducers/companies";
+import BusinessSVGIcon from "../components/iconsSVG/BusinessSVGIcon";
 
 export default function PersonalAreaNavigation({
   activeTab,
@@ -36,8 +37,8 @@ export default function PersonalAreaNavigation({
   }, [hasACompany]);
 
   return (
-    <div className="w-[32%] h-auto bg-white rounded-lg flex flex-col py-7 px-8">
-      <div className="flex flex-col w-[100%]">
+    <div className="w-[32%] h-[500px] bg-white rounded-lg flex flex-col py-7 px-8">
+      <div className="flex flex-col w-[100%] h-full">
         {hasACompany && (
           <>
             <button
@@ -91,7 +92,11 @@ export default function PersonalAreaNavigation({
             <button
               onClick={() => setActiveTab("infos-perso")}
               type="button"
-              className="flex items-center py-4 px-3 text-md mt-2 font-medium bg-[F7F5F1] rounded hover:bg-[#f2c9ba] transition ease-in-out 800ms  focus:outline-none focus:ring-2 focus:ring-[#f2c9ba]"
+              className={`flex items-center py-4 px-3 mt-2 text-md font-medium rounded transition ease-in-out 800ms focus:outline-none focus:ring-2 ${
+                activeTab === "infos-perso"
+                  ? " ring-2 ring-[#f2c9ba]"
+                  : "ring-[#f2c9ba] "
+              }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -115,12 +120,29 @@ export default function PersonalAreaNavigation({
                 <button
                   type="button"
                   onClick={toggleDropdown}
-                  className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex items-center w-full rounded-md border border-gray-300 shadow-sm px-3 py-4 bg-[#E6EDF3] font-medium text-md hover:bg-gray-50 focus:outline-none "
                 >
-                  Ma page entreprise
+                  <BusinessSVGIcon />
+                  <p className="pl-2">Ma page entreprise</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className={`w-5 h-5 ml-auto transition-transform ${
+                      entrepriseOptionIsOpen ? "transform rotate-180" : ""
+                    }`}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 9l-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
                 </button>
                 {entrepriseOptionIsOpen && (
-                  <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div className="origin-top-right py-2 relative w-full mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div
                       className="py-1"
                       role="menu"
@@ -129,14 +151,14 @@ export default function PersonalAreaNavigation({
                     >
                       <button
                         onClick={() => setActiveTab("mes-infos-entreprise")}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        className="block px-4 py-4 text-md text-gray-700 hover:bg-[#f2c9ba] hover:text-black w-full text-left"
                         role="menuitem"
                       >
                         Mes informations d'entreprise
                       </button>
                       <button
                         onClick={() => setActiveTab("statistiques")}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        className="block px-4 py-4 text-md text-gray-700 hover:bg-[#f2c9ba] hover:text-black w-full text-left"
                         role="menuitem"
                       >
                         Mes statistiques
@@ -233,10 +255,11 @@ export default function PersonalAreaNavigation({
             </div>
           </>
         )}
+        <div></div>
         <button
           onClick={onLogout}
           type="button"
-          className="flex items-center py-4 px-3 text-md mt-2 bg-[F7F5F1] rounded hover:text-[#ce7e60] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex items-center mt-auto self-baseline py-4 px-3 text-md mt-2 bg-[F7F5F1] rounded hover:text-[#ce7e60] transition ease-in-out 800ms focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
