@@ -18,16 +18,19 @@ export default function Profile() {
   const [userFirstName, setUserFirstName] = useState("");
   const [hasACompany, setHasCompany] = useState(false);
   const [data, setData] = useState("");
-  const token = useSelector((state) => state.users.value.token);
+  const { token } = useSelector(
+    (state) => state.users.value
+  );
+  
   const dispatch = useDispatch();
   const router = useRouter();
- 
 
   useEffect(() => {
     fetch(`http://localhost:3000/users/infos/${token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          console.log(data.data);
           setHasCompany(data.data.company.length === 0);
           setUserFirstName(data.data.firstname);
         } else {
@@ -68,7 +71,7 @@ export default function Profile() {
 
         <div className="flex justify-between">
           <PersonalAreaNavigation
-          activeTab={activeTab}
+            activeTab={activeTab}
             setActiveTab={setActiveTab}
             onLogout={handleLogout}
           />

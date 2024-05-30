@@ -141,7 +141,7 @@ export default function UserDataModal({}) {
             <div className="self-end mb-4">
               {!isEditing && (
                 <button
-                  className="flex items-center bg-gray-100 py-3 px-6 rounded rounded-md border border-gray-100 hover:border-[#003761]"
+                  className="flex items-center bg-gray-100 py-3 px-6 rounded-md border border-gray-100 hover:border-[#003761]"
                   onClick={handleEditClick}
                 >
                   <p>Modifier les informations</p>
