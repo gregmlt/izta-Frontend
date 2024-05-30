@@ -83,20 +83,6 @@ export default function Login() {
           }
         });
     }
-    // else if (step === 2) {
-    //   // Logic pour envoyer les données du formulaire
-    //   // envoie de l'email et du mot de passe au back end via un fetch
-    //   // attendre la reponse du back et checker le status code : OK 200 => rediredction vers la page home,
-    //   // si pas de réponse erreur 400 ou 404 mettre un message d'erreur
-    //   // console.log("Envoyer les données du formulaire");
-    //   // const found = entreprises.find((ent) => ent.siret === numeroSiret);
-    //   if (found) {
-    //     setEntrepriseTrouvee(found);
-    //     setStep(3);
-    //   } else {
-    //     alert("Aucune entreprise trouvée avec ce numéro de SIRET.");
-    //   }
-    // }
   };
 
   // Fonction pour rechercher une entreprise par SIRET

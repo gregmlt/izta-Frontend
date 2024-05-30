@@ -41,7 +41,6 @@ export default function UserDataModal({}) {
   const [linkedin, setLinkedin] = useState("");
 
   const handleValueChange = (newValue) => {
-    console.log("newValue:", newValue);
     setValue(newValue);
   };
 
@@ -103,7 +102,6 @@ export default function UserDataModal({}) {
   };
 
   const handleCancelClick = () => {
-    console.log("coucou");
     setIsEditing(false);
   };
 

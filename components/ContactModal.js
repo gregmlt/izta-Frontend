@@ -8,9 +8,7 @@ function ContactModal() {
   const [phone, setPhone] = useState(""); // Ajoutez l'état pour le numéro de téléphone
   const [error, setError] = useState("");
 
-
   const handleSubmit = async (e) => {
-    console.log("click");
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:3000/form/form-data", {
