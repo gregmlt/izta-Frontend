@@ -5,7 +5,7 @@ import ChevronLeftSVGIcons from "./iconsSVG/ChevronLeftSVGIcons";
 
 const PaginatedBlocks = ({ items }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 6;
 
   // Calculer les index des éléments actuels
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -109,10 +109,10 @@ const PaginatedBlocks = ({ items }) => {
   };
 
   return (
-    <div className="h-[1400px]  flex flex-col ">
+    <div className="h-[1500px] w-[100%] flex flex-col m-auto mb-16">
       <div
         ref={paginatedItemsRef}
-        className="relative h-full overflow-hidden flex-grow "
+        className="relative h-full overflow-hidden flex-grow flex-wrap "
       >
         {transitions((style, item) => (
           <animated.div
@@ -120,11 +120,11 @@ const PaginatedBlocks = ({ items }) => {
             style={style}
             className="absolute top-0 left-0 w-full h-full"
           >
-            <div className="flex w-full h-full">
+            <div className="flex w-full h-full flex-wrap">
               {items
                 .slice((item - 1) * itemsPerPage, item * itemsPerPage)
                 .map((item, index) => (
-                  <div key={index} className="p-4 ">
+                  <div key={index} className="p-4 w-1/3 ">
                     {item}
                   </div>
                 ))}
@@ -142,7 +142,7 @@ const PaginatedBlocks = ({ items }) => {
           className="flex items-center"
         >
           <ChevronLeftSVGIcons />
-          <button className="w-[70px] ml-3 text-black font-bold rounded focus:outline-none focus:shadow-outline">
+          <button className="w-[70px] mr-4 text-[#003761] font-bold rounded focus:outline-none focus:shadow-outline">
             Previous
           </button>
         </div>
@@ -157,7 +157,9 @@ const PaginatedBlocks = ({ items }) => {
                 }
               }}
               className={`py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                currentPage === page ? "bg-[#E28A69] text-black" : "text-black"
+                currentPage === page
+                  ? "bg-[#E28A69] text-black"
+                  : " hover:bg-gray-200"
               }`}
             >
               {page}
@@ -172,7 +174,7 @@ const PaginatedBlocks = ({ items }) => {
           disabled={currentPage === totalPages}
           className="flex items-end"
         >
-          <button className="w-[70px] text-black font-bold  rounded focus:outline-none focus:shadow-outline">
+          <button className="w-[70px] text-[#003761] font-bold rounded focus:outline-none focus:shadow-outline ml-4">
             Next
           </button>
           <ChevronRightSVGIcons />

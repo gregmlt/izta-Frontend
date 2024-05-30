@@ -74,11 +74,9 @@ export default function Login() {
         </div>
         <div className="flex flex-col items-center justify-center w-[50%] h-[100vh]">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-              className="mx-auto h-10 w-auto"
-              src="/Logo/Logomark.svg"
-              alt="Your Company"
-            />
+            <Link href="./">
+              <img src="/Logo/Logomark.svg" className="mx-auto h-10 w-auto" />
+            </Link>
             <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight mb-16 text-[#004E89]">
               {forgotPassword
                 ? "Réinitialiser le mot de passe"

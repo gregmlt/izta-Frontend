@@ -458,7 +458,23 @@ y compris sa mission et ses valeurs."
                 disabled={!isEditing}
               >
                 <option value="">Sélectionner</option>
-                {/* Ajouter d'autres options ici */}
+                <option value="AuvergneRhôneAlpes">Auvergne-Rhône-Alpes</option>
+                <option value="BourgogneFrancheComte">
+                  Bourgogne-Franche-Comté
+                </option>
+                <option value="Bretagne">Bretagne</option>
+                <option value="CentreValDeLoire">Centre-Val de Loire</option>
+                <option value="Corse">Corse</option>
+                <option value="GrandEst">Grand Est</option>
+                <option value="HautsDeFrance">Hauts-de-France</option>
+                <option value="IleDeFrance">Île-de-France</option>
+                <option value="Normandie">Normandie</option>
+                <option value="NouvelleAquitaine">Nouvelle-Aquitaine</option>
+                <option value="Occitanie">Occitanie</option>
+                <option value="PaysDeLaLoire">Pays de la Loire</option>
+                <option value="ProvenceAlpesCoteDAzur">
+                  Provence-Alpes-Côte d'Azur
+                </option>
               </select>
             </div>
             <div className="w-full md:w-1/3 px-2">
@@ -523,7 +539,23 @@ y compris sa mission et ses valeurs."
                 disabled={!isEditing}
               >
                 <option value="">Sélectionner</option>
-                {/* Ajouter d'autres options ici */}
+                <option value="Agriculture">Agriculture</option>
+                <option value="Automobile">Automobile</option>
+                <option value="Construction">Construction</option>
+                <option value="Education">Éducation</option>
+                <option value="Energy">Énergie</option>
+                <option value="Finance">Finance</option>
+                <option value="Healthcare">Santé</option>
+                <option value="Hospitality">Hôtellerie</option>
+                <option value="InformationTechnology">
+                  Technologies de l'information
+                </option>
+                <option value="Manufacturing">Fabrication</option>
+                <option value="Media">Médias</option>
+                <option value="RealEstate">Immobilier</option>
+                <option value="Retail">Commerce de détail</option>
+                <option value="Telecommunications">Télécommunications</option>
+                <option value="Transportation">Transport</option>
               </select>
             </div>
             <div className="w-full md:w-1/3 px-2">
@@ -566,7 +598,7 @@ y compris sa mission et ses valeurs."
           {/* Group 1: Parité entreprise */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Parité entreprise
+              Parité entreprise ( en % )
             </label>
             <div className="flex w-[60%]">
               <div className="w-full px-2 flex items-center">
@@ -631,7 +663,7 @@ y compris sa mission et ses valeurs."
           {/* Group 2: Parité au sein de la direction */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Parité au sein de la direction
+              Parité au sein de la direction ( en % )
             </label>
             <div className="flex w-[60%]">
               <div className="w-full px-2 flex items-center">
@@ -709,7 +741,11 @@ y compris sa mission et ses valeurs."
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
-                  {/* Ajouter d'autres options ici */}
+                  <option value="18-24">18-24</option>
+                  <option value="25-34">25-34</option>
+                  <option value="35-44">35-44</option>
+                  <option value="45-54">45-54</option>
+                  <option value="55-64">55-64</option>
                 </select>
               </div>
               <div className=" w-[35%]">
@@ -725,7 +761,11 @@ y compris sa mission et ses valeurs."
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
-                  {/* Ajouter d'autres options ici */}
+                  <option value="0-25000">0-25 000 €</option>
+                  <option value="25001-50000">25 001 50 000 €</option>
+                  <option value="50001-75000">50 001-75 000 €</option>
+                  <option value="75001-100000">75 001-100 000 €</option>
+                  <option value="100001+">100 001 ou plus €</option>
                 </select>
               </div>
             </div>
@@ -745,7 +785,8 @@ y compris sa mission et ses valeurs."
                   disabled={!isEditing}
                 >
                   <option value="">Sélectionner</option>
-                  {/* Ajouter d'autres options ici */}
+                  <option value="oui">Oui</option>
+                  <option value="non">Non</option>
                 </select>
               </div>
               <div className="w-[35%]">
