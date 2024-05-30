@@ -4,9 +4,12 @@ import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import MedalSVGIcons from "./iconsSVG/MedalSVGIcons";
 import KudosButton from "./KudosButton";
 import InfoSVGIcon from "./iconsSVG/InfoSVGIcon";
+import { useSelector } from "react-redux";
 
-function CompanyInfoModal({ companyName, taille }) {
+function CompanyInfoModal({ companyName, taille, companyId }) {
   const [showPopover, setShowPopover] = useState(false);
+  
+  
 
   return (
     <div className="h-[500px] w-[60%] mx-auto my-[70px] flex flex-col">
@@ -96,7 +99,10 @@ function CompanyInfoModal({ companyName, taille }) {
             </div>
           )}
         </div>
+        <div>
+
         <KudosButton hoverColor="hover:bg-[#3371a1]" />
+        </div>
       </div>
     </div>
   );
