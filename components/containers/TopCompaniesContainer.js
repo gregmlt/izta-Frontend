@@ -10,7 +10,6 @@ function TopCompaniesContainer() {
   const socket = useSocket();
   const [topRatedCompanies, setTopRatedCompanies] = useState([]);
   const [error, setError] = useState(null);
- 
 
   const dataSet1 = [
     {
@@ -87,28 +86,27 @@ function TopCompaniesContainer() {
     fetchTopRatedCompanies();
   }, []);
 
-  const defaultImage = 
-    'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-  
-
-  
+  const defaultImage =
+    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   const renderModals = (data) => {
-    return data
-      .slice(0, 3)
-      .map((item, index) => (
-        <TopCompanieModal
-          key={item["_id"]}
-          imageSrc={item.companyLogo || defaultImage}
-          title={item.companyName}
-          description={item.description}
-          companyId={item["_id"]}
-        />
-      ));
+    return data.map((item, index) => {
+      if (index > 2) {
+        return null;
+      } else {
+        return (
+          <TopCompanieModal
+            key={item["_id"]}
+            imageSrc={item.companyLogo || defaultImage}
+            title={item.companyName}
+            description={item.description}
+            companyId={item["_id"]}
+            starsCount={item.noteIzta}
+          />
+        );
+      }
+    });
   };
-
- 
-
 
   const handleDiscover = () => {
     socket.emit("searchDiscover");
@@ -116,8 +114,8 @@ function TopCompaniesContainer() {
   };
 
   return (
-    <div className="text-balance py-[72px]  ">
-      <h1 className="w-full flex justify-center text-2xl md:text-4xl leading-6 font-bold text-[#003761] py-6 md:py-10">
+    <div className="text-balance py-[70px] w-full">
+      <h1 className="w-full flex justify-center text-4xl md:text-4xl leading-6 font-bold text-[#003761] py-6 ">
         Découvrez les meilleures entreprises
       </h1>
       <div className="flex flex-col items-center">
@@ -137,7 +135,7 @@ function TopCompaniesContainer() {
             className="mb-2 md:mb-0 md:ml-4" // Ajout de marge gauche en mode desktop
           /> */}
         </div>
-        <div className="flex flex-wrap justify-center items-center">
+        <div className="flex w-[70%] justify-between items-center ">
           {renderModals(topRatedCompanies)}
         </div>
       </div>

@@ -17,7 +17,6 @@ function KudosListModal({ close }) {
     fetch(`http://localhost:3000/users/get/kudos/${token}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result) {
           setJsx(
             data.kudos.map((kudo) => {
@@ -45,7 +44,10 @@ function KudosListModal({ close }) {
     <div>
       <p className="text-3xl font-medium mb-5">Mes kudos reçus</p>
       <div className="shadow-lg">
-        <div onClick={close} className="flex justify-between items-center border-b-2 p-5 mb-[100px]">
+        <div
+          onClick={close}
+          className="flex justify-between items-center border-b-2 p-5 mb-[100px]"
+        >
           <ArrowLeftSVGIcons />
           <div className="flex justify-between">
             <ClapSVGIcons />

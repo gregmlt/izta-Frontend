@@ -58,7 +58,6 @@ export default function index() {
       // envoie de l'email et du mot de passe au back end via un fetch
       // attendre la reponse du back et checker le status code : OK 200 => rediredction vers la page home,
       // si pas de réponse erreur 400 ou 404 mettre un message d'erreur
-      console.log("Envoyer les données du formulaire");
       const found = entreprises.find((ent) => ent.siret === numeroSiret);
       if (found) {
         setEntrepriseTrouvee(found);
@@ -97,7 +96,6 @@ export default function index() {
       body: JSON.stringify({ code: code }),
     };
     localStorage.setItem("isConnected", true);
-    console.log("here");
     fetch(sendGoogleCodeUrl, requestOptions).then((response) => {
       if (response.status === 200) {
       }
@@ -124,7 +122,7 @@ export default function index() {
             </h2>
           </div>
           <div className="w-[55%]">
-          {loading ? (
+            {loading ? (
               <div className="flex justify-center items-center h-[100%] mt-5 mb-[50%]">
                 <div>
                   <img
@@ -134,46 +132,47 @@ export default function index() {
                 </div>
               </div>
             ) : (
-            step === 1 && (
-              <form className="space-y-6 w-[100%]" onSubmit={handleSubmit}>
-                {/* checkbox entreprise true or false  */}
+              step === 1 && (
+                <form className="space-y-6 w-[100%]" onSubmit={handleSubmit}>
+                  {/* checkbox entreprise true or false  */}
 
-                <div>
-                  <p className="mb-2">
-                    Êtes-vous administrateur d'une entreprise ?{" "}
-                  </p>
-                  <div className="flex w-[30%] justify-between items-center">
-                    <input
-                      type="checkbox"
-                      id="entrepriseOui"
-                      name="entreprise"
-                      className="form-checkbox h-4 w-4 accent-[#003761] border-gray-300 rounded ring-[#003761] hover:ring-2 hover:ring-offset-2 cursor-pointer transition ease-in-out 700ms"
-                      checked={isCompany}
-                      onChange={() => setIsCompany(true)}
-                    />
-                    <label htmlFor="entrepriseOui">Oui</label>
-                    <input
-                      type="checkbox"
-                      id="entrepriseNon"
-                      name="entreprise"
-                      className="form-checkbox h-4 w-4 accent-[#003761] border-gray-300 rounded ring-[#003761] hover:ring-2 hover:ring-offset-2 cursor-pointer transition ease-in-out 700ms"
-                      checked={!isCompany}
-                      onChange={() => setIsCompany(false)}
-                    />
-                    <label htmlFor="entrepriseNon">Non</label>
+                  <div>
+                    <p className="mb-2">
+                      Êtes-vous administrateur d'une entreprise ?{" "}
+                    </p>
+                    <div className="flex w-[30%] justify-between items-center">
+                      <input
+                        type="checkbox"
+                        id="entrepriseOui"
+                        name="entreprise"
+                        className="form-checkbox h-4 w-4 accent-[#003761] border-gray-300 rounded ring-[#003761] hover:ring-2 hover:ring-offset-2 cursor-pointer transition ease-in-out 700ms"
+                        checked={isCompany}
+                        onChange={() => setIsCompany(true)}
+                      />
+                      <label htmlFor="entrepriseOui">Oui</label>
+                      <input
+                        type="checkbox"
+                        id="entrepriseNon"
+                        name="entreprise"
+                        className="form-checkbox h-4 w-4 accent-[#003761] border-gray-300 rounded ring-[#003761] hover:ring-2 hover:ring-offset-2 cursor-pointer transition ease-in-out 700ms"
+                        checked={!isCompany}
+                        onChange={() => setIsCompany(false)}
+                      />
+                      <label htmlFor="entrepriseNon">Non</label>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <button
-                    type="submit"
-                    className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    {isCompany ? "Suivant" : "Valider mon inscription"}
-                  </button>
-                </div>
-              </form>
-            ))}
+                  <div>
+                    <button
+                      type="submit"
+                      className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      {isCompany ? "Suivant" : "Valider mon inscription"}
+                    </button>
+                  </div>
+                </form>
+              )
+            )}
 
             {/* ********************* STEP 5 SI PAS D'ENTREPRISE ******************** */}
 

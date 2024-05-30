@@ -148,7 +148,6 @@ function CompagnyProfileModal() {
       kudos,
       like,
     };
-    console.log("Company ID:", company._id);
     fetch(`http://localhost:3000/companies/infos/${company._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -157,7 +156,6 @@ function CompagnyProfileModal() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log("Company data updated successfully:", data);
           setIsEditing(false);
           setConfirmationMessage(
             "Les informations ont été modifiées avec succès."

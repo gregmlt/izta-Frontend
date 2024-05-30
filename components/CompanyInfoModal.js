@@ -99,20 +99,10 @@ useEffect(() => {
         <div className="h-[50%] flex justify-between items-center">
           <div className="mt-[-60px]"></div>
         </div>
-        <div className="h-[50%] flex justify-between items-end">
-          <p className="text-xs w-[75%]pb-">
-            Deuxième entreprise mondiale des métiers des concessions et de la
-            construction, employant 275 000 salariés à travers le monde.Vinci,
-            anciennement Société générale d'entreprises (SGE), est la deuxième
-            entreprise mondiale des métiers des concessions et de la
-            construction, employant 275 000 salariés à travers le monde.
-          </p>
-          <div className="mb-[-22px] text-[#003761] text-sm flex justify-center items-center"></div>
-        </div>
       </div>
 
-      <div className="grid grid-cols-6 grid-rows-6 gap-6 h-[100%]">
-        <div className="col-start-1 col-end-5 row-start-1 row-end-3 h-auto w-full py-4 px-8 bg-white rounded-md border flex flex-col">
+      <div className="grid grid-cols-3 grid-rows-6 gap-6 h-[100%]">
+        <div className="col-start-1 col-end-3 row-start-1 row-end-3 h-auto   w-full py-4 px-8 bg-white rounded-md border flex flex-col">
           <h3 className="border-b leading-6 font-semibold text-[20px] pb-4">
             Présentation
           </h3>
@@ -124,7 +114,7 @@ useEffect(() => {
             construction, employant 275 000 salariés à travers le monde.
           </p>
         </div>
-        <div className="col-start-1 col-end-5 row-start-3 row-end-5 h-auto w-full py-4 px-8  bg-white rounded-md border flex flex-col">
+        <div className="col-start-1 col-end-2 row-start-3 row-end-5 h-auto w-full py-4 px-8  bg-white rounded-md border flex flex-col">
           <h3 className="border-b leading-6 font-semibold text-[20px] pb-4">
             Leur Vision
           </h3>
@@ -142,7 +132,7 @@ useEffect(() => {
             naturelles et favorisent la biodiversité.
           </p>
         </div>
-        <div className="col-start-5 col-end-7 row-start-1 row-end-2 self-end flex items-center mt-3 relative cursor-pointer">
+        <div className="col-start-2 col-end-3 row-start-1 row-end-2 self-end flex items-center mt-3 relative cursor-pointer">
           <div className="h-[100%]  w-full pl-3 bg-white rounded-md border  flex flex-col">
             <h3 className="py-3 border-b font-semibold text-[20px]">
               L’entreprise
@@ -189,8 +179,8 @@ useEffect(() => {
 
 export default CompanyInfoModal;
 
-
-{/* <div className="w-[23%] p-4 relative">
+{
+  /* <div className="w-[23%] p-4 relative">
   <div className="absolute top-[-89%]">
     <MedalSVGIcons />
   </div>
@@ -199,4 +189,5 @@ export default CompanyInfoModal;
     src="https://images.unsplash.com/photo-1512403754473-27835f7b9984?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     className="rounded-sm h-[100%] object-cover"
   />
-</div> */}
+</div> */
+}
