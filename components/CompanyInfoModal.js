@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -27,10 +27,10 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   const [isLiked, setIsLiked] = useState(true);
   const [hasKudo, setHasKudo] = useState(false);
   const [showPopover, setShowPopover] = useState(false);
-  const { token, kudos, likedCompanies } = useSelector(
-    (state) => state.users.value
-  );
-  const dispatch = useDispatch()
+  // const { token, kudos, likedCompanies } = useSelector(
+  //   (state) => state.users.value
+  // );
+  // const dispatch = useDispatch()
 
 useEffect(() => {
   fetch(`http://localhost:3000/companies/get/company/${companyId}`)
@@ -38,7 +38,7 @@ useEffect(() => {
   .then((data) => {
     console.log(data)
   })
-}, [token])
+}, [])
   
   const handleLikeToggle = async() => {
     const url = `http://localhost:3000/users/like/${token}/${companyId}`;
