@@ -45,10 +45,11 @@ export default function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.result) {
-          console.log(data);
+        if (data.message === "Email envoyé") {
           setAutorized(true);
+          alert("Un email vient de vous être envoyé");
         } else {
+          alert("Une erreur est survenue");
           setAutorized(false);
         }
       });
