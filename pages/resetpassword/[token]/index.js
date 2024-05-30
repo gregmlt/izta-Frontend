@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function ResetPassword() {
+  const router = useRouter();
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -8,12 +11,27 @@ export default function ResetPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (newPassword === confirmPassword) {
-      setMessage("Mot de passe réinitialisé");
-      setMessageType("success");
-    } else {
-      setMessage("Les mots de passe ne correspondent pas");
-      setMessageType("error");
+      fetch(
+        `http://localhost:3000/passwords/password-change/${router.query.token}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ newPassword }),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            console.log(data);
+            setMessage("Mot de passe réinitialisé");
+            setMessageType("success");
+          } else {
+            setMessage("Les mots de passe ne correspondent pas");
+            setMessageType("error");
+          }
+        });
     }
   };
 
@@ -27,7 +45,7 @@ export default function ResetPassword() {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight mb-16 text-[#004E89]">
-            Création d'un Nouveau Mot de Passe
+            Création d'un nouveau mot de passe
           </h2>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -36,7 +54,7 @@ export default function ResetPassword() {
               htmlFor="new-password"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              Nouveau Mot de Passe :
+              Nouveau mot de passe :
             </label>
             <div className="mt-2">
               <input
@@ -56,7 +74,7 @@ export default function ResetPassword() {
               htmlFor="confirm-password"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              Confirmer le Nouveau Mot de Passe :
+              Confirmer le nouveau mot de passe :
             </label>
             <div className="mt-2">
               <input
