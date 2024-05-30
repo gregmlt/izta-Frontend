@@ -4,12 +4,47 @@ import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import MedalSVGIcons from "./iconsSVG/MedalSVGIcons";
 import KudosButton from "./KudosButton";
 import InfoSVGIcon from "./iconsSVG/InfoSVGIcon";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {addLikedCompany, addKudo, removeLikedCompany, removeKudo} from '../reducers/users'
 
 function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
+  const [isLiked, setIsLiked] = useState(true);
+  const [hasKudo, setHasKudo] = useState(false);
   const [showPopover, setShowPopover] = useState(false);
+  const { token, kudos, likedCompanies } = useSelector(
+    (state) => state.users.value
+  );
+  const dispatch = useDispatch()
+
+useEffect(() => {
+  fetch(`http://localhost:3000/companies/get/company/${companyId}`)
+  .then(response => response.json())
+  .then((data) => {
+    console.log(data)
+  })
+}, [token])
+  
+  const handleLikeToggle = async() => {
+    const url = `http://localhost:3000/users/like/${token}/${companyId}`;
+    const response = await fetch(url, { method: "POST" });
+    const data = await response.json();
+
+    if(data.result && token) {
+      if (isLiked) {
+        dispatch(removeLikedCompany(companyId));
+      } else {
+        dispatch(addLikedCompany(companyId));
+      }
+      setIsLiked(!isLiked);
+    } else {
+      console.error("Error liking/disliking company:", data.message);
+    }
+  };
+  
+  const handleKudoToggle = async() => {
   
   
+  };
 
   const capitalizeFirstLetter = (str) => {
     if (!str) return str;
@@ -43,11 +78,11 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
 
   return (
     <div className="h-auto w-[80%] mx-auto my-[70px] flex flex-col">
-      <div className="bg-white p-5 rounded-lg border  w-[100%] min-h-[480px] flex flex-col my-5 bg-white">
+      <div className="bg-white p-5 rounded-lg border  w-[100%] min-h-[480px] flex flex-col my-5">
         <div className="w-full flex h-[330px] object-cover rounded-md bg-[linear-gradient(to_right_top,rgba(206,100,38,0.2),rgba(16,34,93,0.8)),url('/images/campain-asso.jpg')] bg-cover">
           <div className="flex items-start w-full p-5">
-            <div className="ml-auto z-10">
-              <HeartSVGIcons stroke="stroke-white" />
+            <div className="ml-auto z-10" onClick={handleLikeToggle}>
+              <HeartSVGIcons stroke="stroke-white" fill={isLiked ? "red" : "lightgray"}/>
             </div>
           </div>
         </div>
@@ -64,20 +99,10 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
         <div className="h-[50%] flex justify-between items-center">
           <div className="mt-[-60px]"></div>
         </div>
-        <div className="h-[50%] flex justify-between items-end">
-          <p className="text-xs w-[75%]pb-">
-            Deuxième entreprise mondiale des métiers des concessions et de la
-            construction, employant 275 000 salariés à travers le monde.Vinci,
-            anciennement Société générale d'entreprises (SGE), est la deuxième
-            entreprise mondiale des métiers des concessions et de la
-            construction, employant 275 000 salariés à travers le monde.
-          </p>
-          <div className="mb-[-22px] text-[#003761] text-sm flex justify-center items-center"></div>
-        </div>
       </div>
 
-      <div className="grid grid-cols-6 grid-rows-6 gap-6 h-[100%]">
-        <div className="col-start-1 col-end-5 row-start-1 row-end-3 h-auto w-full py-4 px-8 bg-white rounded-md border flex flex-col">
+      <div className="grid grid-cols-3 grid-rows-6 gap-6 h-[100%]">
+        <div className="col-start-1 col-end-3 row-start-1 row-end-3 h-auto   w-full py-4 px-8 bg-white rounded-md border flex flex-col">
           <h3 className="border-b leading-6 font-semibold text-[20px] pb-4">
             Présentation
           </h3>
@@ -89,7 +114,7 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
             construction, employant 275 000 salariés à travers le monde.
           </p>
         </div>
-        <div className="col-start-1 col-end-5 row-start-3 row-end-5 h-auto w-full py-4 px-8  bg-white rounded-md border flex flex-col">
+        <div className="col-start-1 col-end-2 row-start-3 row-end-5 h-auto w-full py-4 px-8  bg-white rounded-md border flex flex-col">
           <h3 className="border-b leading-6 font-semibold text-[20px] pb-4">
             Leur Vision
           </h3>
@@ -107,7 +132,7 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
             naturelles et favorisent la biodiversité.
           </p>
         </div>
-        <div className="col-start-5 col-end-7 row-start-1 row-end-2 self-end flex items-center mt-3 relative cursor-pointer">
+        <div className="col-start-2 col-end-3 row-start-1 row-end-2 self-end flex items-center mt-3 relative cursor-pointer">
           <div className="h-[100%]  w-full pl-3 bg-white rounded-md border  flex flex-col">
             <h3 className="py-3 border-b font-semibold text-[20px]">
               L’entreprise
@@ -143,7 +168,9 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
               </div>
             )}
           </div>
+          <div onClick={handleKudoToggle}>
           <KudosButton hoverColor="hover:bg-[#3371a1]" />
+          </div>
         </div>
       </div>
     </div>
@@ -152,8 +179,8 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
 
 export default CompanyInfoModal;
 
-
-{/* <div className="w-[23%] p-4 relative">
+{
+  /* <div className="w-[23%] p-4 relative">
   <div className="absolute top-[-89%]">
     <MedalSVGIcons />
   </div>
@@ -162,4 +189,5 @@ export default CompanyInfoModal;
     src="https://images.unsplash.com/photo-1512403754473-27835f7b9984?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     className="rounded-sm h-[100%] object-cover"
   />
-</div> */}
+</div> */
+}

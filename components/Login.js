@@ -15,7 +15,6 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
 
     fetch("http://localhost:3000/users/signin", {
       method: "POST",
@@ -25,7 +24,6 @@ export default function Login() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log(data);
           dispatch(addTokenToStore(data));
           router.push("/profile");
           setAutorized(true);
@@ -36,6 +34,8 @@ export default function Login() {
   };
 
 // fetch pour envoyer le mail de récupération de mot de passe
+  const sendMail = (e) => {
+  // fetch pour envoyer le mail de récupération de mot de passe
   const sendMail = (e) => {
     e.preventDefault();
     
