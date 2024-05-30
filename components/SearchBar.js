@@ -9,7 +9,7 @@ export default function SearchBar({ width }) {
 
   const search = () => {
     socket.emit("searchQuery", { query: searchValue });
-    Router.push("/results");
+    Router.push("/results#results");
   };
 
   const handleKeyDown = (event) => {

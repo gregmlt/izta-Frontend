@@ -1,5 +1,5 @@
 import CompaniesLikedContainer from "@/components/CompaniesLikedContainer";
-import Navbar from "@/components/Navbar";
+import NavbarProfile from "@/components/NavBarProfile";
 import PersonalAreaNavigation from "@/components/PersonalAreaNavigation";
 import UserDataModal from "@/components/UserDataModal.js";
 import CompagnyProfileModal from "@/components/CompanyProfileModal";
@@ -12,6 +12,7 @@ import { logout } from "@/reducers/users";
 import FindACompany from "@/components/FindACompany";
 import Footer from "@/components/Footer";
 import { deleteCompanyFromUser } from "@/reducers/companies";
+import ContactContainer from "@/components/containers/ContactContainer";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("entreprises");
@@ -54,7 +55,7 @@ export default function Profile() {
   return (
     <>
       <div className="w-[100%] flex flex-col h-[auto] pb-[20%] px-[120px] pt-[30px] bg-[linear-gradient(to_right_bottom,rgba(206,100,38,0.5),rgba(16,34,93,0.9))]">
-        <Navbar background="bg-[#f7f5f1]/60" />
+        <NavbarProfile background="bg-[#f7f5f1]/60" />
         <div className="w-[40%] mt-[15%] mb-[3%]">
           <p className="font-semibold text-5xl">Bienvenue {userFirstName}</p>
           <p className="mt-[4%]">
@@ -85,6 +86,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
+      <ContactContainer />
       <Footer />
     </>
   );
