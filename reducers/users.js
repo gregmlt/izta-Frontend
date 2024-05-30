@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: { token: null, username: null, likedCompanies: null, kudos: null },
+  value: {
+    token: null,
+    username: null,
+    likedCompanies: null,
+    kudos: null,
+    verification: false,
+  },
 };
 
 export const usersSlice = createSlice({
@@ -9,6 +15,9 @@ export const usersSlice = createSlice({
 
   initialState,
   reducers: {
+    switchVerification: (state, action) => {
+      state.value.verification = action.payload;
+    },
     addTokenToStore: (state, action) => {
       state.value.token = action.payload.token;
 
@@ -37,10 +46,17 @@ export const usersSlice = createSlice({
       state.value.kudos = state.value.kudos.filter(
         (kudo) => kudo !== action.payload
       );
-    }
+    },
   },
 });
 
-export const { addTokenToStore, logout, addLikedCompany,removeLikedCompany, addKudo, removeKudo } =
-  usersSlice.actions;
+export const {
+  switchVerification,
+  addTokenToStore,
+  logout,
+  addLikedCompany,
+  removeLikedCompany,
+  addKudo,
+  removeKudo,
+} = usersSlice.actions;
 export default usersSlice.reducer;

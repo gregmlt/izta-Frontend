@@ -3,6 +3,7 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import Navbar from "@/components/Navbar";
+import ContactContainer from "../../components/containers/ContactContainer";
 
 export default function index() {
   return (
@@ -152,7 +153,7 @@ export default function index() {
           </div>
         </div>
       </div>
-
+      <ContactContainer />
       <Footer />
     </div>
   );

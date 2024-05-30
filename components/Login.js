@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import GoogleOAuthButton from "./GoogleButton";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addTokenToStore } from "@/reducers/users";
+import { useDispatch, useSelector } from "react-redux";
+import { addTokenToStore, switchVerification } from "@/reducers/users";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -25,6 +25,7 @@ export default function Login() {
       .then((data) => {
         if (data.result) {
           dispatch(addTokenToStore(data));
+          dispatch(switchVerification(data.verification));
           router.push("/profile");
           setAutorized(true);
         } else {
@@ -33,12 +34,9 @@ export default function Login() {
       });
   };
 
-// fetch pour envoyer le mail de récupération de mot de passe
-  const sendMail = (e) => {
   // fetch pour envoyer le mail de récupération de mot de passe
   const sendMail = (e) => {
     e.preventDefault();
-    
 
     fetch("http://localhost:3000/passwords/forgot-password", {
       method: "POST",
@@ -116,7 +114,8 @@ export default function Login() {
                 <div>
                   <button
                     type="submit"
-                    className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold text-white leading-6 shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={sendMail}
+                    className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold text-white leading-6 shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    onClick={sendMail}
                   >
                     Réinitialiser le mot de passe
                   </button>
