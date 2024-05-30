@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -32,13 +32,7 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
 //   );
 //   const dispatch = useDispatch()
 
-// useEffect(() => {
-//   fetch(`http://localhost:3000/companies/get/company/${companyId}`)
-//   .then(response => response.json())
-//   .then((data) => {
-//     console.log(data)
-//   })
-// }, [token])
+
   
   const handleLikeToggle = async() => {
     const url = `http://localhost:3000/users/like/${token}/${companyId}`;
@@ -58,8 +52,17 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   };
   
   const handleKudoToggle = async() => {
-  
-  
+    if(!kudos.includes(companyId)) {
+      dispatch(addKudo(companyId))
+    }
+    const response = await fetch(`http://localhost:3000/companies/get/company/${companyId}`)
+    const data = await response.json()
+    if(!kudos.includes(data.company._id)) {
+      dispatch(addKudo(data.company._id))
+      const response2 = await fetch(`http://localhost:3000/users/post/${data.company.siret}/${token}`)
+      const data2 = await response2.json();
+      console.log(data2)
+    } 
   };
 
   const capitalizeFirstLetter = (str) => {
