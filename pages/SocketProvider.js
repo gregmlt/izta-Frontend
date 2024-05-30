@@ -33,10 +33,10 @@ export default function SocketProvider({ children }) {
     });
 
     return () => {
-      newSocket.off("connect");
-      newSocket.off("disconnect");
-      newSocket.off("connect_error");
-      newSocket.close();
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off("connect_error");
+      socket.close();
     };
   }, []);
 
