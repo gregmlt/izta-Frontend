@@ -12,6 +12,12 @@ export default function SearchBar({ width }) {
     Router.push("/results");
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      search();
+    }
+  };
+
   return (
     <div className="flex w-full">
       <input
@@ -20,6 +26,7 @@ export default function SearchBar({ width }) {
         className={`${width} px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none out-of-range:border-[#003761] focus:ring-1 focus:border-[#003761]`}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
 
       <button

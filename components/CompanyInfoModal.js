@@ -7,6 +7,8 @@ import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import MedalSVGIcons from "./iconsSVG/MedalSVGIcons";
 import KudosButton from "./KudosButton";
 import InfoSVGIcon from "./iconsSVG/InfoSVGIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { addKudo, addLikedCompany, removeLikedCompany } from "@/reducers/users";
 
 const testimonials = [
   {
@@ -27,18 +29,39 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   const [isLiked, setIsLiked] = useState(true);
   const [hasKudo, setHasKudo] = useState(false);
   const [showPopover, setShowPopover] = useState(false);
-//   const { token, kudos, likedCompanies } = useSelector(
-//     (state) => state.users.value
-//   );
-//   const dispatch = useDispatch()
+  const [showPopupHeart, setShowPopupHeart] = useState(false);
+  const { token, kudos, likedCompanies } = useSelector(
+    (state) => state.users.value
+  );
+  const dispatch = useDispatch()
+useEffect(() => {
+  if(likedCompanies.includes(companyId)) {
+    setIsLiked(true)
+  } else {
+    setIsLiked(false)
+  }
+}, [companyId, token])
 
+
+const handleInputHeartClick = () => {
+  
+};
 
   
   const handleLikeToggle = async() => {
+    if(!token) {
+
+      setShowPopupHeart(true);
+    
+      // Définir un timeout pour fermer le pop-up après 1,5 secondes
+      setTimeout(() => {
+        setShowPopupHeart(false);
+      }, 2500);
+    }
     const url = `http://localhost:3000/users/like/${token}/${companyId}`;
     const response = await fetch(url, { method: "POST" });
     const data = await response.json();
-
+    console.log(data)
     if(data.result && token) {
       if (isLiked) {
         dispatch(removeLikedCompany(companyId));
@@ -52,17 +75,53 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   };
   
   const handleKudoToggle = async() => {
+    
     if(!kudos.includes(companyId)) {
       dispatch(addKudo(companyId))
     }
-    const response = await fetch(`http://localhost:3000/companies/get/company/${companyId}`)
-    const data = await response.json()
-    if(!kudos.includes(data.company._id)) {
-      dispatch(addKudo(data.company._id))
-      const response2 = await fetch(`http://localhost:3000/users/post/${data.company.siret}/${token}`)
-      const data2 = await response2.json();
-      console.log(data2)
-    } 
+    fetch(`http://localhost:3000/companies/get/company/${companyId}`)
+    .then(response => response.json())
+    .then((data) => {
+      fetch(`http://localhost:3000/companies/post/kudos/${data.company.siret}/${token}`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          siret: data.company.siret,
+          token: token
+        }),
+      })
+     .then(response => response.json())
+     .then((data) => {
+      console.log(data)
+     })
+    })
+
+    fetch(`http://localhost:3000/companies/get/company/${companyId}`)
+    .then(response => response.json())
+    .then((data) => {
+      fetch(`http://localhost:3000/users/post/kudos/${data.company.siret}/${token}`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          siret: data.company.siret,
+          token: token
+        }),
+      })
+     .then(response => response.json())
+     .then((data) => {
+      console.log(data)
+     })
+    })
+    // if(!kudos.includes(data.company._id)) {
+    //   dispatch(addKudo(data.company._id))
+    //   const response2 = await fetch(`http://localhost:3000/users/post/kudos/${data.company.siret}/${token}`)
+    //   const data2 = await response2.json();
+    //   console.log(data2)
+    // } 
   };
 
   const capitalizeFirstLetter = (str) => {
@@ -116,11 +175,18 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   return (
     <>
     <div className="h-auto w-[80%] mx-auto my-[70px] flex flex-col">
-      <div className="bg-white p-5 rounded-lg border  w-[100%] min-h-[480px] flex flex-col my-5 bg-white">
+      <div className=" p-5 rounded-lg border  w-[100%] min-h-[480px] flex flex-col my-5 bg-white">
         <div className="w-full flex h-[330px] object-cover rounded-md bg-[linear-gradient(to_right_top,rgba(206,100,38,0.2),rgba(16,34,93,0.8)),url('/images/campain-asso.jpg')] bg-cover">
           <div className="flex items-start w-full p-5">
-            <div className="ml-auto z-10">
-              <HeartSVGIcons stroke="stroke-white" />
+            <div className="ml-auto z-10" onClick={handleLikeToggle}>
+              <HeartSVGIcons stroke="stroke-white" fill={isLiked ? "red": "lightgray"}/>
+            </div>
+            <div>
+            {showPopupHeart && (
+        <div className="popup fade-in">
+          <p>Vous devez vous connectez pour liker</p>
+        </div>
+      )}
             </div>
           </div>
         </div>
@@ -326,7 +392,9 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
               </div>
             )}
           </div>
+          <div onClick={handleKudoToggle}>
           <KudosButton hoverColor="hover:bg-[#3371a1]" />
+          </div>
         </div>
       </div>
 </>
