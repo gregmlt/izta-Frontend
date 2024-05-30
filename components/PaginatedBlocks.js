@@ -5,7 +5,7 @@ import ChevronLeftSVGIcons from "./iconsSVG/ChevronLeftSVGIcons";
 
 const PaginatedBlocks = ({ items }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 3;
 
   // Calculer les index des éléments actuels
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -109,10 +109,10 @@ const PaginatedBlocks = ({ items }) => {
   };
 
   return (
-    <div className="h-[1400px] flex flex-col ">
+    <div className="h-[1400px]  flex flex-col ">
       <div
         ref={paginatedItemsRef}
-        className="relative h-full overflow-hidden flex-grow"
+        className="relative h-full overflow-hidden flex-grow "
       >
         {transitions((style, item) => (
           <animated.div
@@ -142,7 +142,7 @@ const PaginatedBlocks = ({ items }) => {
           className="flex items-center"
         >
           <ChevronLeftSVGIcons />
-          <button className="w-[70px] ml-3 text-black font-bold  rounded focus:outline-none focus:shadow-outline">
+          <button className="w-[70px] ml-3 text-black font-bold rounded focus:outline-none focus:shadow-outline">
             Previous
           </button>
         </div>
