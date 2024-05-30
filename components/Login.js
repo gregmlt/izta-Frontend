@@ -36,8 +36,9 @@ export default function Login() {
   };
 
 // fetch pour envoyer le mail de récupération de mot de passe
- const sendMail = (e) => {
+  const sendMail = (e) => {
     e.preventDefault();
+    
 
     fetch("http://localhost:3000/passwords/forgot-password", {
       method: "POST",
@@ -47,19 +48,13 @@ export default function Login() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          setMessage("E-mail de réinitialisation envoyé avec succès.");
+          console.log(data);
           setAutorized(true);
         } else {
-          setMessage(data.message || "Erreur lors de l'envoi de l'e-mail.");
           setAutorized(false);
         }
-      })
-      .catch((error) => {
-        setMessage("Erreur lors de l'envoi de l'e-mail.");
-        setAutorized(false);
       });
   };
-
 
   /////// fonction pour réinitialiser le mot de passe
 
@@ -121,7 +116,7 @@ export default function Login() {
                 <div>
                   <button
                     type="submit"
-                    className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold text-white leading-6 shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="flex w-full justify-center rounded-md bg-[#003761] px-4 py-3 text-sm font-semibold text-white leading-6 shadow-sm hover:bg-[#3371a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={sendMail}
                   >
                     Réinitialiser le mot de passe
                   </button>
