@@ -9,8 +9,8 @@ function index() {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);
-  const [usersAlreadyChecked, setUsersAlreadyChecked] = useState([]);
   const dispatch = useDispatch();
+  const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
     // Fetch the list of users from the server
@@ -62,6 +62,7 @@ function index() {
           )
         );
         dispatch(switchVerification(true));
+        setIsVerified(true);
       })
       .catch((error) => {
         console.error("Error updating verification status:", error);
@@ -149,18 +150,25 @@ function index() {
                   )}
                 </div>
                 <div className="mt-4 sm:mt-0 sm:ml-4 flex space-x-2">
-                  <button
-                    className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
-                    onClick={() => handleVerificationChange(user._id, true)}
-                  >
-                    Accepter
-                  </button>
-                  <button
-                    className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
-                    onClick={() => handleVerificationChange(user._id, false)}
-                  >
-                    Refuser
-                  </button>
+                  {!isVerified && (
+                    <>
+                      <button
+                        className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
+                        onClick={() => handleVerificationChange(user._id, true)}
+                      >
+                        Accepter
+                      </button>
+                      <button
+                        className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                        onClick={() =>
+                          handleVerificationChange(user._id, false)
+                        }
+                      >
+                        Refuser
+                      </button>
+                    </>
+                  )}
+                  {isVerified && <p>Changement effectué</p>}
                 </div>
               </li>
             ))}

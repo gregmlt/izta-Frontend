@@ -22,11 +22,11 @@ export default function NavbarProfile({ background }) {
   };
 
   const handleLogout = () => {
+    router.push("./");
     // Effacer le token dans le store Redux
     dispatch(deleteCompanyFromUser());
     dispatch(logout());
     // Rediriger vers la page d'accueil
-    router.push("./");
   };
 
   const handleScrollToContact = (e) => {
