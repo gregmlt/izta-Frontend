@@ -245,7 +245,7 @@ const handleInputHeartClick = () => {
               </h3>
             </div>
             <p className="text-balance pt-7">
-              Chez Orange, nous croyons fermement que chaque entreprise a la
+              Chez Free, nous croyons fermement que chaque entreprise a la
               responsabilité de protéger notre planète. Notre vision écologique
               est de devenir un leader mondial dans la création de technologies
               qui non seulement respectent l'environnement mais aussi restaurent
