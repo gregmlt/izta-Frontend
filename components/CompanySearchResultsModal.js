@@ -3,6 +3,8 @@ import HeartSVGIcons from "./iconsSVG/HeartSVGIcons";
 import ButtonWithUnderline from "./ButtonWithUnderline";
 import ArrowRightSVGIcons from "./iconsSVG/ArrowRightSVGIcons";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+
 
 function CompanySearchResultsModal({
   name,
@@ -11,6 +13,11 @@ function CompanySearchResultsModal({
   imageSrc,
   companyId,
 }) {
+  const { token, likedCompanies } = useSelector(
+    (state) => state.users.value)
+  
+  
+
   const capitalizeFirstLetter = (str) => {
     if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -60,7 +67,7 @@ function CompanySearchResultsModal({
       <div className="w-full flex h-[190px] object-cover rounded-md bg-[linear-gradient(to_right_top,rgba(206,100,38,0.2),rgba(16,34,93,0.8)),url('/images/campain-asso.jpg')] bg-cover">
         <div className="flex items-start w-full p-3">
           <div className="ml-auto z-10">
-            <HeartSVGIcons stroke="stroke-white" />
+            <HeartSVGIcons   fill={(likedCompanies.includes(companyId) && token) ? "red" : "transparent"}/>
           </div>
         </div>
       </div>
