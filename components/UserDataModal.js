@@ -47,26 +47,27 @@ export default function UserDataModal({}) {
   const token = useSelector((state) => state.users.value.token);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/infos/${token}`, {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPrenom(data.data.firstname);
-        setNom(data.data.lastname);
-        setEmail(data.data.email);
-        setAddress(data.data.adress);
-        setCity(data.data.city);
-        setBirthdate(data.data.birthdate);
-        setZipcode(data.data.postalCode);
-        if (data.data.diplome) {
-          setFilters(data.data.diplome);
-        }
-        if (data.data.situation) {
-          setCheckboxes(data.data.situation);
-        }
-        setLinkedin(data.data.linkedin);
-      });
+    token &&
+      fetch(`http://localhost:3000/users/infos/${token}`, {
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setPrenom(data.data.firstname);
+          setNom(data.data.lastname);
+          setEmail(data.data.email);
+          setAddress(data.data.adress);
+          setCity(data.data.city);
+          setBirthdate(data.data.birthdate);
+          setZipcode(data.data.postalCode);
+          if (data.data.diplome) {
+            setFilters(data.data.diplome);
+          }
+          if (data.data.situation) {
+            setCheckboxes(data.data.situation);
+          }
+          setLinkedin(data.data.linkedin);
+        });
   }, [token]);
 
   const handleEditClick = (e) => {

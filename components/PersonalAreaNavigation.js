@@ -25,16 +25,17 @@ export default function PersonalAreaNavigation({
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/infos/${token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          if (data.data.company.length > 0) {
-            dispatch(putCompanyToUser());
+    token &&
+      fetch(`http://localhost:3000/users/infos/${token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            if (data.data.company.length > 0) {
+              dispatch(putCompanyToUser());
+            }
           }
-        }
-      });
-  }, [hasACompany]);
+        });
+  }, [hasACompany, token]);
 
   return (
     <div className="w-[32%] h-[500px] bg-white rounded-lg flex flex-col py-7 px-8">
