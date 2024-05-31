@@ -19,10 +19,8 @@ export default function Profile() {
   const [userFirstName, setUserFirstName] = useState("");
   const [hasACompany, setHasCompany] = useState(false);
   const [data, setData] = useState("");
-  const { token } = useSelector(
-    (state) => state.users.value
-  );
-  
+  const { token } = useSelector((state) => state.users.value);
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -42,9 +40,9 @@ export default function Profile() {
 
   const handleLogout = () => {
     // Effacer le token dans le store Redux
+    router.push("/");
     dispatch(logout());
     // Rediriger vers la page d'accueil
-    router.push("/");
     dispatch(deleteCompanyFromUser());
   };
 
