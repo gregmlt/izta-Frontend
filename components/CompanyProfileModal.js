@@ -5,6 +5,7 @@ import EditingIcon from "./EditingIcon";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import CheckBadgeSVGIcon from "./iconsSVG/CheckBadgeSVGIcon";
 
 function CompagnyProfileModal() {
   // Déclarations d'état
@@ -255,10 +256,15 @@ function CompagnyProfileModal() {
     }
   } else if (!isVerified) {
     button = (
-      <p>
-        Attendez la vérification de votre statut d'administrateur pour pouvoir
-        modifier les informations de l'entreprise
-      </p>
+      <div className="flex items-center mb-4 border py-4 px-4">
+        <div className="mr-3 ">
+          <CheckBadgeSVGIcon color="grey" />
+        </div>
+        <p>
+          En attente de vérification de votre compte . Une fois vérifié, vous
+          pourrez modifier les informations de l'entreprise.
+        </p>
+      </div>
     );
   }
 
