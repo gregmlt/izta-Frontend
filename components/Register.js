@@ -172,9 +172,9 @@ export default function Login() {
         <div className="flex flex-col items-center justify-center w-[50%] h-[100vh]">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="my-7">
-            <Link href="./">
-            <img src="/Logo/Logomark.svg" className="mx-auto h-10 w-auto" />
-          </Link>
+              <Link href="./">
+                <img src="/Logo/Logomark.svg" className="mx-auto h-10 w-auto" />
+              </Link>
             </div>
 
             <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-[#004E89]">
@@ -500,7 +500,7 @@ export default function Login() {
 
             {step === 1 && !loading && (
               <div className="flex items-center mt-7 justify-center">
-                <GoogleOAuthButton />
+                {/* <GoogleOAuthButton /> */}
               </div>
             )}
             {step === 1 && !loading && (

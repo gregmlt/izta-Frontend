@@ -204,20 +204,20 @@ export default function Login() {
                   </button>
                 </div>
 
-                <div className="flex flex-col ">
+                {/* <div className="flex flex-col ">
                   <div className="flex justify-evenly items-center">
                     <div className="w-[40%] h-[1px] bg-[#b0c8da]"></div>
                     <p>ou</p>
                     <div className="w-[40%] h-[1px] bg-[#b0c8da]"></div>
                   </div>
-                </div>
+                </div> */}
               </form>
             )}
             {!forgotPassword && (
               <>
-                <div className="flex items-center mt-7 justify-center">
+                {/* <div className="flex items-center mt-7 justify-center">
                   <GoogleOAuthButton />
-                </div>
+                </div> */}
                 <p className="mt-10 text-center text-sm text-gray-500">
                   Vous n’avez pas de compte ?{" "}
                   <Link
