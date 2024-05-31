@@ -30,10 +30,13 @@ function CompanyInfoModal({ companyName, taille, companyId, starsCount }) {
   const [hasKudo, setHasKudo] = useState(false);
   const [showPopover, setShowPopover] = useState(false);
   const [showPopupHeart, setShowPopupHeart] = useState(false);
+  const [kudosPopup, setKudosPopup]  = useState(false)
+  const [kudoSent, setKudosent] = useState(false)
   const { token, kudos, likedCompanies } = useSelector(
     (state) => state.users.value
   );
   const dispatch = useDispatch()
+
 useEffect(() => {
   if(likedCompanies.includes(companyId)) {
     setIsLiked(true)
@@ -75,6 +78,19 @@ const handleInputHeartClick = () => {
   };
   
   const handleKudoToggle = async() => {
+    if(!token) {
+      setKudosPopup(true);
+
+      setTimeout(() => {
+        setKudosPopup(false);
+      }, 2500);
+    } else {
+      setKudosent(true);
+
+      setTimeout(() => {
+        setKudosent(false);
+      }, 2500);
+    }
     
     if(!kudos.includes(companyId)) {
       dispatch(addKudo(companyId))
@@ -178,15 +194,15 @@ const handleInputHeartClick = () => {
       <div className=" p-5 rounded-lg border  w-[100%] min-h-[480px] flex flex-col my-5 bg-white">
         <div className="w-full flex h-[330px] object-cover rounded-md bg-[linear-gradient(to_right_top,rgba(206,100,38,0.2),rgba(16,34,93,0.8)),url('/images/campain-asso.jpg')] bg-cover">
           <div className="flex items-start w-full p-5">
-            <div className="ml-auto z-10" onClick={handleLikeToggle}>
-              <HeartSVGIcons stroke="stroke-white" fill={isLiked ? "red": "lightgray"}/>
-            </div>
-            <div>
+            <div className="ml-auto z-10 cursor-pointer" onClick={handleLikeToggle}>
+              <HeartSVGIcons stroke="stroke-white:" fill={(isLiked && token) ? "red": "transparent"}/>
             {showPopupHeart && (
         <div className="popup fade-in">
           <p>Vous devez vous connectez pour liker</p>
         </div>
       )}
+            </div>
+            <div>
             </div>
           </div>
         </div>
@@ -392,8 +408,20 @@ const handleInputHeartClick = () => {
               </div>
             )}
           </div>
-          <div onClick={handleKudoToggle}>
+          <div onClick={handleKudoToggle} className="relative">
           <KudosButton hoverColor="hover:bg-[#3371a1]" />
+          {kudosPopup && (
+        <div className="popup2 fade-in2 absolute">
+          <p>Vous devez vous connectez pour envoyer un Kudo</p>
+        </div>
+      )}
+      {kudoSent && (
+        <div className="popup2 fade-in2 absolute">
+          <p>Bravo votre Kudo a été envoyé</p>
+        </div>
+      )}
+          </div>
+          <div>
           </div>
         </div>
       </div>
